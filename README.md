@@ -1,1 +1,1 @@
-# Proyecto_2-IPC2-hospital
+# IPC2_Proyecto_2_hospital
