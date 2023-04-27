@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.apiresthospital.model;
+package com.hospitalapi.model;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
@@ -22,10 +22,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Especialidad implements Serializable {
+public class Paciente implements Serializable {
 
     private int id;
-    private String name;
-    private String description;
-
 }

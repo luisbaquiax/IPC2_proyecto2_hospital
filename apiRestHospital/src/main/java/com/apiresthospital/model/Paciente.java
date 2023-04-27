@@ -22,10 +22,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Especialidad implements Serializable {
+public class Paciente implements Serializable {
 
     private int id;
-    private String name;
-    private String description;
-
 }

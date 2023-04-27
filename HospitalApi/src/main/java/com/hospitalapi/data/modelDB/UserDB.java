@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.apiresthospital.data.modelDB;
+package com.hospitalapi.data.modelDB;
 
-import com.apiresthospital.data.coneccionDB.ConeccionDB;
-import com.apiresthospital.model.Usuario;
+import com.hospitalapi.data.coneccionDB.ConeccionDB;
+import com.hospitalapi.model.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

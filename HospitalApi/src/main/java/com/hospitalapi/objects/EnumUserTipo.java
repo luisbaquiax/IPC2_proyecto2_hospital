@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.apiresthospital.model.modelReport;
+package com.hospitalapi.objects;
 
 /**
  *
  * @author luis
  */
-public class MedicoIngresos {
-    String nombre;
-    int cantidadConsultas;
-    double totalPorConsultas;
-    double gananciaApp;
+public enum EnumUserTipo {
+    ADMIN,
+    MEDICO,
+    PACIENTE,
+    LABORATORIO
 }

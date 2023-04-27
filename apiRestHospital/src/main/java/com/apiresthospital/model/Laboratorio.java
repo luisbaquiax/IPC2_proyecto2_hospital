@@ -5,6 +5,7 @@
 package com.apiresthospital.model;
 
 import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,10 +23,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Especialidad implements Serializable {
+public class Laboratorio implements Serializable {
 
     private int id;
-    private String name;
-    private String description;
-
+    private List<TipoExamen> tipoExamens;
 }
