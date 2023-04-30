@@ -23,7 +23,9 @@ public class ConsultaDB {
     private static final String INSERT_FROM_FILE
             = "INSERT INTO consulta(id,paciente,medico,especialidad,porcentaje,fecha_creacion,fecha_agendada,precio,informe,estado,ganancia_medico,ganancia_admin) "
             + "VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-    private static final String INSERT = "INSERT INTO consulta(paciente,medico,especialidad,porcentaje,fecha_creacion,fecha_agendada,precio,informe,estado,ganancia_medico,ganancia_admin) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT
+            = "INSERT INTO consulta(paciente,medico,especialidad,porcentaje,fecha_creacion,fecha_agendada,precio,informe,estado,ganancia_medico,ganancia_admin) "
+            + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE
             = "UPDATE consulta SET paciente = ?, medico = ?, especialidad = ?, porcentaje = ?, "
             + "fecha_creacion = ?, fecha_agendada = ?, precio = ?, informe = ?, estado = ?, ganancia_medico = ?, ganancia_admin = ? WHERE id = ?";
@@ -49,18 +51,17 @@ public class ConsultaDB {
      */
     public boolean insert(Consulta consulta) {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(INSERT)) {
-            statement.setInt(1, consulta.getId());
-            statement.setInt(2, consulta.getIdPaciente());
-            statement.setInt(3, consulta.getIdMedico());
-            statement.setInt(4, consulta.getIdEspecialidad());
-            statement.setDouble(5, consulta.getPorcentaje());
-            statement.setString(6, consulta.getFechaCreacion());
-            statement.setString(7, consulta.getFechaAgenda());
-            statement.setDouble(8, consulta.getPrecio());
-            statement.setString(9, consulta.getInforme());
-            statement.setString(10, consulta.getEstado());
-            statement.setDouble(11, consulta.getGananciaMedico());
-            statement.setDouble(12, consulta.getGananciaAdmin());
+            statement.setInt(1, consulta.getIdPaciente());
+            statement.setInt(2, consulta.getIdMedico());
+            statement.setInt(3, consulta.getIdEspecialidad());
+            statement.setDouble(4, consulta.getPorcentaje());
+            statement.setString(5, consulta.getFechaCreacion());
+            statement.setString(6, consulta.getFechaAgenda());
+            statement.setDouble(7, consulta.getPrecio());
+            statement.setString(8, consulta.getInforme());
+            statement.setString(9, consulta.getEstado());
+            statement.setDouble(10, consulta.getGananciaMedico());
+            statement.setDouble(11, consulta.getGananciaAdmin());
 
             statement.executeUpdate();
             statement.close();
@@ -79,17 +80,18 @@ public class ConsultaDB {
      */
     public boolean insertFromFile(Consulta consulta) {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(INSERT_FROM_FILE)) {
-            statement.setInt(1, consulta.getIdPaciente());
-            statement.setInt(2, consulta.getIdMedico());
-            statement.setInt(3, consulta.getIdEspecialidad());
-            statement.setDouble(4, consulta.getPorcentaje());
-            statement.setString(5, consulta.getFechaCreacion());
-            statement.setString(6, consulta.getFechaAgenda());
-            statement.setDouble(7, consulta.getPrecio());
-            statement.setString(8, consulta.getInforme());
-            statement.setString(9, consulta.getEstado());
-            statement.setDouble(10, consulta.getGananciaMedico());
-            statement.setDouble(11, consulta.getGananciaAdmin());
+            statement.setInt(1, consulta.getId());
+            statement.setInt(2, consulta.getIdPaciente());
+            statement.setInt(3, consulta.getIdMedico());
+            statement.setInt(4, consulta.getIdEspecialidad());
+            statement.setDouble(5, consulta.getPorcentaje());
+            statement.setString(6, consulta.getFechaCreacion());
+            statement.setString(7, consulta.getFechaAgenda());
+            statement.setDouble(8, consulta.getPrecio());
+            statement.setString(9, consulta.getInforme());
+            statement.setString(10, consulta.getEstado());
+            statement.setDouble(11, consulta.getGananciaMedico());
+            statement.setDouble(12, consulta.getGananciaAdmin());
 
             statement.executeUpdate();
             statement.close();

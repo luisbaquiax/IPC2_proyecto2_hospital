@@ -9,6 +9,10 @@ import com.hospitalapi.model.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +24,11 @@ public class UserDB {
     private static final String INSERT = "INSERT INTO usuario(nombre,username,password,email,fecha_nacimiento,saldo,tipo,direccion,cui,telefono) VALUES(?,?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE usuario SET nombre = ?, username = ?, password = ?, email = ?, fecha_nacimiento = ?, saldo = ?, direccion = ?, cui = ?, telefono = ? WHERE id = ?";
     private static final String SELECT_BY_USERNAME_PASSWORD = "SELECT * FROM usuario WHERE username = ? AND password = ?";
+    private static final String SELECT_BY_USERNAME = "SELECT * FROM usuario WHERE username = ?";
+
+    private static final String SELECT = "SELECT * FROM usuario";
+    
+    public static final String ULTIMO = "SELECT id AS ultimo FROM usuario ORDER BY id DESC LIMIT 1";
 
     private ResultSet resultSet;
 
@@ -135,6 +144,60 @@ public class UserDB {
         } catch (Exception e) {
         }
         return user;
+    }
+
+    /**
+     *
+     * @param username
+     * @return
+     */
+    public Usuario getUserByUsername(String username) {
+        Usuario user = null;
+        try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY_USERNAME)) {
+            statement.setString(1, username);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                user = getUser(resultSet);
+            }
+            resultSet.close();
+            statement.close();
+        } catch (Exception e) {
+        }
+        return user;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<Usuario> getAllUsers() {
+        List<Usuario> list = new ArrayList<>();
+        try (PreparedStatement statemente = ConeccionDB.getConnection().prepareStatement(SELECT)) {
+            resultSet = statemente.executeQuery();
+            while (resultSet.next()) {
+                list.add(getUser(resultSet));
+            }
+            resultSet.close();
+            statemente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public int getUltimoId(String sql) {
+        int ultimo = 0;
+        try (PreparedStatement statemente = ConeccionDB.getConnection().prepareStatement(sql)) {
+            resultSet = statemente.executeQuery();
+            while (resultSet.next()) {
+                ultimo = resultSet.getInt("ultimo");
+            }
+            resultSet.close();
+            statemente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ultimo;
     }
 
     private Usuario getUser(ResultSet resultSet) throws SQLException {

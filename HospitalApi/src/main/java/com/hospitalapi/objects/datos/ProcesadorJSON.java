@@ -14,15 +14,15 @@ import com.hospitalapi.model.PrecioExamen;
 import com.hospitalapi.model.SolicitudExamen;
 import com.hospitalapi.model.TipoExamen;
 import com.hospitalapi.model.Usuario;
+import com.hospitalapi.objects.DatoError;
 import com.hospitalapi.objects.ListaTiposUsuario;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.simple.*;
+import org.json.simple.parser.*;
 
 /**
  *
@@ -37,11 +37,18 @@ public class ProcesadorJSON {
     private List<Especialidad> especialidades;
     private List<Consulta> consultas;
     private List<List<ExamenConsulta>> examenConsultas;
+    private List<ExamenConsulta> examenesConsultas;
     private List<SolicitudExamen> solicitudExamens;
     private List<List<ExamenSolicitado>> examenesSolicitados;
+    private List<ExamenSolicitado> examenesSolicitado;
     private List<List<MedicoEspecialidad>> especialidadesMedicos;
+    private List<MedicoEspecialidad> especialidadesMedico;
     private List<List<Horario>> horariosMedicos;
+    private List<Horario> horariosMedico;
     private List<List<PrecioExamen>> preciosExamens;
+    private List<PrecioExamen> preciosExamen;
+
+    private List<DatoError> errores;
 
     /**
      * data base
@@ -57,21 +64,30 @@ public class ProcesadorJSON {
         this.especialidadesMedicos = new ArrayList<>();
         this.horariosMedicos = new ArrayList<>();
         this.preciosExamens = new ArrayList<>();
+
+        this.examenesConsultas = new ArrayList<>();
+        this.examenesSolicitado = new ArrayList<>();
+        this.horariosMedico = new ArrayList<>();
+        this.especialidadesMedico = new ArrayList<>();
+        this.preciosExamen = new ArrayList<>();
+
+        this.errores = new ArrayList<>();
     }
 
     public void procesarContendioJSON(String content) throws ParseException {
         JSONParser parser = new JSONParser();
         Object jsonObj = parser.parse(content);
+        JSONObject jsonObject = (JSONObject) jsonObj;
 
-        procesarEspecialidades((JSONObject) jsonObj);
-        procesarTiposExamen((JSONObject) jsonObj);
-        procesarUsuariosAdmin((JSONObject) jsonObj);
-        procesarMedicos((JSONObject) jsonObj);
-        procesarPacientes((JSONObject) jsonObj);
-        procesarLaboratorios((JSONObject) jsonObj);
-        procesarConsultas((JSONObject) jsonObj);
-        procesarSolicitudesExamenes((JSONObject) jsonObj);
-
+        procesarUsuariosAdmin(jsonObject);
+        procesarEspecialidades(jsonObject);
+        procesarTiposExamen(jsonObject);
+        procesarMedicos(jsonObject);
+        procesarPacientes(jsonObject);
+        procesarLaboratorios(jsonObject);
+        procesarConsultas(jsonObject);
+        procesarSolicitudesExamenes(jsonObject);
+        System.out.println(Arrays.toString(usuarios.toArray()));
     }
 
     private void procesarUsuariosAdmin(JSONObject jsonObject) {
@@ -99,10 +115,10 @@ public class ProcesadorJSON {
 
     private void procesarPacientes(JSONObject jsonObject) {
         JSONArray pacientesJson = (JSONArray) jsonObject.get("pacientes");
-        procesarUsers(pacientesJson);
+        procesarPaciente(pacientesJson);
     }
 
-    private void procesarUsers(JSONArray jSONArray) {
+    private void procesarPaciente(JSONArray jSONArray) {
         for (int i = 0; i < jSONArray.size(); i++) {
             JSONObject userJson = (JSONObject) jSONArray.get(i);
             if (!existeUsuario(Integer.parseInt(userJson.get("id").toString()), userJson.get("username").toString(), usuarios)) {
@@ -114,7 +130,7 @@ public class ProcesadorJSON {
                         userJson.get("email").toString(),
                         userJson.get("fecha_nacimiento").toString(),
                         Double.parseDouble(userJson.get("saldo").toString()),
-                        ListaTiposUsuario.MEDICO,
+                        ListaTiposUsuario.PACIENTE,
                         userJson.get("direccion").toString(),
                         userJson.get("telefono").toString(),
                         userJson.get("cui").toString());
@@ -129,11 +145,15 @@ public class ProcesadorJSON {
         JSONArray especialidadesJson = (JSONArray) jsonObject.get("especialidades");
         for (int i = 0; i < especialidadesJson.size(); i++) {
             JSONObject especialidadJson = (JSONObject) especialidadesJson.get(i);
-            if (!existeEspecialidad(Integer.parseInt(especialidadJson.get("id").toString()), especialidadJson.get("nombre").toString(), especialidades)) {
-                this.especialidades.add(new Especialidad(
-                        Integer.parseInt(especialidadJson.get("id").toString()),
-                        especialidadJson.get("nombre").toString(),
-                        especialidadJson.get("descripcion").toString()));
+
+            Especialidad especialidad = new Especialidad(
+                    Integer.parseInt(especialidadJson.get("id").toString()),
+                    especialidadJson.get("nombre").toString(),
+                    especialidadJson.get("descripcion").toString());
+            this.especialidades.add(especialidad);
+
+            if (!existeEspecialidad(especialidad.getId(), especialidad.getName(), especialidades)) {
+//                this.especialidades.add(especialidad);
             } else {
                 //especialidad repetida o id repetido 
             }
@@ -144,11 +164,15 @@ public class ProcesadorJSON {
         JSONArray especialidadesJson = (JSONArray) jsonObject.get("tipos_examenes");
         for (int i = 0; i < especialidadesJson.size(); i++) {
             JSONObject especialidadJson = (JSONObject) especialidadesJson.get(i);
-            if (!existeTipoExamen(Integer.parseInt(especialidadJson.get("id").toString()), especialidadJson.get("nombre").toString(), tiposExamens)) {
-                this.especialidades.add(new Especialidad(
-                        Integer.parseInt(especialidadJson.get("id").toString()),
-                        especialidadJson.get("nombre").toString(),
-                        especialidadJson.get("descripcion").toString()));
+            TipoExamen tipoExamen = new TipoExamen(
+                    Integer.parseInt(especialidadJson.get("id").toString()),
+                    especialidadJson.get("nombre").toString(),
+                    especialidadJson.get("descripcion").toString());
+
+            this.tiposExamens.add(tipoExamen);
+
+            if (!existeTipoExamen(tipoExamen.getId(), tipoExamen.getName(), tiposExamens)) {
+//                this.tiposExamens.add(tipoExamen);
             } else {
                 //especialidad repetida o id repetido 
             }
@@ -173,41 +197,45 @@ public class ProcesadorJSON {
                         medicoJson.get("direccion").toString(),
                         medicoJson.get("telefono").toString(),
                         medicoJson.get("cui").toString());
-                this.usuarios.add(user);
                 //verficamos las especialidades
                 JSONArray especialidadesJson = (JSONArray) medicoJson.get("especialidades");
                 List<MedicoEspecialidad> listaEpecialidades = new ArrayList<>();
                 for (int j = 0; j < especialidadesJson.size(); j++) {
                     JSONObject especialidadJson = (JSONObject) especialidadesJson.get(j);
                     //verificamos en el listado general
-                    if (existeEspecialidad(Integer.parseInt(especialidadJson.get("id").toString()), especialidades)) {
+                    MedicoEspecialidad especialidad = new MedicoEspecialidad(
+                            Integer.parseInt(especialidadJson.get("id").toString()),
+                            user.getId(),
+                            Double.parseDouble(especialidadJson.get("precio").toString()));
+                    listaEpecialidades.add(especialidad);
+                    if (existeEspecialidad(especialidad.getIdEspecialidad(), especialidades)) {
                         //verificamos en el listado 'particular'
-                        if (!existeEspecialidadMedico(Integer.parseInt(especialidadJson.get("id").toString()), listaEpecialidades)) {
-                            listaEpecialidades.add(new MedicoEspecialidad(
-                                    Integer.parseInt(especialidadJson.get("id").toString()),
-                                    user.getId(),
-                                    Double.parseDouble(especialidadJson.get("precio").toString())));
-                        } else {
-                            //se esta repetiendo la especialidad del medico
-                        }
+//                        if (!existeEspecialidadMedico(Integer.parseInt(especialidadJson.get("id").toString()), listaEpecialidades)) {
+//                            listaEpecialidades.add(especialidad);
+//                        } else {
+//                            //se esta repetiendo la especialidad del medico
+//                        }
                     }
                 }
                 //agregamos horarios
                 JSONArray horariosJson = (JSONArray) medicoJson.get("horarios");
                 List<Horario> listaHorarios = new ArrayList<>();
                 for (int j = 0; j < horariosJson.size(); j++) {
-                    String[] horaInicioFinal = horariosJson.get(i).toString().split("-");
+                    String[] horaInicioFinal = horariosJson.get(j).toString().split("-");
                     String horaInicio = horaInicioFinal[0];
                     String horaFinal = horaInicioFinal[1];
                     //no valida traslape de horarios
+                    Horario horario = new Horario(0, horaInicio, horaFinal, user.getId());
+//                    this.horariosMedico.add(horario);
                     if (!existeHorario(horaInicio, horaFinal, listaHorarios)) {
-                        listaHorarios.add(new Horario(0, horaInicio, horaFinal, user.getId()));
+                        listaHorarios.add(horario);
                     } else {
                         //se repite horarios
                     }
                 }
                 this.horariosMedicos.add(listaHorarios);
                 this.especialidadesMedicos.add(listaEpecialidades);
+                this.usuarios.add(user);
             } else {
                 //usuario repetido
             }
@@ -238,12 +266,16 @@ public class ProcesadorJSON {
                 for (int j = 0; j < examenesLabJson.size(); j++) {
                     JSONObject examenLabJson = (JSONObject) examenesLabJson.get(j);
                     //verificamos en el listado general
-                    if (existeTipoExamen(i, "", tiposExamens)) {
+                    PrecioExamen precioExamen = new PrecioExamen(
+                            Integer.parseInt(examenLabJson.get("id").toString()),
+                            user.getId(),
+                            Double.parseDouble(examenLabJson.get("precio").toString()));
+                    listaExamenesLab.add(precioExamen);
+                    if (existeTipoExamen(precioExamen.getIdExamen(), "", tiposExamens)) {
+                        //Fthis.preciosExamen.add(precioExamen);
+
                         if (!existePrecioExamen(Integer.parseInt(examenLabJson.get("id").toString()), listaExamenesLab)) {
-                            listaExamenesLab.add(new PrecioExamen(
-                                    Integer.parseInt(examenLabJson.get("id").toString()),
-                                    user.getId(),
-                                    Double.parseDouble(examenLabJson.get("precio").toString())));
+                            //listaExamenesLab.add(precioExamen);
                         } else {
                             //se repite los examenes en el laboratorio.
                         }
@@ -263,13 +295,12 @@ public class ProcesadorJSON {
         JSONArray consultasJson = (JSONArray) jsonObject.get("consultas");
         for (int i = 0; i < consultasJson.size(); i++) {
             JSONObject consultaJson = (JSONObject) consultasJson.get(i);
-
             Consulta consulta = new Consulta(
                     Integer.parseInt(consultaJson.get("id").toString()),
                     Integer.parseInt(consultaJson.get("paciente").toString()),
                     Integer.parseInt(consultaJson.get("médico").toString()),
                     Integer.parseInt(consultaJson.get("especialidad").toString()),
-                    Integer.parseInt(consultaJson.get("id").toString()),
+                    Double.parseDouble(consultaJson.get("porcentaje_aplicacion").toString()),
                     consultaJson.get("fecha_creacion").toString(),
                     consultaJson.get("fecha_agendada").toString(),
                     Double.parseDouble(consultaJson.get("precio").toString()),
@@ -277,18 +308,24 @@ public class ProcesadorJSON {
                     consultaJson.get("estado").toString(),
                     0,
                     0);
+
             consulta.setGananciaAdmin(consulta.getPorcentaje() * consulta.getPrecio());
             consulta.setGananciaMedico((1 - consulta.getPorcentaje()) * consulta.getPrecio());
+
             List<ExamenConsulta> examenesConsulta = new ArrayList<>();
             JSONArray examanesConsultaJson = (JSONArray) consultaJson.get("examenes_solicitados");
             for (int j = 0; j < examanesConsultaJson.size(); j++) {
                 JSONObject examen = (JSONObject) examanesConsultaJson.get(j);
                 //verificamos si existe el examen en la lista general de examenes
+                ExamenConsulta examenConsulta = new ExamenConsulta(
+                        Integer.parseInt(examen.get("id").toString()),
+                        consulta.getId());
+                examenesConsulta.add(examenConsulta);
                 if (existeTipoExamen(Integer.parseInt(examen.get("id").toString()), "", tiposExamens)) {
-                    if (!existeExamenConsulta(Integer.parseInt(examen.get("id").toString()), examenesConsulta)) {
-                        examanesConsultaJson.add(
-                                new ExamenConsulta(Integer.parseInt(examen.get("id").toString()), consulta.getId()));
-                    }
+//                    if (!existeExamenConsulta(Integer.parseInt(examen.get("id").toString()), examenesConsulta)) {
+//                        examanesConsultaJson.add(
+//                                new ExamenConsulta(Integer.parseInt(examen.get("id").toString()), consulta.getId()));
+//                    }
                 } else {
                     //el examen-solicitado no existe
                 }
@@ -326,12 +363,14 @@ public class ProcesadorJSON {
                             solicitud.getId(),
                             Double.parseDouble(examenJson.get("precio").toString()));
 
+                    examenes.add(solicitado);
+
                     if (existeTipoExamen(solicitado.getIdExamen(), "", tiposExamens)) {
-                        if (!existeExamenSolicitud(solicitado.getIdExamen(), examenes)) {
-                            examenes.add(solicitado);
-                        } else {
-                            //el examen está repetido en la solicitud-examenes
-                        }
+//                        if (!existeExamenSolicitud(solicitado.getIdExamen(), examenes)) {
+//                            examenes.add(solicitado);
+//                        } else {
+//                            el examen está repetido en la solicitud-examenes
+//                        }
                     } else {
                         //el examen no esté en listado general
                     }
@@ -374,7 +413,7 @@ public class ProcesadorJSON {
 
     public boolean existeTipoExamen(int id, String name, List<TipoExamen> tipsExamens) {
         for (TipoExamen t : tipsExamens) {
-            return t.getId() == id || t.getName().equals(name);
+            return (t.getId() == id && t.getName().equals(name));
         }
         return false;
     }

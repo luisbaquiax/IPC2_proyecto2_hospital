@@ -22,6 +22,7 @@ public class MedicoDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(INSERT)) {
             statement.setInt(1, id);
             statement.executeUpdate();
+            statement.close();
             return true;
         } catch (Exception e) {
             return false;

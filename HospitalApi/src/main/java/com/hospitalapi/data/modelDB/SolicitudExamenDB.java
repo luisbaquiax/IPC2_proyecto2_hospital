@@ -20,8 +20,12 @@ import java.util.logging.Logger;
  */
 public class SolicitudExamenDB {
 
-    private static final String INSERT_FROM_FILE = "INSERT INTO solicitud_examen(id,paciente,laboratorio,porcentaje,fecha_solicitado,fecha_finalizada,estado,ganancia_lab,ganancia_admin,costo_total) VALUES(?,?,?,?,?,?,?,?,?,?)";
-    private static final String INSERT = "INSERT INTO solicitud_examen(paciente,laboratorio,porcentaje,fecha_solicitado,fecha_finalizada,estado,ganancia_lab,ganancia_admin,costo_total) VALUES(?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_FROM_FILE
+            = "INSERT INTO solicitud_examen(id,paciente,laboratorio,porcentaje,fecha_solicitado,fecha_finalizada,estado,ganancia_lab,ganancia_admin,costo_total) "
+            + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT
+            = "INSERT INTO solicitud_examen(paciente,laboratorio,porcentaje,fecha_solicitado,fecha_finalizada,estado,ganancia_lab,ganancia_admin,costo_total) "
+            + "VALUES(?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE = "UPDATE solicitud_examen SET estado = ? WHERE id = ?";
     /**
      * Lista de solicitudes de examen

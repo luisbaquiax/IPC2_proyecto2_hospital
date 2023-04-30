@@ -5,16 +5,21 @@
 package com.hospitalapi.model;
 
 import java.io.Serializable;
+import lombok.ToString;
 
 /**
  *
  * @author luis
  */
+@ToString
 public class TipoExamen implements Serializable {
 
     private int id;
     private String name;
     private String description;
+
+    public TipoExamen() {
+    }
 
     /**
      *

@@ -11,6 +11,7 @@ import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.users.UsuarioService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,6 +50,25 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "allUsers":
+                System.out.println("Usuarios");
+                System.out.println(this.jsonConverter.toJson(this.usuarioService.getAll()));
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.getWriter().print(this.jsonConverter.toJson(this.usuarioService.getAll()));
+                break;
+            case "userUsername":
+                System.out.println("Usuarios");
+                String username = request.getParameter("username");
+                System.out.println(this.jsonConverter.toJson(this.usuarioService.getUserByUsername(username)));
+                response.setStatus(HttpServletResponse.SC_OK);
+                response.setContentType("application/json");
+                response.getWriter().print(this.jsonConverter.toJson(this.usuarioService.getUserByUsername(username)));
+                break;
+            default:
+        }
     }
 
     /**
@@ -71,10 +91,18 @@ public class UserController extends HttpServlet {
                 usuario.setPassword(encriptador.encriptar(usuario.getPassword()));
                 if (usuarioService.insert(usuario)) {
                     System.out.println("bien");
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.setContentType("application/json");
                     response.getWriter().print(json);
                 } else {
                     System.out.println("falló");
+                    response.setContentType("application/json");
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().print("{\"message\": \"No se pudo crear la cuenta. Lo sentimos.\"}");
                 }
+                break;
+            case "search":
+                buscarUsuario(request, response);
                 break;
             default:
         }
@@ -96,12 +124,32 @@ public class UserController extends HttpServlet {
                 }
                 response.getWriter().print(json);
                 break;
+
             default:
         }
     }
 
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    }
+
+    private void buscarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Usuario userJSON = (Usuario) this.jsonConverter.fromJson(lectorJson.read(request.getReader()), Usuario.class);
+        Usuario user = this.usuarioService.getUserByUsernamePassword(userJSON.getUserName(), encriptador.encriptar(userJSON.getPassword()));
+        if (user != null) {
+            System.out.println(user.toString());
+            user.setPassword(encriptador.desencriptar(user.getPassword()));
+            System.out.println(user.toString());
+            String json = this.jsonConverter.toJson(user);
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.getWriter().print(json);
+        } else {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().print("{\"message\": \"Credendiales incorrectas.\"}");
+        }
+
     }
 
 }

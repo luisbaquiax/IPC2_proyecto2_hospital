@@ -10,6 +10,7 @@ import com.hospitalapi.data.modelDB.EspecialidadDB;
 import com.hospitalapi.data.modelDB.ExamenConsultaDB;
 import com.hospitalapi.data.modelDB.ExamenesSolicitudDB;
 import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
+import com.hospitalapi.data.modelDB.HorarioDB;
 import com.hospitalapi.data.modelDB.LaboratorioDB;
 import com.hospitalapi.data.modelDB.MedicoDB;
 import com.hospitalapi.data.modelDB.MedicoEspecialidadDB;
@@ -22,11 +23,15 @@ import com.hospitalapi.model.Consulta;
 import com.hospitalapi.model.Especialidad;
 import com.hospitalapi.model.ExamenConsulta;
 import com.hospitalapi.model.ExamenSolicitado;
+import com.hospitalapi.model.Horario;
+import com.hospitalapi.model.MedicoEspecialidad;
 import com.hospitalapi.model.PrecioExamen;
 import com.hospitalapi.model.SolicitudExamen;
 import com.hospitalapi.model.TipoExamen;
 import com.hospitalapi.model.Usuario;
+import com.hospitalapi.objects.Encriptador;
 import com.hospitalapi.objects.ListaTiposUsuario;
+import java.util.Arrays;
 import java.util.List;
 import lombok.Getter;
 import lombok.ToString;
@@ -55,6 +60,9 @@ public class CargaDatos {
     private ExamenesSolicitudDB examenesSolicitudDB;
     private TipoExamenDB tipoExamenDB;
     private PrecioExamenDB precioExamenDB;
+    private HorarioDB horarioDB;
+
+    private Encriptador encriptador;
 
     public CargaDatos(ProcesadorJSON procesadorJSON) {
         this.procesadorJSON = procesadorJSON;
@@ -72,6 +80,9 @@ public class CargaDatos {
         this.examenesSolicitudDB = new ExamenesSolicitudDB();
         this.tipoExamenDB = new TipoExamenDB();
         this.precioExamenDB = new PrecioExamenDB();
+        this.horarioDB = new HorarioDB();
+
+        this.encriptador = new Encriptador();
     }
 
     public void subirDatos(ProcesadorJSON procesadorJSON) {
@@ -79,10 +90,12 @@ public class CargaDatos {
         subirEspecialidades(procesadorJSON.getEspecialidades());
         subirUsuarios(procesadorJSON.getUsuarios());
         subirPrecioExamenLaboratorio(procesadorJSON.getPreciosExamens());
+        subirMedicoEspecialidad(procesadorJSON.getEspecialidadesMedicos());
         subirConsultas(procesadorJSON.getConsultas());
         subirExamenesConsulta(procesadorJSON.getExamenConsultas());
         subirSolicitudExamenLab(procesadorJSON.getSolicitudExamens());
         subirExamenesSolicitudLab(procesadorJSON.getExamenesSolicitados());
+        subirHorarios(procesadorJSON.getHorariosMedicos());
     }
 
     private void subirTipoExamen(List<TipoExamen> tipoExamenes) {
@@ -99,6 +112,7 @@ public class CargaDatos {
 
     private void subirUsuarios(List<Usuario> usuarios) {
         for (Usuario usuario : usuarios) {
+            usuario.setPassword(encriptador.encriptar(usuario.getPassword()));
             if (userDB.insertFromFile(usuario)) {
                 switch (usuario.getTipo()) {
                     case ListaTiposUsuario.ADMIN:
@@ -111,7 +125,7 @@ public class CargaDatos {
                         pacienteDB.insert(usuario.getId());
                         break;
                     case ListaTiposUsuario.LABORATORIO:
-                        pacienteDB.insert(usuario.getId());
+                        laboratorioDB.insert(usuario.getId());
                         break;
                 }
             }
@@ -120,6 +134,7 @@ public class CargaDatos {
     }
 
     private void subirPrecioExamenLaboratorio(List<List<PrecioExamen>> preciosExamenes) {
+        System.out.println(Arrays.toString(preciosExamenes.toArray()));
         for (List<PrecioExamen> preciosExamene : preciosExamenes) {
             for (PrecioExamen precioExamen : preciosExamene) {
                 precioExamenDB.insert(precioExamen);
@@ -135,6 +150,7 @@ public class CargaDatos {
     }
 
     private void subirExamenesConsulta(List<List<ExamenConsulta>> examenesConsulta) {
+        System.out.println(Arrays.toString(examenesConsulta.toArray()));
         for (List<ExamenConsulta> list : examenesConsulta) {
             for (ExamenConsulta examenConsulta : list) {
                 examenConsultaDB.insert(examenConsulta);
@@ -143,15 +159,34 @@ public class CargaDatos {
     }
 
     private void subirSolicitudExamenLab(List<SolicitudExamen> solicitudes) {
+        System.out.println(Arrays.toString(solicitudes.toArray()));
         for (SolicitudExamen solicitud : solicitudes) {
             solicitudExamenDB.insertFromFile(solicitud);
         }
     }
 
     private void subirExamenesSolicitudLab(List<List<ExamenSolicitado>> examaenes) {
+        System.out.println(Arrays.toString(examaenes.toArray()));
         for (List<ExamenSolicitado> examaene : examaenes) {
             for (ExamenSolicitado examenSolicitado : examaene) {
                 examenesSolicitudDB.insert(examenSolicitado);
+            }
+        }
+    }
+
+    private void subirHorarios(List<List<Horario>> horarios) {
+        for (List<Horario> horario : horarios) {
+            for (Horario horario1 : horario) {
+                horarioDB.insert(horario1);
+            }
+        }
+    }
+
+    private void subirMedicoEspecialidad(List<List<MedicoEspecialidad>> especialidads) {
+        System.out.println("Especialidades-meido:" + Arrays.toString(especialidads.toArray()));
+        for (List<MedicoEspecialidad> especialidad : especialidads) {
+            for (MedicoEspecialidad medicoEspecialidad : especialidad) {
+                medicoEspecialidadDB.insert(medicoEspecialidad);
             }
         }
     }
