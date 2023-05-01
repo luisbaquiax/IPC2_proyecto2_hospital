@@ -44,7 +44,7 @@ import lombok.ToString;
 @ToString
 public class CargaDatos {
 
-    private ProcesadorJSON procesadorJSON;
+    private ProcesadorEnradaJSON procesadorJSON;
 
     //DB
     private EspecialidadDB especialidadDB;
@@ -64,7 +64,7 @@ public class CargaDatos {
 
     private Encriptador encriptador;
 
-    public CargaDatos(ProcesadorJSON procesadorJSON) {
+    public CargaDatos(ProcesadorEnradaJSON procesadorJSON) {
         this.procesadorJSON = procesadorJSON;
         //DB
         this.especialidadDB = new EspecialidadDB();
@@ -85,7 +85,7 @@ public class CargaDatos {
         this.encriptador = new Encriptador();
     }
 
-    public void subirDatos(ProcesadorJSON procesadorJSON) {
+    public void subirDatos(ProcesadorEnradaJSON procesadorJSON) {
         subirTipoExamen(procesadorJSON.getTiposExamens());
         subirEspecialidades(procesadorJSON.getEspecialidades());
         subirUsuarios(procesadorJSON.getUsuarios());

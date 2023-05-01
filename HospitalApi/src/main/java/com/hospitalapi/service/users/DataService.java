@@ -6,7 +6,7 @@ package com.hospitalapi.service.users;
 
 import com.hospitalapi.objects.datos.CargaDatos;
 import com.hospitalapi.objects.datos.ContenidoArchivoJSON;
-import com.hospitalapi.objects.datos.ProcesadorJSON;
+import com.hospitalapi.objects.datos.ProcesadorEnradaJSON;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.Arrays;
@@ -22,13 +22,13 @@ import org.json.simple.parser.ParseException;
 @ToString
 public class DataService {
 
-    private ProcesadorJSON procesadorJSON;
+    private ProcesadorEnradaJSON procesadorJSON;
     private CargaDatos cargaDatos;
     private ContenidoArchivoJSON contenidoArchivoJSON;
 
     public DataService() {
         this.contenidoArchivoJSON = new ContenidoArchivoJSON();
-        this.procesadorJSON = new ProcesadorJSON();
+        this.procesadorJSON = new ProcesadorEnradaJSON();
         this.cargaDatos = new CargaDatos(procesadorJSON);
     }
 

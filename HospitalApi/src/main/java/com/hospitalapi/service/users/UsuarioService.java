@@ -41,7 +41,7 @@ public class UsuarioService {
                     this.pacienteDB.insert(usuario.getId());
                     break;
                 case ListaTiposUsuario.LABORATORIO:
-                    this.medicoDB.insert(usuario.getId());
+                    this.laboratorioDB.insert(usuario.getId());
                     break;
             }
             return true;

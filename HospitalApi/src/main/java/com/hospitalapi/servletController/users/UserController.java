@@ -10,8 +10,6 @@ import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.users.UsuarioService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -135,7 +133,11 @@ public class UserController extends HttpServlet {
 
     private void buscarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario userJSON = (Usuario) this.jsonConverter.fromJson(lectorJson.read(request.getReader()), Usuario.class);
+//        String password = request.getParameter("password");
+//        String username = request.getParameter("username");
         Usuario user = this.usuarioService.getUserByUsernamePassword(userJSON.getUserName(), encriptador.encriptar(userJSON.getPassword()));
+        //Usuario user = this.usuarioService.getUserByUsernamePassword(username, encriptador.encriptar(password));
+        System.out.println("buscando al usuario" + userJSON.toString());
         if (user != null) {
             System.out.println(user.toString());
             user.setPassword(encriptador.desencriptar(user.getPassword()));
@@ -145,8 +147,8 @@ public class UserController extends HttpServlet {
             response.setContentType("application/json");
             response.getWriter().print(json);
         } else {
-            response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setContentType("application/json");
             response.getWriter().print("{\"message\": \"Credendiales incorrectas.\"}");
         }
 

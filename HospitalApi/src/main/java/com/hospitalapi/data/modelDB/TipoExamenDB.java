@@ -22,6 +22,8 @@ public class TipoExamenDB {
 
     private static final String INSERT = "INSERT INTO tipo_examen(nombre,descripcion) VALUES(?,?)";
     private static final String SELECT = "SELECT * FROM tipo_examen";
+    
+    public static final String ULTIMO = "SELECT id AS ultimo FROM tipo_examen ORDER BY id DESC LIMIT 1";
 
     private ResultSet resultSet;
 

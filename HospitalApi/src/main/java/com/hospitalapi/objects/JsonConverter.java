@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 /**
  *
  * @author luis
+ * @param <T>
  */
 public class JsonConverter<T> {
 
@@ -25,4 +26,5 @@ public class JsonConverter<T> {
     public String toJson(Object object) {
         return gson.toJson(object);
     }
+
 }

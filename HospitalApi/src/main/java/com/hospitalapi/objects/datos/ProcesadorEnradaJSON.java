@@ -30,7 +30,7 @@ import org.json.simple.parser.*;
  */
 @Getter
 @ToString
-public class ProcesadorJSON {
+public class ProcesadorEnradaJSON {
 
     private List<Usuario> usuarios;
     private List<TipoExamen> tiposExamens;
@@ -53,7 +53,7 @@ public class ProcesadorJSON {
     /**
      * data base
      */
-    public ProcesadorJSON() {
+    public ProcesadorEnradaJSON() {
         this.usuarios = new ArrayList<>();
         this.tiposExamens = new ArrayList<>();
         this.especialidades = new ArrayList<>();
