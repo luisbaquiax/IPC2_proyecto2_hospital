@@ -351,7 +351,8 @@ public class ProcesadorEnradaJSON {
                         0,
                         0,
                         0);
-
+                solicitud.setGananciaAdmin(solicitud.getPorcentaje() * solicitud.getCostoTotal());
+                solicitud.setGananciaLab((1 - solicitud.getPorcentaje()) * solicitud.getCostoTotal());
                 JSONArray examenesSolicitudJson = (JSONArray) solicitudJson.get("examenes");
                 List<ExamenSolicitado> examenes = new ArrayList<>();
 

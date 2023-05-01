@@ -10,11 +10,15 @@ import { NavLaboratorioComponent } from './module/laboratorio/nav-laboratorio/na
 import { NavMedicoComponent } from './module/medico/nav-medico/nav-medico.component';
 import { ManejoSesionComponent } from './module/users/manejo-sesion/manejo-sesion.component';
 import { LabAddInfoComponent } from './module/laboratorio/lab-add-info/lab-add-info.component';
+import { FileComponent } from './module/file/file.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
     path: "login", component: InicioSesionComponent
+  },
+  {
+    path: "file", component: FileComponent
   },
   {
     path: "nav-admin", component: NavAdmin

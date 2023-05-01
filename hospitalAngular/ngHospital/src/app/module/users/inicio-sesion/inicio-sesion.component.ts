@@ -13,6 +13,7 @@ export class InicioSesionComponent implements OnInit {
 
   user!: Usuario;
   msgLogin!: String;
+  users: Usuario[] = [];
   constructor(private router: Router, private serviceUser: AddUserService) {
     //this.user = new User(0, '', '', '', '', '', 0, '', '', '', '');
     this.user = new Usuario();
@@ -20,6 +21,14 @@ export class InicioSesionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.serviceUser.getAllUser().subscribe(
+      (list: Usuario[]) => {
+        this.users = list;
+        if (this.users.length == 0) {
+          this.router.navigate([('file')]);
+        }
+      }
+    );
   }
   crearCuenta() {
     this.router.navigate(['create-count']);
@@ -28,16 +37,16 @@ export class InicioSesionComponent implements OnInit {
   iniciarSesion() {
     console.log(this.user);
     this.serviceUser.getUserNamePassword(this.user).subscribe(
-      (user) =>{
+      (user) => {
         this.user = user;
-        console.log('usuario buscado: '+user);
-        if(this.user){
+        console.log('usuario buscado: ' + user);
+        if (this.user) {
           localStorage.setItem('userLogin', JSON.stringify(this.user));
           this.router.navigate(['manejoSesion']);
-        }else{
-          this.msgLogin = 'Credenciales incorrectas.';          
+        } else {
+          this.msgLogin = 'Credenciales incorrectas.';
         }
-      }, error=>{
+      }, error => {
         console.log(error);
         this.msgLogin = 'No pudimos iniciar sesión.';
       }
