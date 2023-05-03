@@ -17,9 +17,17 @@ import { HistorialPorcentajesComponent } from './module/admin/historial-porcenta
 import { MainPageComponent } from './module/admin/main-page/main-page.component';
 import { NavAdmin } from './module/admin/nav/nav.component';
 import { FileComponent } from './module/file/file.component';
-import { NavMedicoComponent } from './module/medico/nav-medico/nav-medico.component';
 import { ManejoSesionComponent } from './module/users/manejo-sesion/manejo-sesion.component';
 import { LabAddInfoComponent } from './module/laboratorio/lab-add-info/lab-add-info.component';
+import { TopMedicosComponent } from './module/admin/top-medicos/top-medicos.component';
+import { TopLaboratoriosComponent } from './module/admin/top-laboratorios/top-laboratorios.component';
+import { ReportConsultasComponent } from './module/admin/report-consultas/report-consultas.component';
+import { ReportExamenesComponent } from './module/admin/report-examenes/report-examenes.component';
+import { ReportTopPacientesComponent } from './module/medico/report/report-top-pacientes/report-top-pacientes.component';
+import { ReportTopEspecialidadesComponent } from './module/medico/report/report-top-especialidades/report-top-especialidades.component';
+import { HistorialMedicoPacienteComponent } from './module/medico/report/historial-medico-paciente/historial-medico-paciente.component';
+import { PacienteHistorialMedicoComponent } from './module/paciente/report/historial-medico/historial-medico.component';
+import { PacienteHistorialRecargasComponent } from './module/paciente/report/historial-recargas/historial-recargas.component';
 
 @NgModule({
   declarations: [
@@ -35,9 +43,17 @@ import { LabAddInfoComponent } from './module/laboratorio/lab-add-info/lab-add-i
     MainPageComponent,
     NavAdmin,
     FileComponent,
-    NavMedicoComponent,
     ManejoSesionComponent,
-    LabAddInfoComponent
+    LabAddInfoComponent,
+    TopMedicosComponent,
+    TopLaboratoriosComponent,
+    ReportConsultasComponent,
+    ReportExamenesComponent,
+    ReportTopPacientesComponent,
+    ReportTopEspecialidadesComponent,
+    HistorialMedicoPacienteComponent,
+    PacienteHistorialMedicoComponent,
+    PacienteHistorialRecargasComponent
   ],
   imports: [
     BrowserModule,

@@ -6,7 +6,9 @@ package com.hospitalapi.data.coneccionDB;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hospitalapi.data.modelDB.ConsultaDB;
 import com.hospitalapi.data.modelDB.MedicoDB;
+import com.hospitalapi.model.Recarga;
 import com.hospitalapi.model.reports.EspecialidadesMedico;
 import com.hospitalapi.model.reports.ExamenesLaboratorio;
 import com.hospitalapi.objects.Encriptador;
@@ -31,22 +33,27 @@ public class Prueba {
         medicoDB.insert(1000);
         ProcesadorEnradaJSON p = new ProcesadorEnradaJSON();
         ContenidoArchivoJSON contenidoArchivoJSON = new ContenidoArchivoJSON();
-        String json = "[{\"especialidad\":\"EspecialidadA\",\"precio\":33}]";
-        Type listType = new TypeToken<ArrayList<EspecialidadesMedico>>() {
-        }.getType();
-        ArrayList<EspecialidadesMedico> users = new Gson().fromJson(json, listType);
-        System.out.println(Arrays.toString(users.toArray()));
-        
-        String json2 = "[{\"nombre\":\"Nombre tipo examen A\",\"precio\":11}]";
-        Type listType2 = new TypeToken<ArrayList<ExamenesLaboratorio>>() {
-        }.getType();
-        ArrayList<ExamenesLaboratorio> users2 = new Gson().fromJson(json2, listType2);
-        System.out.println(Arrays.toString(users2.toArray()));
+//        String json = "[{\"especialidad\":\"EspecialidadA\",\"precio\":33}]";
+//        Type listType = new TypeToken<ArrayList<EspecialidadesMedico>>() {
+//        }.getType();
+//        ArrayList<EspecialidadesMedico> users = new Gson().fromJson(json, listType);
+//        System.out.println(Arrays.toString(users.toArray()));
+//        
+//        String json2 = "[{\"nombre\":\"Nombre tipo examen A\",\"precio\":11}]";
+//        Type listType2 = new TypeToken<ArrayList<ExamenesLaboratorio>>() {
+//        }.getType();
+//        ArrayList<ExamenesLaboratorio> users2 = new Gson().fromJson(json2, listType2);
+//        System.out.println(Arrays.toString(users2.toArray()));
 //        File file = new File("/home/luis/Escritorio/entrada_hospital.json");
 //
 //        p.procesarContendioJSON(contenidoArchivoJSON.getContenidioArchivoJSON(new BufferedReader(new FileReader(file))));
 //        CargaDatos carga = new CargaDatos(p);
 //        carga.subirDatos(p);
+        ConsultaDB consultaDB = new ConsultaDB();
+        Recarga recarga = new Recarga(0, 0, "023-03-06 10:00:00", 0, "", "");
+        recarga.establecerFechaHora();
+        System.out.println(recarga.toString());
+        
     }
 
 }

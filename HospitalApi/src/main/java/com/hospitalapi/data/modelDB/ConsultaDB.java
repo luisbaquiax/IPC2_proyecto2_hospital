@@ -162,6 +162,8 @@ public class ConsultaDB {
     public List<Consulta> getListConsulta(String fecha1, String fecha2) {
         List<Consulta> consutas = new ArrayList<>();
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY_FECHA)) {
+            statement.setString(1, fecha1);
+            statement.setString(2, fecha2);
             resusSet = statement.executeQuery();
             while (resusSet.next()) {
                 consutas.add(get(resusSet));

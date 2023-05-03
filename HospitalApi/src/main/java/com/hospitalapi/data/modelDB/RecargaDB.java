@@ -56,26 +56,28 @@ public class RecargaDB {
      */
     public List<Recarga> getRecargas(int idPaciente) {
         List<Recarga> lista = new ArrayList<>();
+        Recarga recarga = new Recarga();
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY_PACIENTE)) {
             statement.setInt(1, idPaciente);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                lista.add(get(resultSet));
+                recarga = get(resultSet);
+                recarga.establecerFechaHora();
+                lista.add(recarga);
             }
             resultSet.close();
             statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(RecargaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return lista;
     }
 
     private Recarga get(ResultSet resultSet) throws SQLException {
-        return new Recarga(
-                resultSet.getInt("id"),
-                resultSet.getDouble("monto"),
-                resultSet.getString("fecha_hora"),
-                resultSet.getInt("paciente"));
+        return Recarga.builder().
+                id(resultSet.getInt("id")).
+                monto(resultSet.getDouble("monto")).
+                fechaHora(resultSet.getString("fecha_hora")).
+                idPaciente(resultSet.getInt("paciente")).build();
     }
 }

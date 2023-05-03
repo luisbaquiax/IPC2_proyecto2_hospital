@@ -8,7 +8,10 @@ import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.service.admin.AdminReportIngresosConsultaService;
 import com.hospitalapi.service.admin.HistorialPorcentajeService;
 import com.hospitalapi.service.admin.ReportExamenesIngresosService;
+import com.hospitalapi.service.admin.TopLaboratorioService;
+import com.hospitalapi.service.admin.TopMedicosService;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +28,8 @@ public class ReportAdminController extends HttpServlet {
     private HistorialPorcentajeService historialPorcentajeService;
     private AdminReportIngresosConsultaService adminReportIngresosConsultaService;
     private ReportExamenesIngresosService reportExamenesIngresosService;
+    private TopLaboratorioService laboratorioService;
+    private TopMedicosService medicosService;
     private JsonConverter converter;
 
     public ReportAdminController() {
@@ -32,6 +37,8 @@ public class ReportAdminController extends HttpServlet {
         this.adminReportIngresosConsultaService = new AdminReportIngresosConsultaService();
         this.reportExamenesIngresosService = new ReportExamenesIngresosService();
         this.converter = new JsonConverter();
+        this.laboratorioService = new TopLaboratorioService();
+        this.medicosService = new TopMedicosService();
     }
 
     /**
@@ -51,7 +58,7 @@ public class ReportAdminController extends HttpServlet {
                 verHistorialPorcentajes(request, response);
                 break;
             case "consultas":
-                verconsultas(request, response);
+                verconsultas(response);
                 break;
             case "consultasFecha":
                 verconsultasFecha(request, response);
@@ -93,18 +100,21 @@ public class ReportAdminController extends HttpServlet {
     private void verHistorialPorcentajes(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String json = this.converter.toJson(this.historialPorcentajeService.getAll());
         System.out.println(json);
-        //response.getWriter().print(json);
         response.getWriter().append(this.converter.toJson(this.historialPorcentajeService.getAll()));
     }
 
-    private void verconsultas(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.getWriter().append(this.converter.toJson(this.adminReportIngresosConsultaService.getAll()));
+    private void verconsultas(HttpServletResponse response) throws IOException {
+        String json = this.converter.toJson(this.adminReportIngresosConsultaService.getAll());
+        System.out.println("consultas: "+json);
+        response.getWriter().append(json);
     }
 
     private void verconsultasFecha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fecha1 = request.getParameter("fecha1");
         String fecha2 = request.getParameter("fecha2");
-        response.getWriter().append(this.converter.toJson(this.adminReportIngresosConsultaService.getAllIntoTimeInterval(fecha1, fecha2)));
+         String json = this.converter.toJson(this.adminReportIngresosConsultaService.getAllIntoTimeInterval(fecha1, fecha2));
+        System.out.println("consultas fechas: "+json);
+        response.getWriter().append(json);
     }
 
     private void verExamenes(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -117,11 +127,13 @@ public class ReportAdminController extends HttpServlet {
         response.getWriter().append(this.converter.toJson(this.reportExamenesIngresosService.getAllTimeInterval(fecha1, fecha2)));
     }
 
-    private void verTopMedicos(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void verTopMedicos(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println(Arrays.toString(this.medicosService.getList().toArray()));
+        response.getWriter().write(this.converter.toJson(this.medicosService.getList()));
     }
 
-    private void verTopLaboratorios(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private void verTopLaboratorios(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        System.out.println(Arrays.toString(this.laboratorioService.getList().toArray()));
+        response.getWriter().write(this.converter.toJson(this.laboratorioService.getList()));
     }
 }

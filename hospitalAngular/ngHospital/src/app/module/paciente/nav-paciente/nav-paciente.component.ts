@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Usuario } from '../../../../entidad/Usuario';
+import { SesionService } from '../../../service/sesion.service';
 
 @Component({
   selector: 'app-nav-paciente',
@@ -8,12 +10,19 @@ import { Router } from '@angular/router';
 })
 export class NavPacienteComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  user: Usuario;
+
+  constructor(private router: Router, private sesion: SesionService) {
+    this.user = new Usuario();
+    let userJson = localStorage.getItem('userLogin');
+    this.user = userJson ? JSON.parse(userJson) : null;
+  }
 
   ngOnInit(): void {
+    this.sesion.validarSesion();
   }
-  exit(){
-    localStorage.removeItem('userLogin');
-    this.router.navigate(['login']);
+  exit() {
+    this.sesion.salir();
   }
+ 
 }

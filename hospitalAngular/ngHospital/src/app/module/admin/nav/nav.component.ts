@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SesionService } from '../../../service/sesion.service';
+import { Usuario } from '../../../../entidad/Usuario';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-admin',
@@ -7,13 +10,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavAdmin implements OnInit {
 
-  public links: string[];
-  constructor() { 
-    this.links =["/","/historial-porcentajes","/top-laboratorio", "top-medico"];
-
+  user: Usuario;
+  constructor(private router: Router, private sesion: SesionService) {
+    this.user = new Usuario();
   }
 
   ngOnInit(): void {
+    let stringUser = localStorage.getItem("userLogin");
+    if (stringUser != null) {
+      this.user = JSON.parse(stringUser);
+      console.log(this.user);
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+  salir(){
+    this.sesion.salir();
+  }
+
+  realizarConsulta(){
+    
   }
 
 }

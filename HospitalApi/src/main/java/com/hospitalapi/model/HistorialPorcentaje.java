@@ -5,15 +5,17 @@
 package com.hospitalapi.model;
 
 import java.io.Serializable;
+import lombok.ToString;
 
 /**
  *
  * @author luis
  */
+@ToString
 public class HistorialPorcentaje implements Serializable {
 
     public static final String ACTUAL = "ACTUAL";
-    public static final String SIN_USO = "SIN USO";
+    public static final String ANTERIOR = "ANTERIOR";
 
     private int id;
     private double porcentaje;

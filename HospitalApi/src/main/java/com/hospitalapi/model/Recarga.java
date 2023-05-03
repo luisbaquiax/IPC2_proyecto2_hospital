@@ -5,86 +5,35 @@
 package com.hospitalapi.model;
 
 import java.io.Serializable;
+import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * @author luis
  */
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Recarga implements Serializable {
 
     private int id;
     private double monto;
     private String fechaHora;
     private int idPaciente;
-
-    /**
-     *
-     * @param id
-     * @param monto
-     * @param fechaHora
-     * @param idPaciente
-     */
-    public Recarga(int id, double monto, String fechaHora, int idPaciente) {
-        this.id = id;
-        this.monto = monto;
-        this.fechaHora = fechaHora;
-        this.idPaciente = idPaciente;
+    private String fecha;
+    private String hora;
+    
+    public void establecerFechaHora(){
+        String[] list = this.getFechaHora().split(" ");
+        this.fecha = list[0];
+        this.hora = list[1];
     }
-
-    /**
-     * @return the id
-     */
-    public int getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * @return the monto
-     */
-    public double getMonto() {
-        return monto;
-    }
-
-    /**
-     * @param monto the monto to set
-     */
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
-    /**
-     * @return the fechaHora
-     */
-    public String getFechaHora() {
-        return fechaHora;
-    }
-
-    /**
-     * @param fechaHora the fechaHora to set
-     */
-    public void setFechaHora(String fechaHora) {
-        this.fechaHora = fechaHora;
-    }
-
-    /**
-     * @return the idPaciente
-     */
-    public int getIdPaciente() {
-        return idPaciente;
-    }
-
-    /**
-     * @param idPaciente the idPaciente to set
-     */
-    public void setIdPaciente(int idPaciente) {
-        this.idPaciente = idPaciente;
-    }
-
 }

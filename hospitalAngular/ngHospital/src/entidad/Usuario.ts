@@ -4,13 +4,13 @@ export class Usuario {
     public static  MEDICO:String = "MEDICO";
     public static  LABORATORIO:String = 'LABORATORIO';
     public static  PACIENTE:String = 'PACIENTE';
-     id!: Number;
+     id!: number;
      nombre!: string;
      username!: string;
      password!: string;
      email!: string;
      fechaNacimiento!: string;
-     saldo!: Number;
+     saldo!: number;
      tipo!: string;
      direccion!: string;
      telefono!: string;

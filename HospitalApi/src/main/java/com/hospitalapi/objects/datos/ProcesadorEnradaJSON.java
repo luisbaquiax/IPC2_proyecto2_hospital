@@ -376,6 +376,7 @@ public class ProcesadorEnradaJSON {
                         //el examen no esté en listado general
                     }
                 }
+                solicitud.setCostoTotal(totalExamenesSolicitados(examenes));
                 this.examenesSolicitados.add(examenes);
                 this.solicitudExamens.add(solicitud);
             } else {
@@ -452,6 +453,14 @@ public class ProcesadorEnradaJSON {
             return examen.getId() == idExamen;
         }
         return false;
+    }
+
+    public double totalExamenesSolicitados(List<ExamenSolicitado> examenes) {
+        double total = 0;
+        for (ExamenSolicitado examene : examenes) {
+            total += examene.getPrecio();
+        }
+        return total;
     }
 
 }

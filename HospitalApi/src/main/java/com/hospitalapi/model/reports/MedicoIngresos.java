@@ -4,14 +4,28 @@
  */
 package com.hospitalapi.model.reports;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 /**
  *
  * @author luis
  */
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MedicoIngresos {
 
-    String nombre;
-    int cantidadConsultas;
-    double totalPorConsultas;
-    double gananciaApp;
+    private int id;
+    private String nombre;
+    private int cantidadConsultas;
+    private double totalPorConsultas;
+    private double gananciaApp;
 }

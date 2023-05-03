@@ -122,7 +122,6 @@ public class UserController extends HttpServlet {
                 }
                 response.getWriter().print(json);
                 break;
-
             default:
         }
     }

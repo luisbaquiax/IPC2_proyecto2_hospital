@@ -5,7 +5,7 @@ export class Consulta {
     idEspecialidad!: number;
     porcentaje!: number;
     fechaCreacion!: string;
-    fechaAgendada!: string;
+    fechaAgendada!: String;
     precio!: number;
     informe!: string;
     estado!: string;

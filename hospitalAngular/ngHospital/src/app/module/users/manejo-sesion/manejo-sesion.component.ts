@@ -46,7 +46,7 @@ export class ManejoSesionComponent implements OnInit {
                 if (this.especialidads.length === 0) {
                   this.router.navigate(['medicoAddInfo']);
                 } else {
-                  this.router.navigate(['navMedico']);
+                  this.router.navigate(['menuMedico']);
                 }
               }
             );

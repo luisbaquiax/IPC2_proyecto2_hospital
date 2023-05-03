@@ -45,7 +45,12 @@ export class AddInformacionMedicoComponent implements OnInit {
   }
 
   quitar(name: String) {
-    this.misEspecialidades.pop();
+    for (let i = 0; i < this.misEspecialidades.length; i++) {
+      if (this.misEspecialidades[i].especialidad == name) {
+        this.misEspecialidades.slice(i,1);
+        break;
+      }
+    }
   }
 
   guardarCambios() {
@@ -61,6 +66,7 @@ export class AddInformacionMedicoComponent implements OnInit {
             this.router.navigate([('historialPorcentajes')]);
           }, error => {
             console.log('No se pudo guardar la informacón');
+            this.misEspecialidades =  new Array();
           }
         );
       }

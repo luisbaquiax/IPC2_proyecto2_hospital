@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AddUserService } from 'src/app/service/user/add-user.service';
 import { Usuario } from '../../../../entidad/Usuario';
 import { User } from '../../../../entidad/User';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-inicio-sesion',
@@ -40,7 +41,7 @@ export class InicioSesionComponent implements OnInit {
       (user) => {
         this.user = user;
         console.log('usuario buscado: ' + user);
-        if (this.user) {
+        if (this.user != null) {
           localStorage.setItem('userLogin', JSON.stringify(this.user));
           this.router.navigate(['manejoSesion']);
         } else {
@@ -48,7 +49,7 @@ export class InicioSesionComponent implements OnInit {
         }
       }, error => {
         console.log(error);
-        this.msgLogin = 'No pudimos iniciar sesión.';
+        this.msgLogin = 'Credenciales incorrectas.';
       }
     );
   }

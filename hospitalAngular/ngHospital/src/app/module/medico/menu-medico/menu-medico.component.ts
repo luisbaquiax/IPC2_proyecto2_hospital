@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SesionService } from '../../../service/sesion.service';
+import { Usuario } from '../../../../entidad/Usuario';
 
 @Component({
   selector: 'app-menu-medico',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuMedicoComponent implements OnInit {
 
-  constructor() { }
+  user: Usuario;
+  constructor(private sesion: SesionService) {
 
-  ngOnInit(): void {
+    let userJson = localStorage.getItem('userLogin');
+    this.user = userJson ? JSON.parse(userJson): null;
   }
 
+  ngOnInit(): void {
+    this.sesion.validarSesion();
+  }
+  salir() {
+    this.sesion.salir();
+  }
 }
