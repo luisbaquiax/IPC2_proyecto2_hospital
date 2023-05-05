@@ -19,8 +19,11 @@ import { ReportTopPacientesComponent } from './module/medico/report/report-top-p
 import { MenuMedicoComponent } from './module/medico/menu-medico/menu-medico.component';
 import { PacienteHistorialMedicoComponent } from './module/paciente/report/historial-medico/historial-medico.component';
 import { PacienteHistorialRecargasComponent } from './module/paciente/report/historial-recargas/historial-recargas.component';
-import { PacienteReportConsultasComponent } from './module/paciente/report/report-consultas/report-consultas.component';
-import { PacienteReportExamenesComponent } from './module/paciente/report/report-examenes/report-examenes.component';
+import { PacienteReporteConsultasComponent } from './module/paciente/report/paciente-reporte-consultas/paciente-reporte-consultas.component';
+import { PacienteReportExamenesComponent } from './module/paciente/report/paciente-report-examenes/paciente-report-examenes.component';
+import { HistorialMedicoPacienteComponent } from './module/medico/report/historial-medico-paciente/historial-medico-paciente.component';
+import { LabTopPacientesComponent } from './module/laboratorio/report/lab-top-pacientes/lab-top-pacientes.component';
+import { LabTopExamenesComponent } from './module/laboratorio/report/lab-top-examenes/lab-top-examenes.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -40,6 +43,9 @@ const routes: Routes = [
     path: "menuMedico", component: MenuMedicoComponent
   },
   {
+    path: "medicoHistorialMedico", component: HistorialMedicoPacienteComponent
+  },
+  {
     path: "medicoAddInfo", component: AddInformacionMedicoComponent
   },
   {
@@ -56,6 +62,12 @@ const routes: Routes = [
   },
   {
     path: "labAddInfo", component: LabAddInfoComponent
+  },
+  {
+    path: "labTopPacientes", component: LabTopPacientesComponent
+  },
+  {
+    path: "labTopExaemns", component: LabTopExamenesComponent
   },
   {
     path: "topMedico", component: TopMedicosComponent
@@ -82,7 +94,7 @@ const routes: Routes = [
     path: "pacienteHistorialRecargas", component: PacienteHistorialRecargasComponent
   },
   {
-    path: "pacienteReportConsultas", component: PacienteReportConsultasComponent
+    path: "pacienteReportConsultas", component: PacienteReporteConsultasComponent
   },
   {
     path: "pacienteReportExamenes", component: PacienteReportExamenesComponent

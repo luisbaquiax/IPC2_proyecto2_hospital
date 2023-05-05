@@ -32,4 +32,8 @@ public class ServiceReportPacienteExamenes {
     public List<ReportPacienteExamenes> getListByExamen(Usuario user, String tipoExamen) {
         return this.reportPacienteExamenesDB.getList(user.getId(), tipoExamen);
     }
+    
+    public List<ReportPacienteExamenes> getListDateExamen(Usuario user, String fecha1, String fecha2, String examen){
+        return this.reportPacienteExamenesDB.getList(user.getId(), fecha1, fecha2, examen);
+    }
 }

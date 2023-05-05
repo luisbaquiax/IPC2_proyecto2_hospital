@@ -32,4 +32,8 @@ public class ServiceReporPacienteConsultas {
     public List<ReportPacienteConsultas> getListByEspecialidad(Usuario user, String especialidad) {
         return this.reportePacienteConsultasDB.getList(user.getId(), especialidad);
     }
+
+    public List<ReportPacienteConsultas> getListByEspecialidadAndDate(Usuario user, String fecha1, String fecha2, String especialidad) {
+        return this.reportePacienteConsultasDB.getList(user.getId(), fecha1, fecha2, especialidad);
+    }
 }

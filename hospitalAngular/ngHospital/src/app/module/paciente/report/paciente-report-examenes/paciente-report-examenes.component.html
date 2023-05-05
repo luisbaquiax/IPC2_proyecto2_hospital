@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md">
             <div class="card-header">
-                <h1 class="text-center">Historial médico</h1>
+                <h1 class="text-center">Reporte de exámenes</h1>
                 <div class="d-flex">
                     <form [formGroup]="form" (ngSubmit)="realizarConsulta()" class="row g-3 mx-3">
                         <div class="col-auto">
@@ -23,6 +23,58 @@
                                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg>
                             </button>
+                        </div>
+                    </form>
+                    <form [formGroup]="form2" (ngSubmit)="realizarConsultaByExamen()" class="row g-3">
+                        <div class="col-auto">
+                            <label for="tipoExamen" class="mt-2">Elegir tipo examen:</label>
+                            <select formControlName="nombreExamen" class="form-control" id="nombreExamen" required
+                                name="nombreExamen">
+                                <option *ngFor="let examen of tipoExamenes" [value]="examen.name">
+                                    {{examen.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <br>
+                            <button type="submit" class="btn btn-primary mb-3 mt-2" [disabled]="!form2.valid">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+
+                    <form [formGroup]="form3" (ngSubmit)="consultaDateExamen()" class="row g-3 mx-2">
+                        <div class="col-auto">
+                            <label for="tipoExamen" class="mt-2 mx-3">Elegir tipo examen:</label>
+                            <select formControlName="tipoExamen" class="form-control" id="tipoExamen" required
+                                name="tipoExamen">
+                                <option *ngFor="let examen of tipoExamenes" [value]="examen.name">
+                                    {{examen.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <label for="fecha3" class="form-label">Fecha 1:</label>
+                            <input formControlName="fecha3" type="date" class="form-control" id="fecha3" required="">
+                        </div>
+                        <div class="col-auto">
+                            <label for="fecha4" class="form-label">Fecha 2:</label>
+                            <input formControlName="fecha4" type="date" class="form-control" id="fecha4" required="">
+                        </div>
+                        <div class="col-auto">
+                            <br>
+                            <button type="submit" class="btn btn-primary mb-3 mt-2" [disabled]="!form3.valid">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                            </button>
+                            <a class="btn btn-primary mb-3 mt-2 mx-3" (click)="mostrarTodos()">
+                                Mostrar todos
+                            </a>
                             <a class="btn btn-danger mb-3 mt-2 mx-2" (click)="descargar()">Descargar
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-file-pdf-fill" viewBox="0 0 16 16">
@@ -50,14 +102,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let h of historial">
-                            <td>{{h.consulta}}</td>
-                            <td>{{h.fechaCreacion}}</td>
-                            <td>{{h.fecha}} {{h.hora}}</td>
-                            <td>{{h.estado}}</td>
-                            <td>{{h.informe}}</td>
+                        <tr *ngFor="let h of examenes">
+                            <td>{{h.solicitud}}</td>
+                            <td>{{h.fechaSolicitado}}</td>
+                            <td>{{h.fechaFinalizada}}</td>
+                            <td>{{h.laboratorio}}</td>
                             <td>{{h.examen}}</td>
-                            <td>{{h.medico}}</td>
+                            <td>{{h.estado}}</td>
+                            <td>{{h.precio | currency: 'Q'}}</td>
                         </tr>
                 </table>
             </div>

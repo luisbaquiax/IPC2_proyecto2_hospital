@@ -27,20 +27,29 @@ public class ReportePacienteConsultasDB {
             + "ON c.especialidad = e.id\n"
             + "WHERE paciente = ?";
 
-    private static final String SELECT_BETWEEN_FECHA = "SELECT * FROM consulta WHERE paciente = 111 AND especialidad = 3;\n"
-            + "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+    private static final String SELECT_BETWEEN_FECHA
+            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
             + "FROM consulta c\n"
             + "INNER JOIN especialidad e\n"
             + "ON c.especialidad = e.id\n"
             + "WHERE paciente = ? "
-            + "AND fecha_creacion BETWEEN ? AND ?;";
+            + "AND fecha_creacion BETWEEN ? AND ?";
 
-    private static final String SELECT_BY_ESPECIALIDAD = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+    private static final String SELECT_BY_ESPECIALIDAD
+            = "SSELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
             + "FROM consulta c\n"
             + "INNER JOIN especialidad e\n"
             + "ON c.especialidad = e.id\n"
             + "WHERE paciente = ? \n"
-            + "AND especialidad = ?";
+            + "AND e.nombre = ?";
+
+    private static final String SELECT_BY_ESPECIALIDAD_DATE
+            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+            + "FROM consulta c\n"
+            + "INNER JOIN especialidad e\n"
+            + "ON c.especialidad = e.id\n"
+            + "WHERE paciente = ? AND fecha_creacion BETWEEN ? AND ?\n"
+            + "AND e.nombre = ?";
 
     private ResultSet resutSet;
 
@@ -86,6 +95,25 @@ public class ReportePacienteConsultasDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY_ESPECIALIDAD)) {
             statement.setInt(1, idPaciente);
             statement.setString(2, especialidad);
+            resutSet = statement.executeQuery();
+            while (resutSet.next()) {
+                list.add(get(resutSet));
+            }
+            resutSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportePacienteConsultasDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<ReportPacienteConsultas> getList(int idPaciente, String fecha1, String fecha2, String especialidad) {
+        List<ReportPacienteConsultas> list = new ArrayList<>();
+        try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY_ESPECIALIDAD_DATE)) {
+            statement.setInt(1, idPaciente);
+            statement.setString(2, fecha1);
+            statement.setString(3, fecha2);
+            statement.setString(4, especialidad);
             resutSet = statement.executeQuery();
             while (resutSet.next()) {
                 list.add(get(resutSet));

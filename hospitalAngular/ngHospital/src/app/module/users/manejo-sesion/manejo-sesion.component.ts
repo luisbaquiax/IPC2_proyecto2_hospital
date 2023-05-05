@@ -16,7 +16,7 @@ export class ManejoSesionComponent implements OnInit {
 
   userLogin: Usuario;
   especialidads: EspecialidadesMedico[] = [];
-  examensesLab: ExamenesLaboratorio[] =[];
+  examensesLab: ExamenesLaboratorio[] = [];
   constructor(private router: Router, private serviceEspecialidadService: ServiceEspecialidadService,
     private serviceExamens: ExamenesLaboratorioService) {
     //this.userLogin = new User(0, '', '', '', '', '', 0, '', '', '', '');
@@ -53,17 +53,18 @@ export class ManejoSesionComponent implements OnInit {
             break;
           case User.LABORATORIO:
             this.serviceExamens.getExamenesByLaboratory(this.userLogin).subscribe(
-              (list: ExamenesLaboratorio[])=>{
+              (list: ExamenesLaboratorio[]) => {
                 this.examensesLab = list;
-              },(error)=>{
+                if (this.examensesLab.length === 0) {
+                  this.router.navigate(['labAddInfo']);
+                } else {
+                  this.router.navigate(['navLab']);
+                }
+              }, (error) => {
                 console.log('No se pudeo realizar la consulta.');
               }
             );
-            if(this.examensesLab.length===0){
-              this.router.navigate(['labAddInfo']);
-            }else{
-            this.router.navigate(['navLab']);
-            }
+
             break;
         }
       } else {

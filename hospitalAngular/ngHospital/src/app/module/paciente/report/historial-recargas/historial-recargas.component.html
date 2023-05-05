@@ -1,1 +1,28 @@
-<p>historial-recargas works!</p>
+<app-nav-paciente></app-nav-paciente>
+<div class="container mt-5 mx-3">
+    <div class="row">
+        <div class="col-md">
+            <div class="card-header">
+                <h1 class="text-center">Historial de recargas</h1>
+            <div class="card-body">
+                <table id="storeTable" class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre paciente</th>
+                            <th scope="col">Cantidad consultas</th>
+                            <th scope="col">Ganancia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let h of historial">
+                            <td>{{h.idPaciente}}</td>
+                            <td>{{h.monto | currency : 'Q'}}</td>
+                            <td>{{h.fecha}}</td>
+                            <td>{{h.hora}}</td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

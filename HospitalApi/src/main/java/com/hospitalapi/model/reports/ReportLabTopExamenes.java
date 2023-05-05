@@ -21,13 +21,11 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportPacienteExamenes {
+public class ReportLabTopExamenes {
 
-    private int solicitud;
-    private String fechaSolicitado;
-    private String fechaFinalizada;
+    private int idExamen;
     private String examen;
-    private String estado;
-    private String laboratorio;
-    private double precio;
+    private int cantidad;
+    private double ganancia;
+
 }

@@ -5,4 +5,5 @@ export class PacienteReportExamenes {
     examen!: string;
     estado!: string;
     laboratorio!: string;
+    precio!: number;
 }

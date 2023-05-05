@@ -21,13 +21,22 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportPacienteExamenes {
+public class HistorialMedico {
 
-    private int solicitud;
-    private String fechaSolicitado;
-    private String fechaFinalizada;
-    private String examen;
+    private int consulta;
+    private String fechaCreacion;
+    private String fechaAgenda;
+    private String informe;
     private String estado;
-    private String laboratorio;
+    private String examen;
+    private String medico;
     private double precio;
+    private String fecha;
+    private String hora;
+
+    public void setFechaAndHour() {
+        String[] list = this.fechaAgenda.split(" ");
+        this.fecha = list[0];
+        this.hora = list[1];
+    }
 }

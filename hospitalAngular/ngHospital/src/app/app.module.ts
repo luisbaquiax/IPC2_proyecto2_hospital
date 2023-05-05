@@ -28,6 +28,10 @@ import { ReportTopEspecialidadesComponent } from './module/medico/report/report-
 import { HistorialMedicoPacienteComponent } from './module/medico/report/historial-medico-paciente/historial-medico-paciente.component';
 import { PacienteHistorialMedicoComponent } from './module/paciente/report/historial-medico/historial-medico.component';
 import { PacienteHistorialRecargasComponent } from './module/paciente/report/historial-recargas/historial-recargas.component';
+import { PacienteReporteConsultasComponent } from './module/paciente/report/paciente-reporte-consultas/paciente-reporte-consultas.component';
+import { PacienteReportExamenesComponent } from './module/paciente/report/paciente-report-examenes/paciente-report-examenes.component';
+import { LabTopPacientesComponent } from './module/laboratorio/report/lab-top-pacientes/lab-top-pacientes.component';
+import { LabTopExamenesComponent } from './module/laboratorio/report/lab-top-examenes/lab-top-examenes.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +57,11 @@ import { PacienteHistorialRecargasComponent } from './module/paciente/report/his
     ReportTopEspecialidadesComponent,
     HistorialMedicoPacienteComponent,
     PacienteHistorialMedicoComponent,
-    PacienteHistorialRecargasComponent
+    PacienteHistorialRecargasComponent,
+    PacienteReporteConsultasComponent,
+    PacienteReportExamenesComponent,
+    LabTopPacientesComponent,
+    LabTopExamenesComponent
   ],
   imports: [
     BrowserModule,

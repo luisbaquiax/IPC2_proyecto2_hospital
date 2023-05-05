@@ -89,6 +89,7 @@ public class ServletControllerExamenesLaboratorio extends HttpServlet {
 
     private void listarExamensByLaboratory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario userLaboratorio = (Usuario) this.converter.fromJson(this.lectorJson.read(request.getReader()), Usuario.class);
+        System.out.println("lab "+userLaboratorio.toString());
         response.getWriter().write(this.converter.toJson(this.serviceExamenesLaboratorio.getByLaboratorio(userLaboratorio)));
     }
 

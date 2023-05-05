@@ -20,21 +20,36 @@ export class ReportPacienteService {
   public getConsultas(user: Usuario): Observable<PacienteReportConsultas[]> {
     return this.httpClient.post<PacienteReportConsultas[]>(this.url + "consultas", user);
   }
+
   public getConsultasBetweenFecha(user: Usuario, fecha1: string, fecha2: string): Observable<PacienteReportConsultas[]> {
     return this.httpClient.post<PacienteReportConsultas[]>(
       this.url + "consultasFechas&fecha1=" + fecha1 + "&fecha2=" + fecha2, user);
   }
+  
   public getConsultasByEspecialidad(user: Usuario, especialidad: String): Observable<PacienteReportConsultas[]> {
     return this.httpClient.post<PacienteReportConsultas[]>(this.url + "consultasEspecialidad&especialidad=" + especialidad, user);
   }
+
+  public getConsultasByFechaAndEspecialidad(user: Usuario, fecha1: string, fecha2: string, especialidad: string): Observable<PacienteReportConsultas[]> {
+    return this.httpClient.post<PacienteReportConsultas[]>(
+      this.url + "consultasDateEspecialidad&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&especialidad=" + especialidad, user);
+  }
+
   public getExamens(user: Usuario): Observable<PacienteReportExamenes[]> {
     return this.httpClient.post<PacienteReportExamenes[]>(this.url + "examenes", user);
   }
+
   public getExamensBetweenFecha(user: Usuario, fecha1: string, fecha2: string): Observable<PacienteReportExamenes[]> {
     return this.httpClient.post<PacienteReportExamenes[]>(
       this.url + "examenesFechas&fecha1=" + fecha1 + "&fecha2=" + fecha2, user);
   }
+
   public getExamensByExamen(user: Usuario, tipoExamen: string): Observable<PacienteReportExamenes[]> {
-    return this.httpClient.post<PacienteReportExamenes[]>(this.url + "examenesTipoExamen&=" + tipoExamen, user);
+    return this.httpClient.post<PacienteReportExamenes[]>(this.url + "examenesTipoExamen&examen=" + tipoExamen, user);
+  }
+
+  public getExamensByDateAndExamen(user: Usuario, fecha1: string, fecha2: string, examen: String): Observable<PacienteReportExamenes[]> {
+    return this.httpClient.post<PacienteReportExamenes[]>(
+      this.url + "examanesDateExamen&fecha1=" + fecha1 + "&fecha2=" + fecha2 + "&examen=" + examen, user);
   }
 }

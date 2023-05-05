@@ -13,9 +13,9 @@ export class HistorialRecargaService {
   constructor(private httpClient: HttpClient) { }
 
   public getRecargas(user: Usuario): Observable<Recarga[]> {
-    return this.httpClient.post<Recarga[]>(this.getRecargas + "recargas",user);
+    return this.httpClient.post<Recarga[]>(this.urlRecarga + "recargas",user);
   }
   public insert(user: Usuario): Observable<Recarga> {
-    return this.httpClient.post<Recarga>(this.getRecargas + "insertar", user);
+    return this.httpClient.post<Recarga>(this.urlRecarga + "insertar", user);
   }
 }
