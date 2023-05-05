@@ -6,6 +6,7 @@ package com.hospitalapi.service.admin;
 
 import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
 import com.hospitalapi.model.HistorialPorcentaje;
+import com.hospitalapi.model.reports.HistorialInfo;
 import com.hospitalapi.objects.Entidad;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  *
  * @author luis
  */
-public class HistorialPorcentajeService implements Entidad {
+public class HistorialPorcentajeService {
 
     private HistorialPorcentajDB historialPorcentajDB;
 
@@ -21,18 +22,28 @@ public class HistorialPorcentajeService implements Entidad {
         this.historialPorcentajDB = new HistorialPorcentajDB();
     }
 
-    @Override
     public boolean insert(Object object) {
+        actualizarTodos();
         return this.historialPorcentajDB.insert((HistorialPorcentaje) object);
     }
 
-    @Override
-    public boolean update(Object object) {
-        return this.historialPorcentajDB.update((HistorialPorcentaje) object);
+    public boolean update(Object object, String fechaFinal) {
+        return this.historialPorcentajDB.update((HistorialPorcentaje) object, fechaFinal);
     }
 
     public List<HistorialPorcentaje> getAll() {
         return this.historialPorcentajDB.getListaHistorialPorcentaje();
+    }
+
+    public List<HistorialInfo> getInfo() {
+        return this.historialPorcentajDB.getListInfo();
+    }
+
+    private void actualizarTodos() {
+        for (HistorialPorcentaje historialPorcentaje : this.historialPorcentajDB.getListaHistorialPorcentaje()) {
+            historialPorcentaje.setEstado(HistorialPorcentaje.ANTERIOR);
+            this.historialPorcentajDB.update(historialPorcentaje, historialPorcentaje.getFechaFinal());
+        }
     }
 
 }

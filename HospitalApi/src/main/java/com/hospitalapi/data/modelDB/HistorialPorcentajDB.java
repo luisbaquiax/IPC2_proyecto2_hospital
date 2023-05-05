@@ -6,6 +6,7 @@ package com.hospitalapi.data.modelDB;
 
 import com.hospitalapi.data.coneccionDB.ConeccionDB;
 import com.hospitalapi.model.HistorialPorcentaje;
+import com.hospitalapi.model.reports.HistorialInfo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,8 +22,9 @@ import java.util.logging.Logger;
 public class HistorialPorcentajDB {
 
     private static final String INSERT = "INSERT INTO historial_porcentajes(porcentaje,fecha_inicial,fecha_final,estado) VALUES(?,?,?,?)";
-    private static final String UPDATE = "UPDATE historial_porcentajes SET estado = ? WHERE id = ?";
-    private static final String SELECT = "SELECT * FROM historial_porcentajes";
+    private static final String UPDATE = "UPDATE historial_porcentajes SET estado = ?, fecha_final = ? WHERE id = ?";
+    private static final String SELECT = "SELECT * FROM historial_porcentajes ORDER BY id DESC";
+    private static final String SELECT_PORCENTAJE = "SELECT count(porcentaje) AS cantidad, porcentaje from historial_porcentajes GROUP BY porcentaje";
 
     private ResultSet resultSet;
 
@@ -51,12 +53,14 @@ public class HistorialPorcentajDB {
      * Update a historial de porcentajes
      *
      * @param historialPorcentaje
+     * @param fechaFinal
      * @return
      */
-    public boolean update(HistorialPorcentaje historialPorcentaje) {
+    public boolean update(HistorialPorcentaje historialPorcentaje, String fechaFinal) {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(UPDATE)) {
             statement.setString(1, historialPorcentaje.getEstado());
-            statement.setInt(2, historialPorcentaje.getId());
+            statement.setString(2, fechaFinal);
+            statement.setInt(3, historialPorcentaje.getId());
 
             statement.executeUpdate();
             statement.close();
@@ -85,6 +89,23 @@ public class HistorialPorcentajDB {
             Logger.getLogger(HistorialPorcentajDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return lista;
+    }
+
+    public List<HistorialInfo> getListInfo() {
+        List<HistorialInfo> list = new ArrayList<>();
+        try (PreparedStatement staement = ConeccionDB.getConnection().prepareStatement(SELECT_PORCENTAJE)) {
+            resultSet = staement.executeQuery();
+            while (resultSet.next()) {
+                list.add(HistorialInfo.builder().
+                        cantidad(resultSet.getInt("cantidad")).
+                        porcentaje(resultSet.getDouble("porcentaje")).build());
+            }
+            resultSet.close();
+            staement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistorialPorcentajDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
     }
 
     private HistorialPorcentaje getHistorial(ResultSet resultSet) throws SQLException {

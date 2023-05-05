@@ -12,9 +12,12 @@ import java.io.Serializable;
  */
 public class SolicitudEspecialidad implements Serializable {
 
+    public static final String ACEPTADO = "ACEPTADO";
+    public static final String RECHAZADO = "RECHAZADO";
+    public static final String SOLICITADO = "SOLICITADO";
     private String nombre;
     /**
-     * Estado de la solicitud = aceptado / rechazado /  solicitado
+     * Estado de la solicitud = aceptado / rechazado / solicitado
      */
     private String aceptado;
 

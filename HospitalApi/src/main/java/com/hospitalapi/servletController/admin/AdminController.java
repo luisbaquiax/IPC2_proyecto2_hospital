@@ -4,8 +4,12 @@
  */
 package com.hospitalapi.servletController.admin;
 
+import com.hospitalapi.model.HistorialPorcentaje;
+import com.hospitalapi.objects.JsonConverter;
+import com.hospitalapi.objects.LectorJson;
+import com.hospitalapi.service.admin.HistorialPorcentajeService;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +23,17 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AdminController", urlPatterns = {"/AdminController"})
 public class AdminController extends HttpServlet {
 
-  
+    private HistorialPorcentajeService historialPorcentajeService;
+
+    private JsonConverter converter;
+    private LectorJson lector;
+
+    public AdminController() {
+        this.historialPorcentajeService = new HistorialPorcentajeService();
+        this.converter = new JsonConverter();
+        this.lector = new LectorJson();
+    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -32,6 +46,16 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "getAll":
+                sendListHistoriorial(request, response);
+                break;
+            case "getInfo":
+                sendListHistoriorialInfo(request, response);
+                break;
+            default:
+        }
     }
 
     /**
@@ -45,12 +69,57 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "insert":
+                insertHistoriorial(request, response);
+                break;
+            default:
+        }
     }
-    @Override
-     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-     
-     }
 
     @Override
-      protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {}
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "update":
+                updateHistoriorial(request, response);
+                break;
+            default:
+        }
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    }
+
+    private void sendListHistoriorial(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.getWriter().write(this.converter.toJson(this.historialPorcentajeService.getAll()));
+    }
+
+    private void updateHistoriorial(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HistorialPorcentaje historial = (HistorialPorcentaje) this.converter.fromJson(this.lector.read(request.getReader()), HistorialPorcentaje.class);
+        if (historialPorcentajeService.update(historial, LocalDate.now().toString())) {
+            System.out.println("Todo bien.");
+        } else {
+            System.out.println("NO se pudo actualizar");
+        }
+    }
+
+    private void insertHistoriorial(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        HistorialPorcentaje historial = (HistorialPorcentaje) this.converter.fromJson(this.lector.read(request.getReader()), HistorialPorcentaje.class);
+        historial.setFechaInicial(LocalDate.now().toString());
+        historial.setFechaFinal(LocalDate.now().toString());
+        historial.setEstado(HistorialPorcentaje.ACTUAL);
+        System.out.println("ingresado "+historial.toString());
+        if (historialPorcentajeService.insert(historial)) {
+            System.out.println("todo bien");
+        } else {
+            System.out.println("fallo");
+        }
+    }
+
+    private void sendListHistoriorialInfo(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.getWriter().write(this.converter.toJson(this.historialPorcentajeService.getInfo()));
+    }
 }
