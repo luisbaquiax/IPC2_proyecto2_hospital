@@ -7,13 +7,14 @@ package com.hospitalapi.service.admin;
 import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
 import com.hospitalapi.model.HistorialPorcentaje;
 import com.hospitalapi.model.reports.HistorialInfo;
-import com.hospitalapi.objects.Entidad;
 import java.util.List;
+import lombok.Getter;
 
 /**
  *
  * @author luis
  */
+@Getter
 public class HistorialPorcentajeService {
 
     private HistorialPorcentajDB historialPorcentajDB;
@@ -22,9 +23,8 @@ public class HistorialPorcentajeService {
         this.historialPorcentajDB = new HistorialPorcentajDB();
     }
 
-    public boolean insert(Object object) {
-        actualizarTodos();
-        return this.historialPorcentajDB.insert((HistorialPorcentaje) object);
+    public boolean insert(HistorialPorcentaje historialPorcentaje) {
+        return this.historialPorcentajDB.insert(historialPorcentaje);
     }
 
     public boolean update(Object object, String fechaFinal) {
@@ -39,10 +39,13 @@ public class HistorialPorcentajeService {
         return this.historialPorcentajDB.getListInfo();
     }
 
-    private void actualizarTodos() {
+    public void actualizarTodos() {
         for (HistorialPorcentaje historialPorcentaje : this.historialPorcentajDB.getListaHistorialPorcentaje()) {
-            historialPorcentaje.setEstado(HistorialPorcentaje.ANTERIOR);
-            this.historialPorcentajDB.update(historialPorcentaje, historialPorcentaje.getFechaFinal());
+            if (historialPorcentaje.getEstado().equals(historialPorcentaje.ACTUAL)) {
+                historialPorcentaje.setEstado(HistorialPorcentaje.ANTERIOR);
+                this.historialPorcentajDB.update(historialPorcentaje, historialPorcentaje.getFechaFinal());
+            }
+
         }
     }
 

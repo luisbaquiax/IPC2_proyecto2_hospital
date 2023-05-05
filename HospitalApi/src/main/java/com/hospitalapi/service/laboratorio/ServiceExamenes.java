@@ -20,12 +20,10 @@ public class ServiceExamenes {
 
     private TipoExamenDB tipoExamenDB;
     private PrecioExamenDB precioExamenDB;
-    private UserDB userDB;
 
     public ServiceExamenes() {
         this.tipoExamenDB = new TipoExamenDB();
         this.precioExamenDB = new PrecioExamenDB();
-        this.userDB = new UserDB();
     }
 
     public boolean insert(TipoExamen tipoExamen) {

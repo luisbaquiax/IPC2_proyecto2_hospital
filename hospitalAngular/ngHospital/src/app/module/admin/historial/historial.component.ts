@@ -40,6 +40,7 @@ export class HistorialComponent implements OnInit {
   }
 
   usar() {
+
     this.refrescarList();
     this.historialNuevo.porcentaje = this.form.value.porcentaje;
     this.historialNuevo.estado = ""
@@ -60,24 +61,28 @@ export class HistorialComponent implements OnInit {
   agregar() {
     this.refrescarList();
     this.historialNuevo.porcentaje = this.form2.value.nuevo;
-    let ingresas: Boolean = true;
+    let existe: Boolean = false;
     for (let i = 0; i < this.historialInfo.length; i++) {
       if (this.historialNuevo.porcentaje === this.historialInfo[i].porcentaje) {
+        existe = true;
         alert('Este porcentaje ya existe, por favor selecciona para usarlo.');
         break;
       } else {
-        this.historialNuevo.estado = ""
-        this.historialNuevo.fechaFinal = "";
-        this.historialNuevo.fechaInicial = "";
-        this.historialNuevo.id = 0;
-        this.serviceHistorial.inser(this.historialNuevo).subscribe(
-          response => {
-            alert('Se ha hecho los cambios exitosamente.');
-          }, error => {
-            alert('No se pudo guardar los cambios, los sentimos.')
-          }
-        );
+        existe = false;
       }
+    }
+    if (existe == false) {
+      this.historialNuevo.estado = ""
+      this.historialNuevo.fechaFinal = "";
+      this.historialNuevo.fechaInicial = "";
+      this.historialNuevo.id = 0;
+      this.serviceHistorial.inser(this.historialNuevo).subscribe(
+        response => {
+          alert('Se ha hecho los cambios exitosamente.');
+        }, error => {
+          alert('No se pudo guardar los cambios, los sentimos.')
+        }
+      );
     }
     location.reload();
   }

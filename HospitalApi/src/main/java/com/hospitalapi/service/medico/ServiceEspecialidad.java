@@ -26,6 +26,10 @@ public class ServiceEspecialidad {
         this.medicoEspecialidadDB = new MedicoEspecialidadDB();
     }
 
+    public boolean insert(Especialidad especialidad) {
+        return this.especialidadDB.insert(especialidad);
+    }
+
     public List<Especialidad> getEspecialidades() {
         return this.especialidadDB.getEspecialidades();
     }

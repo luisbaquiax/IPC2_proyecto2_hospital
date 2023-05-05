@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class SolicitudEspecialidadDB {
 
-    private static final String INSERT = "INSERT INTO solicitud_especialidad(nombre,estado) VALUES(?,?)";
+    private static final String INSERT = "INSERT INTO solicitud_especialidad(nombre,estado,descripcion) VALUES(?,?,?)";
     private static final String UPDATE = "UPDATE solicitud_especialidad SET estado = ? WHERE nombre = ?";
     private static final String SELECT = "SELECT * FROM solicitud_especialidad";
 
@@ -38,6 +38,7 @@ public class SolicitudEspecialidadDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(INSERT)) {
             statement.setString(1, solicitud.getNombre());
             statement.setString(2, solicitud.getEstado());
+            statement.setString(3, solicitud.getDescripcion());
             statement.executeUpdate();
             statement.close();
             return true;
@@ -85,7 +86,10 @@ public class SolicitudEspecialidadDB {
     }
 
     private SolicitudEspecialidad get(ResultSet resultSet) throws SQLException {
-        return new SolicitudEspecialidad(resultSet.getString("nombre"), resultSet.getString("estado"));
+        return new SolicitudEspecialidad(
+                resultSet.getString("nombre"),
+                resultSet.getString("estado"),
+                resultSet.getString("descripcion"));
     }
 
 }

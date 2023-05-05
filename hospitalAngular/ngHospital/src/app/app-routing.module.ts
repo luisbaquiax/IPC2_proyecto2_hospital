@@ -24,6 +24,8 @@ import { PacienteReportExamenesComponent } from './module/paciente/report/pacien
 import { HistorialMedicoPacienteComponent } from './module/medico/report/historial-medico-paciente/historial-medico-paciente.component';
 import { LabTopPacientesComponent } from './module/laboratorio/report/lab-top-pacientes/lab-top-pacientes.component';
 import { LabTopExamenesComponent } from './module/laboratorio/report/lab-top-examenes/lab-top-examenes.component';
+import { RevisionSolicitudesExamenComponent } from './module/admin/revision-solicitudes-examen/revision-solicitudes-examen.component';
+import { RevisionSolicitudesEspecialidadComponent } from './module/admin/revision-solicitudes-especialidad/revision-solicitudes-especialidad.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -35,6 +37,12 @@ const routes: Routes = [
   },
   {
     path: "nav-admin", component: NavAdmin
+  },
+  {
+    path: "adminSolicitudesExamens", component: RevisionSolicitudesExamenComponent
+  },
+  {
+    path: "adminSolicitudesEspecialidad", component: RevisionSolicitudesEspecialidadComponent
   },
   {
     path: "create-count", component: CreateCountComponent

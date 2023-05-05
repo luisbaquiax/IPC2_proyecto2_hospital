@@ -108,11 +108,18 @@ public class AdminController extends HttpServlet {
 
     private void insertHistoriorial(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HistorialPorcentaje historial = (HistorialPorcentaje) this.converter.fromJson(this.lector.read(request.getReader()), HistorialPorcentaje.class);
+        this.historialPorcentajeService.actualizarTodos();
+
+        HistorialPorcentaje ultimo = this.historialPorcentajeService.getAll().get(0);
+
         historial.setFechaInicial(LocalDate.now().toString());
         historial.setFechaFinal(LocalDate.now().toString());
         historial.setEstado(HistorialPorcentaje.ACTUAL);
-        System.out.println("ingresado "+historial.toString());
+
+        System.out.println("ingresado " + historial.toString());
+
         if (historialPorcentajeService.insert(historial)) {
+            historialPorcentajeService.update(ultimo, LocalDate.now().toString());
             System.out.println("todo bien");
         } else {
             System.out.println("fallo");

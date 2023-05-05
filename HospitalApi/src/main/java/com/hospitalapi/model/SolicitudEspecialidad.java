@@ -5,11 +5,23 @@
 package com.hospitalapi.model;
 
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * @author luis
  */
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SolicitudEspecialidad implements Serializable {
 
     public static final String ACEPTADO = "ACEPTADO";
@@ -19,43 +31,6 @@ public class SolicitudEspecialidad implements Serializable {
     /**
      * Estado de la solicitud = aceptado / rechazado / solicitado
      */
-    private String aceptado;
-
-    /**
-     *
-     * @param nombre
-     * @param aceptado
-     */
-    public SolicitudEspecialidad(String nombre, String aceptado) {
-        this.nombre = nombre;
-        this.aceptado = aceptado;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the aceptado
-     */
-    public String getEstado() {
-        return aceptado;
-    }
-
-    /**
-     * @param aceptado the aceptado to set
-     */
-    public void setEstado(String aceptado) {
-        this.aceptado = aceptado;
-    }
+    private String estado;
+    private String descripcion;
 }

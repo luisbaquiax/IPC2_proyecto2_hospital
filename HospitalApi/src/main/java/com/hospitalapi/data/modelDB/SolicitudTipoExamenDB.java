@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class SolicitudTipoExamenDB {
 
-    private static final String INSERT = "INSERT INTO solicitud_tipo_examen(nombre,estado) VALUES(?,?)";
+    private static final String INSERT = "INSERT INTO solicitud_tipo_examen(nombre,estado,descripcion) VALUES(?,?,?)";
     private static final String UPDATE = "UPDATE solicitud_tipo_examen SET estado = ? WHERE nombre = ?";
     private static final String SELECT = "SELECT * FROM solicitud_tipo_examen";
 
@@ -38,6 +38,7 @@ public class SolicitudTipoExamenDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(INSERT)) {
             statement.setString(1, solicitud.getNombre());
             statement.setString(2, solicitud.getEstado());
+            statement.setString(3, solicitud.getDescripcion());
             statement.executeUpdate();
             statement.close();
             return true;
@@ -55,6 +56,7 @@ public class SolicitudTipoExamenDB {
     public boolean update(SolicitudTipoExamen solicitud) {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(UPDATE)) {
             statement.setString(1, solicitud.getEstado());
+            statement.setString(2, solicitud.getNombre());
             statement.executeUpdate();
             statement.close();
             return true;
@@ -84,7 +86,7 @@ public class SolicitudTipoExamenDB {
     }
 
     private SolicitudTipoExamen get(ResultSet resultSet) throws SQLException {
-        return new SolicitudTipoExamen(resultSet.getString("nombre"), resultSet.getString("estado"));
+        return new SolicitudTipoExamen(resultSet.getString("nombre"), resultSet.getString("estado"), resultSet.getString("descripcion"));
     }
 
 }

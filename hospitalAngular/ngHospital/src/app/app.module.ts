@@ -33,6 +33,8 @@ import { PacienteReportExamenesComponent } from './module/paciente/report/pacien
 import { LabTopPacientesComponent } from './module/laboratorio/report/lab-top-pacientes/lab-top-pacientes.component';
 import { LabTopExamenesComponent } from './module/laboratorio/report/lab-top-examenes/lab-top-examenes.component';
 import { HistorialComponent } from './module/admin/historial/historial.component';
+import { RevisionSolicitudesExamenComponent } from './module/admin/revision-solicitudes-examen/revision-solicitudes-examen.component';
+import { RevisionSolicitudesEspecialidadComponent } from './module/admin/revision-solicitudes-especialidad/revision-solicitudes-especialidad.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { HistorialComponent } from './module/admin/historial/historial.component
     PacienteReportExamenesComponent,
     LabTopPacientesComponent,
     LabTopExamenesComponent,
-    HistorialComponent
+    HistorialComponent,
+    RevisionSolicitudesExamenComponent,
+    RevisionSolicitudesEspecialidadComponent
   ],
   imports: [
     BrowserModule,

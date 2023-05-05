@@ -4,6 +4,7 @@
  */
 package com.hospitalapi.data.coneccionDB;
 
+import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
 import com.hospitalapi.data.modelDB.reportsDB.ReportLabTopExamenesDB;
 import com.hospitalapi.data.modelDB.reportsDB.ReportLabTopPacientesDB;
 import com.hospitalapi.objects.Encriptador;
@@ -23,6 +24,7 @@ public class Prueba {
         System.out.println(encriptador.desencriptar("1Z1U4g19HcLKeL47jpIN9g=="));
         ProcesadorEnradaJSON p = new ProcesadorEnradaJSON();
         ContenidoArchivoJSON contenidoArchivoJSON = new ContenidoArchivoJSON();
+        HistorialPorcentajDB h = new HistorialPorcentajDB();
 //        String json2 = "[{\"nombre\":\"Nombre tipo examen A\",\"precio\":11}]";d
 //        Type listType2 = new TypeToken<ArrayList<ExamenesLaboratorio>>() {
 //        }.getType();
