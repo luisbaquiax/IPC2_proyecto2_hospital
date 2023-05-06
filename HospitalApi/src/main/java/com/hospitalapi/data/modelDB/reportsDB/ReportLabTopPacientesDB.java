@@ -33,6 +33,17 @@ public class ReportLabTopPacientesDB {
             + "ORDER BY SUM(ganancia_lab) DESC\n"
             + "LIMIT 5";
 
+    private static final String SELECT_BETWEEN_DATE = "SELECT SUM(ganancia_lab) AS ganancia, COUNT(paciente) AS cantidad, u.nombre as paciente, u.id\n"
+            + "FROM solicitud_examen s\n"
+            + "INNER JOIN paciente p\n"
+            + "ON s.paciente = p.id\n"
+            + "INNER JOIN usuario u\n"
+            + "ON p.id = u.id\n"
+            + "WHERE laboratorio = ? AND s.fecha_solicitado BETWEEN ? AND ?\n"
+            + "GROUP BY paciente\n"
+            + "ORDER BY SUM(ganancia_lab) DESC\n"
+            + "LIMIT 5";
+
     private ResultSet resultSet;
 
     public ReportLabTopPacientesDB() {
@@ -44,11 +55,7 @@ public class ReportLabTopPacientesDB {
             statement.setInt(1, laboratorio);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                list.add(ReportLabTopPacientes.builder().
-                        idPaciente(resultSet.getInt("id")).
-                        paciente(resultSet.getString("paciente")).
-                        cantidad(resultSet.getInt("cantidad")).
-                        ganancia(resultSet.getDouble("ganancia")).build());
+                list.add(get(resultSet));
             }
             resultSet.close();
             statement.close();
@@ -58,4 +65,29 @@ public class ReportLabTopPacientesDB {
         return list;
     }
 
+    public List<ReportLabTopPacientes> getList(int laboratorio, String fecha1, String fecha2) {
+        List<ReportLabTopPacientes> list = new ArrayList<>();
+        try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BETWEEN_DATE)) {
+            statement.setInt(1, laboratorio);
+            statement.setString(2, fecha1);
+            statement.setString(3, fecha2);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                list.add(get(resultSet));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReportLabTopExamenesDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    private ReportLabTopPacientes get(ResultSet resultSet) throws SQLException {
+        return ReportLabTopPacientes.builder().
+                idPaciente(resultSet.getInt("id")).
+                paciente(resultSet.getString("paciente")).
+                cantidad(resultSet.getInt("cantidad")).
+                ganancia(resultSet.getDouble("ganancia")).build();
+    }
 }

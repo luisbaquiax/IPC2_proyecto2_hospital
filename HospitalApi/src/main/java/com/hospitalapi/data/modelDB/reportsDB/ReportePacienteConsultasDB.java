@@ -21,33 +21,48 @@ import java.util.logging.Logger;
 public class ReportePacienteConsultasDB {
 
     private static final String SELECT
-            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre as especialidad, u.nombre as medico\n"
             + "FROM consulta c\n"
             + "INNER JOIN especialidad e\n"
             + "ON c.especialidad = e.id\n"
+            + "INNER JOIN medico m\n"
+            + "ON c.medico = m.id\n"
+            + "INNER JOIN usuario u\n"
+            + "ON m.id = u.id\n"
             + "WHERE paciente = ?";
 
     private static final String SELECT_BETWEEN_FECHA
-            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre as especialidad, u.nombre as medico\n"
             + "FROM consulta c\n"
             + "INNER JOIN especialidad e\n"
             + "ON c.especialidad = e.id\n"
-            + "WHERE paciente = ? "
-            + "AND fecha_creacion BETWEEN ? AND ?";
+            + "INNER JOIN medico m\n"
+            + "ON c.medico = m.id\n"
+            + "INNER JOIN usuario u\n"
+            + "ON m.id = u.id\n"
+            + "WHERE paciente = ? AND fecha_creacion BETWEEN ? AND ?";
 
     private static final String SELECT_BY_ESPECIALIDAD
-            = "SSELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre as especialidad, u.nombre as medico\n"
             + "FROM consulta c\n"
             + "INNER JOIN especialidad e\n"
             + "ON c.especialidad = e.id\n"
+            + "INNER JOIN medico m\n"
+            + "ON c.medico = m.id\n"
+            + "INNER JOIN usuario u\n"
+            + "ON m.id = u.id\n"
             + "WHERE paciente = ? \n"
             + "AND e.nombre = ?";
 
     private static final String SELECT_BY_ESPECIALIDAD_DATE
-            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre\n"
+            = "SELECT precio, informe, fecha_creacion, fecha_agendada, estado, e.nombre as especialidad, u.nombre as medico\n"
             + "FROM consulta c\n"
             + "INNER JOIN especialidad e\n"
             + "ON c.especialidad = e.id\n"
+            + "INNER JOIN medico m\n"
+            + "ON c.medico = m.id\n"
+            + "INNER JOIN usuario u\n"
+            + "ON m.id = u.id\n"
             + "WHERE paciente = ? AND fecha_creacion BETWEEN ? AND ?\n"
             + "AND e.nombre = ?";
 
@@ -130,7 +145,8 @@ public class ReportePacienteConsultasDB {
         return new ReportPacienteConsultas(
                 resultSet.getString("fecha_agendada"),
                 resultSet.getString("fecha_creacion"),
-                resultSet.getString("nombre"),
+                resultSet.getString("medico"),
+                resultSet.getString("especialidad"),
                 resultSet.getString("estado"),
                 resultSet.getString("informe"),
                 resultSet.getDouble("precio"));

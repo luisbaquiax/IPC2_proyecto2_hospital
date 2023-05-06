@@ -19,6 +19,7 @@ public class ReportPacienteConsultas {
 
     private String fechaAgenda;
     private String fechaCreacion;
+    private String medico;
     private String especialidad;
     private String estado;
     private String informe;
@@ -30,18 +31,20 @@ public class ReportPacienteConsultas {
      *
      * @param fechaAgenda
      * @param fechaCreacion
+     * @param medico
      * @param especialidad
      * @param estado
      * @param informe
      * @param precio
      */
-    public ReportPacienteConsultas(String fechaAgenda, String fechaCreacion, String especialidad, String estado, String informe, Double precio) {
+    public ReportPacienteConsultas(String fechaAgenda, String fechaCreacion,String medico, String especialidad, String estado, String informe, Double precio) {
         this.fechaAgenda = fechaAgenda;
         this.fechaCreacion = fechaCreacion;
         this.especialidad = especialidad;
         this.estado = estado;
         this.informe = informe;
         this.precio = precio;
+        this.medico = medico;
         String[] list = this.fechaAgenda.split(" ");
         this.fecha = list[0];
         this.hora = list[1];

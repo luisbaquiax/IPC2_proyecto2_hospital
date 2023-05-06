@@ -20,6 +20,12 @@ public class ServiceHistorialMedico {
         this.historialMedicoDB = new HistorialMedicoDB();
     }
 
+    /**
+     * Historial medico por paciente
+     *
+     * @param paciente
+     * @return
+     */
     public List<HistorialMedico> getList(int paciente) {
         return this.historialMedicoDB.getByPaciente(paciente);
     }
@@ -31,9 +37,9 @@ public class ServiceHistorialMedico {
     public List<HistorialMedico> getList(int paciente, int medico) {
         return this.historialMedicoDB.getByPaciente(paciente, medico);
     }
-    
-     public List<HistorialMedico> getListByMedico(int medico) {
-        return this.historialMedicoDB.getByMedico( medico);
+
+    public List<HistorialMedico> getListByMedico(int medico) {
+        return this.historialMedicoDB.getByMedico(medico);
     }
 
 }

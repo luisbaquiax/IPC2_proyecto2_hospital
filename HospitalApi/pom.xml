@@ -52,6 +52,24 @@
             <version>2.14.2</version>
             <type>jar</type>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>6.19.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-functions -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-functions</artifactId>
+            <version>6.19.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports-fonts -->
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-fonts</artifactId>
+            <version>6.19.0</version>
+        </dependency>
     </dependencies>
     
     <build>
