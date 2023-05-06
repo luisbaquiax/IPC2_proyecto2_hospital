@@ -4,6 +4,7 @@ import { Usuario } from '../../../../../entidad/Usuario';
 import { HistorialMecioReport } from '../../../../../entidad/model/reports/HistorialMedicoReport';
 import { FormGroup, FormControl } from '@angular/forms';
 import { HistorialMedicoService } from '../../../../service/historialMedico/report-historial-medico.service';
+import { DownloadPacienteService } from '../../../../service/download/download-paciente/download-paciente.service';
 
 @Component({
   selector: 'app-historial-medico',
@@ -20,7 +21,7 @@ export class PacienteHistorialMedicoComponent implements OnInit {
     fecha2: new FormControl()
   });
 
-  constructor(private sesion: SesionService, private serviceHistorial: HistorialMedicoService) {
+  constructor(private sesion: SesionService, private serviceHistorial: HistorialMedicoService, private download: DownloadPacienteService) {
 
     let userJson = localStorage.getItem('userLogin');
     this.user = userJson ? JSON.parse(userJson) : null;
@@ -42,5 +43,22 @@ export class PacienteHistorialMedicoComponent implements OnInit {
       }
     );
   }
-  descargar(){}
+  descargar() {
+    this.download.dowloadHistorialMedico(this.historial).subscribe(
+      blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'historialMédico.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        console.log('Todo bien')
+      }, error => {
+        console.log('falló')
+        console.log(error)
+      }
+    );
+  }
 }

@@ -29,7 +29,7 @@
                     <td>{{h.nombre}}</td>
                     <td>{{h.totalPorConsultas+h.gananciaApp}}</td>
                     <td>{{h.cantidadConsultas}}</td>
-                    <td>{{h.gananciaApp}}</td>
+                    <td>{{h.gananciaApp | currency : 'Q'}}</td>
                 </tr>
         </table>
     </div>

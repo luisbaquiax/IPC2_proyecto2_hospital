@@ -7,7 +7,6 @@ package com.hospitalapi.servletController.laboratorio;
 import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.service.laboratorio.ServiceReportLaboratorio;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,8 +45,14 @@ public class ServletControllerReportLab extends HttpServlet {
             case "topExamenes":
                 sendListTopExamenes(request, response);
                 break;
+            case "topExamenesFechas":
+                sendListTopExamenesDate(request, response);
+                break;
             case "topPacientes":
                 sendListTopPacientes(request, response);
+                break;
+            case "topPacientesFechas":
+                sendListTopPacientesFechas(request, response);
                 break;
             default:
         }
@@ -72,6 +77,24 @@ public class ServletControllerReportLab extends HttpServlet {
 
     private void sendListTopPacientes(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.getWriter().write(this.converter.toJson(this.serviceReport.getListTopPaciente(Integer.parseInt(request.getParameter("id")))));
+    }
+
+    private void sendListTopExamenesDate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String fecha1 = request.getParameter("fecha1");
+        String fecha2 = request.getParameter("fecha2");
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        response.getWriter().write(
+                this.converter.toJson(this.serviceReport.getListTopExamenes(id, fecha1, fecha2)));
+    }
+
+    private void sendListTopPacientesFechas(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String fecha1 = request.getParameter("fecha1");
+        String fecha2 = request.getParameter("fecha2");
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        response.getWriter().write(
+                this.converter.toJson(this.serviceReport.getListTopPaciente(id, fecha1, fecha2)));
     }
 
 }

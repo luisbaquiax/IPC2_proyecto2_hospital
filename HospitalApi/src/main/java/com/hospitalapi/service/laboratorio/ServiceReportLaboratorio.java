@@ -27,9 +27,17 @@ public class ServiceReportLaboratorio {
     public List<ReportLabTopExamenes> getListTopExamenes(int idLab) {
         return this.reportLabTopExamenesDB.getList(idLab);
     }
+    
+    public List<ReportLabTopExamenes> getListTopExamenes(int idLab, String fecha1, String fecha2) {
+        return this.reportLabTopExamenesDB.getList(idLab, fecha1, fecha2);
+    }
 
     public List<ReportLabTopPacientes> getListTopPaciente(int idLab) {
         return this.reportLabTopPacientesDB.getList(idLab);
+    }
+    
+     public List<ReportLabTopPacientes> getListTopPaciente(int idLab, String fecha1, String fecha2) {
+        return this.reportLabTopPacientesDB.getList(idLab, fecha1, fecha2);
     }
 
 }

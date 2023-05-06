@@ -23,6 +23,10 @@ export class ReportLaboratorioService {
     return this.httpClient.get<LabTopPaciente[]>(this.URL + "topPacientes&id=" + user.id);
   }
 
+  public getTopPacientesFechas(user: Usuario, fecha1: string, fecha2: string): Observable<LabTopPaciente[]> {
+    return this.httpClient.get<LabTopPaciente[]>(this.URL + "topPacientesFechas&id=" + user.id + "&fecha1=" + fecha1 + "&fecha2=" + fecha2);
+  }
+
   /**
    * Top exámenes que más ingreso generan
    * @param user 
@@ -31,4 +35,9 @@ export class ReportLaboratorioService {
   public getTopExamenes(user: Usuario): Observable<LabTopExaemns[]> {
     return this.httpClient.get<LabTopExaemns[]>(this.URL + "topExamenes&id=" + user.id)
   }
+
+  public getTopExamenesFechas(user: Usuario, fecha1: string, fecha2: string): Observable<LabTopExaemns[]> {
+    return this.httpClient.get<LabTopExaemns[]>(this.URL + "topExamenesFechas&id=" + user.id + "&fecha1=" + fecha1 + "&fecha2=" + fecha2);
+  }
 }
+

@@ -7,6 +7,8 @@ package com.hospitalapi.service.reports;
 import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
 import com.hospitalapi.data.modelDB.reportsDB.LaboratorioIngresosDB;
 import com.hospitalapi.data.modelDB.reportsDB.MedicoIngresosDB;
+import com.hospitalapi.model.Consulta;
+import com.hospitalapi.model.SolicitudExamen;
 import com.hospitalapi.model.reports.MedicoIngresos;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -68,6 +70,32 @@ public class ServiceDownloadReportsAdmin {
         JasperExportManager.exportReportToPdfStream(printer, stream);
 
     }
+    
+    public void reportConsultas(OutputStream stream, List<Consulta> list) throws JRException {
+
+        InputStream compiledReport = getClass().getClassLoader().getResourceAsStream("reportes/consultas.jasper");
+
+        JRDataSource source = new JRBeanCollectionDataSource(list);
+
+        JasperPrint printer = JasperFillManager.fillReport(compiledReport, null, source);
+
+        JasperExportManager.exportReportToPdfStream(printer, stream);
+
+    }
+    
+    public void reportExamenes(OutputStream stream, List<SolicitudExamen> list) throws JRException {
+
+        InputStream compiledReport = getClass().getClassLoader().getResourceAsStream("reportes/examenes.jasper");
+
+        JRDataSource source = new JRBeanCollectionDataSource(list);
+
+        JasperPrint printer = JasperFillManager.fillReport(compiledReport, null, source);
+
+        JasperExportManager.exportReportToPdfStream(printer, stream);
+
+    }
+    
+    
 
     public double getTotal(List<MedicoIngresos> list) {
         double total = 0;

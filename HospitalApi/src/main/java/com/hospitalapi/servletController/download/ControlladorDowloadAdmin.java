@@ -4,10 +4,20 @@
  */
 package com.hospitalapi.servletController.download;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.hospitalapi.model.Consulta;
+import com.hospitalapi.model.SolicitudExamen;
+import com.hospitalapi.model.reports.ReportLabTopExamenes;
+import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.reports.ServiceDownloadReportsAdmin;
 import com.hospitalapi.service.reports.ServiceDownloadReportsMedico;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -25,9 +35,11 @@ import net.sf.jasperreports.engine.JRException;
 public class ControlladorDowloadAdmin extends HttpServlet {
 
     private ServiceDownloadReportsAdmin serviceReportsAdminDownload;
+    private LectorJson lector;
 
     public ControlladorDowloadAdmin() {
         this.serviceReportsAdminDownload = new ServiceDownloadReportsAdmin();
+        this.lector = new LectorJson();
     }
 
     /**
@@ -66,17 +78,54 @@ public class ControlladorDowloadAdmin extends HttpServlet {
         }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("hola");
+        try {
+
+            response.setContentType("application/pdf");
+            response.setHeader("Content-disposition", "attachment; filename=reporte.pdf");
+
+            String accion = request.getParameter("accion");
+            switch (accion) {
+                case "1":
+                    downReportConsultas(request, response);
+                    break;
+                case "2":
+                    dowReportExamenes(request, response);
+                    break;
+                default:
+            }
+        } catch (JRException ex) {
+            System.out.println("valio");
+            Logger.getLogger(ControlladorDowloadAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void downReportConsultas(HttpServletRequest request, HttpServletResponse response) throws IOException, JRException {
+        String json = this.lector.read(request.getReader());
+
+        Type listType = new TypeToken<ArrayList<Consulta>>() {
+        }.getType();
+        List<Consulta> list = new Gson().fromJson(json, listType);
+
+        System.out.println(Arrays.toString(list.toArray()));
+
+        this.serviceReportsAdminDownload.reportConsultas(response.getOutputStream(), list);
+    }
+
+    private void dowReportExamenes(HttpServletRequest request, HttpServletResponse response) throws IOException, JRException {
+
+        String json = this.lector.read(request.getReader());
+
+        Type listType = new TypeToken<ArrayList<SolicitudExamen>>() {
+        }.getType();
+        List<SolicitudExamen> list = new Gson().fromJson(json, listType);
+
+        System.out.println(Arrays.toString(list.toArray()));
+
+        this.serviceReportsAdminDownload.reportExamenes(response.getOutputStream(), list);
     }
 
 }

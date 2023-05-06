@@ -8,6 +8,7 @@ import { ReportPacienteService } from '../../../../service/reports/report-pacien
 import { EspecialidadService } from '../../../../service/especialidad/especialidad.service';
 import { ServiceEspecialidadService } from '../../../../service/especialidad/service-especialidad.service';
 import { ExamenesLaboratorioService } from '../../../../service/examenesLaboratorio/examenes-laboratorio.service';
+import { DownloadPacienteService } from '../../../../service/download/download-paciente/download-paciente.service';
 
 @Component({
   selector: 'app-paciente-report-examenes',
@@ -34,7 +35,8 @@ export class PacienteReportExamenesComponent implements OnInit {
     tipoExamen: new FormControl()
   });
 
-  constructor(private sesion: SesionService, private serviceRerport: ReportPacienteService, private serviceLab: ExamenesLaboratorioService) {
+  constructor(private sesion: SesionService, private serviceRerport: ReportPacienteService, 
+    private serviceLab: ExamenesLaboratorioService, private download: DownloadPacienteService) {
     this.user = new Usuario();
     let userJson = localStorage.getItem('userLogin');
     this.user = userJson ? JSON.parse(userJson) : null;
@@ -80,6 +82,23 @@ export class PacienteReportExamenesComponent implements OnInit {
       }
     );
   }
-  descargar() { }
+  descargar() { 
+    this.download.dowlaodExamenes(this.examenes).subscribe(
+      blob=>{
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reporte de exámenes.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        console.log('Todo bien')
+      },error=>{  
+        console.log('falló')
+        console.log(error)
+      }
+    );
+  }
 
 }

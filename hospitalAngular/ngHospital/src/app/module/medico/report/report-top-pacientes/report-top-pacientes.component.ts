@@ -4,6 +4,7 @@ import { SesionService } from '../../../../service/sesion.service';
 import { Usuario } from '../../../../../entidad/Usuario';
 import { MedicoReportService } from '../../../../service/reports/reportMedico/medico-report.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { DownloadMedicoService } from '../../../../service/download/download-medico/download-medico.service';
 
 @Component({
   selector: 'app-report-top-pacientes',
@@ -21,7 +22,7 @@ export class ReportTopPacientesComponent implements OnInit {
     fecha2: new FormControl()
   });
 
-  constructor(private sesion: SesionService, private reportService: MedicoReportService) {
+  constructor(private sesion: SesionService, private reportService: MedicoReportService, private download: DownloadMedicoService) {
     this.user = new Usuario();
     this.total = 0;
 
@@ -53,7 +54,24 @@ export class ReportTopPacientesComponent implements OnInit {
       }
     );
   }
-  descargar() { }
+  descargar() {
+    this.download.downloadTopPacientes(this.pacientes).subscribe(
+      blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'reporteTopPacientes.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        console.log('Todo bien')
+      }, error => {
+        console.log('falló')
+        console.log(error)
+      }
+    );
+  }
 
   getTotal(pacientes: MedicoReportPacientesIngresos[]) {
     this.total = 0;

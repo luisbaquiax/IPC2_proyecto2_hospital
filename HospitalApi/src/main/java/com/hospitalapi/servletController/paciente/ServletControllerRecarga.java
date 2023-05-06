@@ -10,11 +10,13 @@ import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.paciente.ServiceHistorialRecarga;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import jdk.internal.org.jline.utils.OSUtils;
 
 /**
  *
@@ -72,7 +74,8 @@ public class ServletControllerRecarga extends HttpServlet {
 
     private void listarRecargas(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario user = (Usuario) this.converter.fromJson(this.lector.read(request.getReader()), Usuario.class);
-        response.getWriter().write(this.converter.toJson(this.serviceHistorialRecarga.getList(user)));
+        System.out.println(Arrays.toString(this.converter.toJson(this.serviceHistorialRecarga.getList(user)).toCharArray()));
+        response.getWriter().write("recargas " + this.converter.toJson(this.serviceHistorialRecarga.getList(user)));
     }
 
     private void ingesarRecarga(HttpServletRequest request, HttpServletResponse response) throws IOException {

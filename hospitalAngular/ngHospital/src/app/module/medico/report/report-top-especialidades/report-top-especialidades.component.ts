@@ -4,6 +4,7 @@ import { MedicoReportEspecialidadesIngresos } from '../../../../../entidad/model
 import { SesionService } from '../../../../service/sesion.service';
 import { MedicoReportService } from '../../../../service/reports/reportMedico/medico-report.service';
 import { Usuario } from '../../../../../entidad/Usuario';
+import { DownloadMedicoService } from '../../../../service/download/download-medico/download-medico.service';
 
 @Component({
   selector: 'app-report-top-especialidades',
@@ -21,7 +22,7 @@ export class ReportTopEspecialidadesComponent implements OnInit {
   especialidades: MedicoReportEspecialidadesIngresos[] = [];
 
 
-  constructor(private sesion: SesionService, private serviceReport: MedicoReportService) {
+  constructor(private sesion: SesionService, private serviceReport: MedicoReportService, private dowload: DownloadMedicoService) {
     this.total = 0;
     this.user = new Usuario();
     let userString = localStorage.getItem('userLogin');
@@ -60,6 +61,22 @@ export class ReportTopEspecialidadesComponent implements OnInit {
   }
   descargar() {
     console.log('Descargando...');
+    this.dowload.downloadTopEspecialidades(this.especialidades).subscribe(
+      blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'reporteTopEspecialidades.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        console.log('Todo bien')
+      }, error => {
+        console.log('falló')
+        console.log(error)
+      }
+    );
   }
 
   getTotal(especialidades: MedicoReportEspecialidadesIngresos[]) {

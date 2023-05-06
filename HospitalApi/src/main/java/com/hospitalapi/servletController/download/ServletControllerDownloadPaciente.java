@@ -7,7 +7,6 @@ package com.hospitalapi.servletController.download;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hospitalapi.data.modelDB.RecargaDB;
-import com.hospitalapi.model.Recarga;
 import com.hospitalapi.model.reports.HistorialMedico;
 import com.hospitalapi.model.reports.ReportPacienteConsultas;
 import com.hospitalapi.model.reports.ReportPacienteExamenes;
@@ -54,7 +53,7 @@ public class ServletControllerDownloadPaciente extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             response.setContentType("application/pdf");

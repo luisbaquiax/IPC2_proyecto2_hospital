@@ -4,6 +4,7 @@ import { ReportAdminService } from '../../../service/report-admin.service';
 import { HistorialPorcentaje } from '../../../../entidad/HistorialPorcentaje';
 import { Usuario } from '../../../../entidad/Usuario';
 import { SesionService } from '../../../service/sesion.service';
+import { DownloadService } from '../../../service/download/download.service';
 
 @Component({
   selector: 'app-historial-porcentajes',
@@ -14,7 +15,7 @@ export class HistorialPorcentajesComponent implements OnInit {
 
   historial: HistorialPorcentaje[] = [];
   user: Usuario;
-  constructor(private router: Router, private serviceReport: ReportAdminService, private serviceSesion: SesionService) {
+  constructor(private router: Router, private serviceReport: ReportAdminService, private serviceSesion: SesionService, private down: DownloadService) {
     this.user = new Usuario();
     this.obtenerLista();
   }
@@ -32,5 +33,21 @@ export class HistorialPorcentajesComponent implements OnInit {
   }
   descargar(){
     console.log('descargando');
+    this.down.downHistorialPorcentajes().subscribe(
+      blob=>{
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'informe.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+        console.log('Todo bien')
+      },error=>{  
+        console.log('falló')
+        console.log(error)
+      }
+    );
   }
 }
