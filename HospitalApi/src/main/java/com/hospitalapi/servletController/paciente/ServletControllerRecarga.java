@@ -10,6 +10,8 @@ import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.paciente.ServiceHistorialRecarga;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +62,7 @@ public class ServletControllerRecarga extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "recargas":
@@ -74,13 +77,16 @@ public class ServletControllerRecarga extends HttpServlet {
 
     private void listarRecargas(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario user = (Usuario) this.converter.fromJson(this.lector.read(request.getReader()), Usuario.class);
-        System.out.println(Arrays.toString(this.converter.toJson(this.serviceHistorialRecarga.getList(user)).toCharArray()));
-        response.getWriter().write("recargas " + this.converter.toJson(this.serviceHistorialRecarga.getList(user)));
+        System.out.println("recargas: " + Arrays.toString(this.converter.toJson(this.serviceHistorialRecarga.getList(user)).toCharArray()));
+        response.getWriter().write(this.converter.toJson(this.serviceHistorialRecarga.getList(user)));
     }
 
     private void ingesarRecarga(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Recarga recarga = (Recarga) this.converter.fromJson(this.lector.read(request.getReader()), Recarga.class);
-        recarga.setFechaHora(recarga.getFecha() + " " + recarga.getHora());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        recarga.setFechaHora(dtf.format(LocalDateTime.now()));
+        recarga.setId(0);
+        System.out.println(recarga.toString());
         if (this.serviceHistorialRecarga.insert(recarga)) {
             response.setStatus(HttpServletResponse.SC_CREATED);
         } else {

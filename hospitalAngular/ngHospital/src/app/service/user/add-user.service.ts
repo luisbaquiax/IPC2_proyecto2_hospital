@@ -12,16 +12,28 @@ export class AddUserService {
 
   constructor(private http: HttpClient) { }
 
-  inserUser(usuario: Usuario) {
+  public inserUser(usuario: Usuario) {
     return this.http.post<User>(`${this.url}ingresarNuevo`, usuario);
   }
-  getAllUser(){
+  public getAllUser() {
     return this.http.get<Usuario[]>(`${this.url}allUsers`);
   }
-  getAllUserByUserName(username: String){
+  public getAllUserByUserName(username: String) {
     return this.http.get<User>(`${this.url}userUsername&username=${username}`);
   }
-  getUserNamePassword(user: Usuario): Observable<Usuario>{
-    return this.http.post<Usuario>(this.url+"search", user);
+  public getUserNamePassword(user: Usuario): Observable<Usuario> {
+    return this.http.post<Usuario>(this.url + "search", user);
   }
+
+  public getUserMedicoFilterName(name: string) {
+    return this.http.get<Usuario[]>(`${this.url}filterUserMedico&filter=${name}`);
+
+  }
+  public getUserMedicoByEspecialida(name: string) {
+    return this.http.get<Usuario[]>(this.url + "getMedicosByEspecialidad&especialidad=" + name);
+  }
+  public getUsersLabsByName(name: string) {
+    return this.http.get<Usuario[]>(this.url + "filterLabByName&name=" + name);
+  }
+
 }

@@ -53,6 +53,7 @@ public class ReportAdminController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String tarea = request.getParameter("tarea");
+        response.setContentType("application/json");
         switch (tarea) {
             case "historialPorcentajes":
                 verHistorialPorcentajes(request, response);
@@ -90,11 +91,13 @@ public class ReportAdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
     }
 
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
     }
 
     private void verHistorialPorcentajes(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -105,15 +108,15 @@ public class ReportAdminController extends HttpServlet {
 
     private void verconsultas(HttpServletResponse response) throws IOException {
         String json = this.converter.toJson(this.adminReportIngresosConsultaService.getAll());
-        System.out.println("consultas: "+json);
+        System.out.println("consultas: " + json);
         response.getWriter().append(json);
     }
 
     private void verconsultasFecha(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fecha1 = request.getParameter("fecha1");
         String fecha2 = request.getParameter("fecha2");
-         String json = this.converter.toJson(this.adminReportIngresosConsultaService.getAllIntoTimeInterval(fecha1, fecha2));
-        System.out.println("consultas fechas: "+json);
+        String json = this.converter.toJson(this.adminReportIngresosConsultaService.getAllIntoTimeInterval(fecha1, fecha2));
+        System.out.println("consultas fechas: " + json);
         response.getWriter().append(json);
     }
 

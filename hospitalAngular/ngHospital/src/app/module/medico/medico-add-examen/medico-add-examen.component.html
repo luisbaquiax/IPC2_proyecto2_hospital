@@ -1,0 +1,45 @@
+<app-menu-medico></app-menu-medico>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center mt-4"><strong>Agregar exámenes a la consulta {{this.consulta.id}}</strong></h2>
+            <button class="btn btn-danger" (click)="reiniciar()">Reiniciar todo</button>
+            <form class="mt-5" (ngSubmit)="agregar()" [formGroup]="form">
+                <div class="form-group">
+                    <label for="examen">Elegir examen:</label>
+                    <select class="form-control" id="examen" required formControlName="examen" name="examen">
+                        <option *ngFor="let especialidad of examenesDisponibles" [value]="especialidad.name">
+                            {{especialidad.name}}</option>
+                    </select>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-secondary mx-3 w-50" [disabled]="!form.valid">Agregar
+                        especialidad</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <button class="btn btn-primary mx-3 w-50" (click)="guardarCambios()">Guardar cambios</button>
+            </div>
+        </div>
+        <div class="col">
+            <h1 class="text-center mt-4"><strong>Examenes agregadas a la consulta {{consulta.id}}:</strong></h1>
+            <table id="storeTable" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">CODIGO</th>
+                        <th scope="col">EXAMEN</th>
+                        <th scope="col">DESCRIPCION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let d of examenesAgregadas">
+                        <td>{{d.id}}</td>
+                        <td>{{d.name}}</td>
+                        <td>{{d.description}}</td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

@@ -5,12 +5,19 @@
 package com.hospitalapi.data.coneccionDB;
 
 import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
+import com.hospitalapi.data.modelDB.UserDB;
 import com.hospitalapi.data.modelDB.reportsDB.ReportLabTopExamenesDB;
 import com.hospitalapi.data.modelDB.reportsDB.ReportLabTopPacientesDB;
 import com.hospitalapi.objects.Encriptador;
 import com.hospitalapi.objects.datos.ContenidoArchivoJSON;
 import com.hospitalapi.objects.datos.ProcesadorEnradaJSON;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import javax.ejb.Local;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -24,7 +31,8 @@ public class Prueba {
         System.out.println(encriptador.desencriptar("1Z1U4g19HcLKeL47jpIN9g=="));
         ProcesadorEnradaJSON p = new ProcesadorEnradaJSON();
         ContenidoArchivoJSON contenidoArchivoJSON = new ContenidoArchivoJSON();
-        HistorialPorcentajDB h = new HistorialPorcentajDB();
+        UserDB userDB = new UserDB();
+        System.out.println(userDB.getUserFilterName("m"));
 //        String json2 = "[{\"nombre\":\"Nombre tipo examen A\",\"precio\":11}]";d
 //        Type listType2 = new TypeToken<ArrayList<ExamenesLaboratorio>>() {
 //        }.getType();

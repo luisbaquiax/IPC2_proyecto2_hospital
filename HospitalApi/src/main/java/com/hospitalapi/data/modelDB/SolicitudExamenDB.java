@@ -35,7 +35,13 @@ public class SolicitudExamenDB {
      * Lista de solicitudes de examen en un intervalo de fecha
      */
     private static final String SELECT_BETWEEN_FECHA = "SELECT * FROM solicitud_examen WHERE fecha_solicitado BETWEEN ? AND ?";
-
+    /**
+     * solicitudes por laboratorio
+     */
+    private static final String SELECT_BY = "SELECT * FROM solicitud_examen WHERE (laboratorio = ?  OR paciente = ?) AND estado = ?";
+    
+    public static final String ULTIMO = "SELECT id AS ultimo FROM solicitud_examen ORDER BY id DESC LIMIT 1";
+    
     private ResultSet resultSet;
 
     public SolicitudExamenDB() {
@@ -142,6 +148,24 @@ public class SolicitudExamenDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BETWEEN_FECHA)) {
             statement.setString(1, fecha1);
             statement.setString(2, fecha2);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                lista.add(get(resultSet));
+            }
+            resultSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(SolicitudExamenDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lista;
+    }
+    
+     public List<SolicitudExamen> getListSolicitdExamenBy(int laboratorio, int paciente, String estado) {
+        List<SolicitudExamen> lista = new ArrayList<>();
+        try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY)) {
+            statement.setInt(1, laboratorio);
+            statement.setInt(2, paciente);
+            statement.setString(3, estado);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 lista.add(get(resultSet));

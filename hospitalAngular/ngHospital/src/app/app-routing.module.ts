@@ -26,6 +26,15 @@ import { LabTopPacientesComponent } from './module/laboratorio/report/lab-top-pa
 import { LabTopExamenesComponent } from './module/laboratorio/report/lab-top-examenes/lab-top-examenes.component';
 import { RevisionSolicitudesExamenComponent } from './module/admin/revision-solicitudes-examen/revision-solicitudes-examen.component';
 import { RevisionSolicitudesEspecialidadComponent } from './module/admin/revision-solicitudes-especialidad/revision-solicitudes-especialidad.component';
+import { ModalEditEspecialidadComponent } from './module/medico/medico-add-especialidad/modal-edit-especialidad.component';
+import { SolicitudEspecialidadComponent } from './module/medico/solicitud-especialidad/solicitud-especialidad.component';
+import { SolicitudTipoExamenComponent } from './module/laboratorio/solicitud-tipo-examen/solicitud-tipo-examen.component';
+import { MedicoConsultasAgendasComponent } from './module/medico/medico-consultas-agendas/medico-consultas-agendas.component';
+import { MedicoAddExamenComponent } from './module/medico/medico-add-examen/medico-add-examen.component';
+import { MedicoConsultaPendienteRevisionComponent } from './module/medico/medico-consulta-pendiente-revision/medico-consulta-pendiente-revision.component';
+import { MedicoExamensRevisionComponent } from './module/medico/medico-examens-revision/medico-examens-revision.component';
+import { ConsultasComponent } from './module/paciente/consultas/consultas.component';
+import { PacienteCreateSolicitudExamenComponent } from './module/paciente/paciente-create-solicitud-examen/paciente-create-solicitud-examen.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -57,6 +66,24 @@ const routes: Routes = [
     path: "medicoAddInfo", component: AddInformacionMedicoComponent
   },
   {
+    path: "medicoAddEspecialidad", component: ModalEditEspecialidadComponent
+  },
+  {
+    path: "medicoSolicitudEspecialidad", component: SolicitudEspecialidadComponent
+  },
+  {
+    path: "medConsultasAgendadas", component: MedicoConsultasAgendasComponent
+  },
+  {
+    path: "medConsultasPendienteRevision", component: MedicoConsultaPendienteRevisionComponent
+  },
+  {
+    path: "medExamenesRevision", component: MedicoExamensRevisionComponent
+  },
+  {
+    path: "medAddExamenesConsulta", component: MedicoAddExamenComponent
+  },
+  {
     path: "historialPorcentajes", component: HistorialPorcentajesComponent
   },
   {
@@ -76,6 +103,9 @@ const routes: Routes = [
   },
   {
     path: "labTopExaemns", component: LabTopExamenesComponent
+  },
+  {
+    path: "labSolicitudTipoExamen", component: SolicitudTipoExamenComponent
   },
   {
     path: "topMedico", component: TopMedicosComponent
@@ -107,7 +137,12 @@ const routes: Routes = [
   {
     path: "pacienteReportExamenes", component: PacienteReportExamenesComponent
   },
-
+  {
+    path: "pacienteConsultas", component: ConsultasComponent
+  },
+  {
+    path: "pacienteCreateSolicitudExamen", component: PacienteCreateSolicitudExamenComponent
+  },
 ];
 
 @NgModule({

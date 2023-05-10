@@ -34,6 +34,15 @@ public class ServiceExamenes {
         return this.precioExamenDB.insert(precioExamen);
     }
 
+    /**
+     *
+     * @param precioExamen
+     * @return
+     */
+    public boolean update(PrecioExamen precioExamen) {
+        return this.precioExamenDB.update(precioExamen);
+    }
+
     public void ingresarExamenesLaboratorio(List<ExamenesLaboratorio> lista, int idLaboratorio) {
         for (ExamenesLaboratorio examenesLaboratorio : lista) {
             for (TipoExamen tipos : this.tipoExamenDB.getTipoExamenes()) {

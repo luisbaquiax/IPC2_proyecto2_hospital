@@ -5,6 +5,7 @@
 package com.hospitalapi.service.paciente;
 
 import com.hospitalapi.data.modelDB.RecargaDB;
+import com.hospitalapi.data.modelDB.UserDB;
 import com.hospitalapi.model.Recarga;
 import com.hospitalapi.model.Usuario;
 import java.util.List;
@@ -16,14 +17,26 @@ import java.util.List;
 public class ServiceHistorialRecarga {
 
     private RecargaDB recargaDB;
+    private UserDB userDB;
 
     public ServiceHistorialRecarga() {
         this.recargaDB = new RecargaDB();
+        this.userDB = new UserDB();
     }
 
-    
     public boolean insert(Recarga recarga) {
-        return this.recargaDB.insert(recarga);
+        if (recargaDB.insert(recarga)) {
+            for (Usuario user : this.userDB.getAllUsers()) {
+                if(recarga.getIdPaciente()==user.getId()){
+                    user.setSaldo(user.getSaldo()+recarga.getMonto());
+                    this.userDB.update(user);
+                    break;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public List<Recarga> getList(Usuario user) {

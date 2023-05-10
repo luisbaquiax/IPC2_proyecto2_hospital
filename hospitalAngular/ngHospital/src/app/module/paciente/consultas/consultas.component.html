@@ -1,1 +1,57 @@
-<p>consultas works!</p>
+<app-nav-paciente></app-nav-paciente>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Buscar medico</h2>
+                    <hr>
+                    <div class="d-flex">
+                        <form [formGroup]="form">
+                            <div class="col-auto">
+                                <label for="name" class="form-label">Filtrar por nombre:</label>
+                                <input formControlName="name" type="text" class="form-control" id="name" required=""
+                                    (keyup)="filtarPorNombre()">
+                            </div>
+                        </form>
+                        <form [formGroup]="form2" (ngSubmit)="filtarEspecialidad()" class="mx-3">
+                            <div class="d-flex">
+                                <div class="col-auto">
+                                    <label for="especialidad" class="form-label">Filtrar por especialidad:</label>
+                                    <select class="form-control" id="examen" required formControlName="especialidad"
+                                        name="especialidad">
+                                        <option *ngFor="let e of especialidades" [value]="e.name">{{e.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <br>
+                                    <button type="submit" class="btn btn-primary mt-2 mx-2" [disabled]="!form2.valid">Buscar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="storeTable" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Ver horarios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let h of users">
+                                <td>{{h.id}}</td>
+                                <td>{{h.nombre}}</td>
+                                <td>
+                                   <button class="btn btn-primary" (click)="verHorarios(h)">Ver horarios</button>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

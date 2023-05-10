@@ -4,6 +4,7 @@ import { Usuario } from '../../../entidad/Usuario';
 import { EspecialidadesMedico } from '../../../entidad/EspecialidadesMedico';
 import { Observable } from 'rxjs';
 import { Especialidad } from '../../../entidad/Especialidad';
+import { MedicoEspecialidad } from '../../../entidad/MedicoEspecialidad';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,20 @@ import { Especialidad } from '../../../entidad/Especialidad';
 export class ServiceEspecialidadService {
 
   url: String = "http://localhost:8080/HospitalApi/servletControllerMedicoEspecialidad?tarea=";
-  
+
   constructor(private http: HttpClient) { }
 
   public getEspecialidades(user: Usuario): Observable<EspecialidadesMedico[]> {
     return this.http.post<EspecialidadesMedico[]>(this.url + "especialidades", user);
   }
-  
-
   public getEspecialidadesDisponibles(): Observable<Especialidad[]> {
     return this.http.get<Especialidad[]>(this.url + "especialidadesDisponibles");
   }
   public insertEspecialidad(especialidades: EspecialidadesMedico[], idmedico: Number): Observable<EspecialidadesMedico[]> {
-    return this.http.post<EspecialidadesMedico[]>(this.url + "insert&idMedico="+idmedico, especialidades);
+    return this.http.post<EspecialidadesMedico[]>(this.url + "insert&idMedico=" + idmedico, especialidades);
+  }
+
+  public updateEspecialidaMedico(especialidad: MedicoEspecialidad, nombre: string) {
+    return this.http.put<MedicoEspecialidad>(this.url + "update&nombre=" + nombre, especialidad);
   }
 }

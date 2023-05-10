@@ -6,16 +6,15 @@ package com.hospitalapi.servletController.laboratorio;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.hospitalapi.model.Laboratorio;
+import com.hospitalapi.model.PrecioExamen;
+import com.hospitalapi.model.TipoExamen;
 import com.hospitalapi.model.Usuario;
-import com.hospitalapi.model.reports.EspecialidadesMedico;
 import com.hospitalapi.model.reports.ExamenesLaboratorio;
 import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.laboratorio.ServiceExamenes;
 import com.hospitalapi.service.laboratorio.ServiceExamenesLaboratorio;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +54,8 @@ public class ServletControllerExamenesLaboratorio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
+
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "examenesDisponibles":
@@ -75,6 +76,7 @@ public class ServletControllerExamenesLaboratorio extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "examenesLab":
@@ -87,9 +89,30 @@ public class ServletControllerExamenesLaboratorio extends HttpServlet {
         }
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "updatePrecioExamen":
+                updatePrecio(request, response);
+                break;
+            default:
+        }
+    }
+
     private void listarExamensByLaboratory(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario userLaboratorio = (Usuario) this.converter.fromJson(this.lectorJson.read(request.getReader()), Usuario.class);
-        System.out.println("lab "+userLaboratorio.toString());
+        System.out.println("lab " + userLaboratorio.toString());
         response.getWriter().write(this.converter.toJson(this.serviceExamenesLaboratorio.getByLaboratorio(userLaboratorio)));
     }
 
@@ -112,6 +135,18 @@ public class ServletControllerExamenesLaboratorio extends HttpServlet {
         this.serviceExamenes.ingresarExamenesLaboratorio(examens, idLab);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print("{\"message\": \"Se guardado la información correctamente.\"}");
+    }
+
+    private void updatePrecio(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PrecioExamen examen = (PrecioExamen) this.converter.fromJson(this.lectorJson.read(request.getReader()), PrecioExamen.class);
+        String nombreExamen = request.getParameter("nombre");
+        for (TipoExamen disponible : this.serviceExamenes.getDisponibles()) {
+            if (disponible.getName().equals(nombreExamen)) {
+                examen.setIdExamen(disponible.getId());
+                break;
+            }
+        }
+        this.serviceExamenes.update(examen);
     }
 
 }

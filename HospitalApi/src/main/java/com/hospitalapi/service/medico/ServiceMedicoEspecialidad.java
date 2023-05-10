@@ -34,4 +34,8 @@ public class ServiceMedicoEspecialidad {
         return this.especialidadesMedicoDB.getEspecialidadsByMedico(medico);
     }
     
+    public boolean update(MedicoEspecialidad medicoEspecialidad){
+       return this.medicoEspecialidadDB.update(medicoEspecialidad);
+    }
+    
 }

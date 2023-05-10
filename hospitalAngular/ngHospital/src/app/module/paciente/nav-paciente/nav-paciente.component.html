@@ -16,8 +16,45 @@
         </button>
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-                <a class="nav-link text-white text-decoration-none" aria-current="page"
-                    routerLink=""><strong>Consultas</strong></a>
+                <div class="dropdown mx-3">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownConsulta" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>Consultas</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-primary text-small shadow"
+                        aria-labelledby="dropdownConsulta">
+                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                            Agendar consulta
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                            Consultas pendientes de exámen
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                            Consultas finalizadas
+                        </a>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+                <div class="dropdown mx-3">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownExamen" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>Exámenes de laboratorio</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-primary text-small shadow" aria-labelledby="dropdownExamen">
+                        <a class="dropdown-item" routerLink="/pacienteCreateSolicitudExamen">
+                            Solicitar examenes de laboratorio
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteCreateSolicitudExamen">
+                            Revisar examenes
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteCreateSolicitudExamen">
+                            Exmanes finalizadas
+                        </a>
+                    </ul>
+                </div>
             </li>
         </ul>
         <div class="collapse navbar-collapse" id="navbarCollapse">

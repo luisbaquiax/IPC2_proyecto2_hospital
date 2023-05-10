@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class RecargaDB {
 
-    private static final String INSERT = "INSERT INTO recarga(monto,fecha_hora,paciente) VALUES(?,?,?,?)";
+    private static final String INSERT = "INSERT INTO recarga(monto,fecha_hora,paciente) VALUES(?,?,?)";
     private static final String SELECT_BY_PACIENTE = "SELECT * FROM recarga WHERE paciente = ?";
 
     private ResultSet resultSet;
@@ -39,7 +39,7 @@ public class RecargaDB {
             statement.setDouble(1, recarga.getMonto());
             statement.setString(2, recarga.getFechaHora());
             statement.setInt(3, recarga.getIdPaciente());
-            statement.executeQuery();
+            statement.executeUpdate();
             statement.close();
             return true;
         } catch (SQLException ex) {

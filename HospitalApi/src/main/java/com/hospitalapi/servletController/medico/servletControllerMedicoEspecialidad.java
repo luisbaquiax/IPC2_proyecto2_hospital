@@ -6,6 +6,8 @@ package com.hospitalapi.servletController.medico;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hospitalapi.model.Especialidad;
+import com.hospitalapi.model.MedicoEspecialidad;
 import com.hospitalapi.model.Usuario;
 import com.hospitalapi.model.reports.EspecialidadesMedico;
 import com.hospitalapi.objects.JsonConverter;
@@ -52,6 +54,7 @@ public class servletControllerMedicoEspecialidad extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "especialidadesDisponibles":
@@ -72,6 +75,7 @@ public class servletControllerMedicoEspecialidad extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "especialidades":
@@ -88,12 +92,22 @@ public class servletControllerMedicoEspecialidad extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "update":
+                udpatePrecioEspecialidad(request, response);
+                break;
+
+            default:
+        }
     }
 
     private void listarEspecialidades(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario medico = (Usuario) this.converter.fromJson(lectorJson.read(request.getReader()), Usuario.class);
+        System.out.println("medico " + medico.toString());
         String json = this.converter.toJson(this.serviceEspecialidadesMedico.getEspecialidadsByMedico(medico));
-
+        System.out.println(json);
         response.getWriter().print(json);
     }
 
@@ -112,11 +126,27 @@ public class servletControllerMedicoEspecialidad extends HttpServlet {
         ArrayList<EspecialidadesMedico> users = new Gson().fromJson(json, listType);
         System.out.println(Arrays.toString(users.toArray()));
         for (EspecialidadesMedico user : users) {
-            System.out.println("espe: "+user.toString());
+            System.out.println("espe: " + user.toString());
         }
         this.serviceEspecialidad.ingresarEspecialidades(users, idMedico);
         response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().print("{\"message\": \"Se guardado la información correctamente.\"}");
+    }
+
+    private void udpatePrecioEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        MedicoEspecialidad especialidad = (MedicoEspecialidad) this.converter.fromJson(this.lectorJson.read(request.getReader()), MedicoEspecialidad.class);
+        String nombre = request.getParameter("nombre");
+        for (Especialidad espe : this.serviceEspecialidad.getEspecialidades()) {
+            if (espe.getName().equals(nombre)) {
+                especialidad.setIdEspecialidad(espe.getId());
+                break;
+            }
+        }
+        if (serviceEspecialidadesMedico.update(especialidad)) {
+            System.out.println("todo bien");
+        } else {
+            System.out.println("Falló");
+        }
     }
 
 }

@@ -27,7 +27,7 @@
                 <tr *ngFor="let h of medicos">
                     <td>{{h.id}}</td>
                     <td>{{h.nombre}}</td>
-                    <td>{{h.totalPorConsultas+h.gananciaApp}}</td>
+                    <td>{{h.totalPorConsultas | currency : 'Q'}}</td>
                     <td>{{h.cantidadConsultas}}</td>
                     <td>{{h.gananciaApp | currency : 'Q'}}</td>
                 </tr>

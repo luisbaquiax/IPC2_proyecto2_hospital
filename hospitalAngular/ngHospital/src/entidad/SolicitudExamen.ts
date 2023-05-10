@@ -1,5 +1,6 @@
 export class SolicitudExamen {
-
+    public static readonly PENDIENTE: string = "PENDIENTE";
+    public static readonly FINALIZADA: string = "FINALIZADA";
     id!: number;
     idPaciente!: number;
     idLaboratorio!: number;

@@ -27,8 +27,18 @@ public class UserDB {
     private static final String SELECT_BY_USERNAME = "SELECT * FROM usuario WHERE username = ?";
 
     private static final String SELECT = "SELECT * FROM usuario";
-    
+
     public static final String ULTIMO = "SELECT id AS ultimo FROM usuario ORDER BY id DESC LIMIT 1";
+
+    public static final String SELECT_BY_ESPECIALIDA = "SELECT *\n"
+            + "FROM usuario u\n"
+            + "INNER JOIN medico m\n"
+            + "ON u.id = m.id\n"
+            + "INNER JOIN medico_especialidad s\n"
+            + "ON s.medico = m.id\n"
+            + "INNER JOIN especialidad e\n"
+            + "ON e.id = s.id_especialidad\n"
+            + "WHERE e.nombre = ?";
 
     private ResultSet resultSet;
 
@@ -173,6 +183,67 @@ public class UserDB {
     public List<Usuario> getAllUsers() {
         List<Usuario> list = new ArrayList<>();
         try (PreparedStatement statemente = ConeccionDB.getConnection().prepareStatement(SELECT)) {
+            resultSet = statemente.executeQuery();
+            while (resultSet.next()) {
+                list.add(getUser(resultSet));
+            }
+            resultSet.close();
+            statemente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Usuario> getUserFilterName(String name) {
+        String query = "SELECT *\n"
+                + "FROM usuario u\n"
+                + "INNER JOIN medico m\n"
+                + "ON u.id = m.id\n"
+                + "WHERE u.nombre LIKE '%" + name + "%'";
+        List<Usuario> list = new ArrayList<>();
+        try (PreparedStatement statemente = ConeccionDB.getConnection().prepareStatement(query)) {
+            resultSet = statemente.executeQuery();
+            while (resultSet.next()) {
+                list.add(getUser(resultSet));
+            }
+            resultSet.close();
+            statemente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    /**
+     *
+     * @param name
+     * @return 
+     */
+    public List<Usuario> getLaborotoreisBYName(String name) {
+        String query = "SELECT *\n"
+                + "FROM usuario u\n"
+                + "INNER JOIN laboratorio m\n"
+                + "ON u.id = m.id\n"
+                + "WHERE u.nombre LIKE '%" + name + "%'";
+        List<Usuario> list = new ArrayList<>();
+        try (PreparedStatement statemente = ConeccionDB.getConnection().prepareStatement(query)) {
+            resultSet = statemente.executeQuery();
+            while (resultSet.next()) {
+                list.add(getUser(resultSet));
+            }
+            resultSet.close();
+            statemente.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Usuario> getMedicoByEspecialidad(String especialidad) {
+        List<Usuario> list = new ArrayList<>();
+        try (PreparedStatement statemente = ConeccionDB.getConnection().prepareStatement(SELECT_BY_ESPECIALIDA)) {
+            statemente.setString(1, especialidad);
             resultSet = statemente.executeQuery();
             while (resultSet.next()) {
                 list.add(getUser(resultSet));

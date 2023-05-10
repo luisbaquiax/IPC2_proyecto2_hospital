@@ -60,6 +60,7 @@ public class ServletControllerSolicitudes extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "listEspecialidad":
@@ -83,6 +84,7 @@ public class ServletControllerSolicitudes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "insertSolicitudEspecialidad":
@@ -124,6 +126,7 @@ public class ServletControllerSolicitudes extends HttpServlet {
 
     private void inserSolicitudEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SolicitudEspecialidad solicitud = (SolicitudEspecialidad) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudEspecialidad.class);
+        System.out.println("ingresando solicitud " + solicitud.toString());
         if (servceSolicitudesEspecialidad.insert(solicitud)) {
             System.out.println("Todo bien.");
         } else {

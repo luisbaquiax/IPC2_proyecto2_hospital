@@ -1,4 +1,8 @@
 export class Consulta {
+    public static readonly AGENDADA = "AGENDADA";
+    public static readonly EXAMEN_PENDIENTE = "EXAMEN_PENDIENTE";
+    public static readonly FINALIZADA = "FINALIZADA";
+    public static readonly PENDIENTE_REVISION = "PENDIENTE_REVISION";
     id!: number;
     idPaciente!: number;
     idMedico!: number;
@@ -11,4 +15,6 @@ export class Consulta {
     estado!: string;
     gananciaMedico!: number;
     gananciaAdmin!: number;
+    fecha!:string;
+    hora!:string;
 }

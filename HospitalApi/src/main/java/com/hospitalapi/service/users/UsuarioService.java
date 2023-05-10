@@ -69,4 +69,15 @@ public class UsuarioService {
     public List<Usuario> getAll() {
         return this.userDB.getAllUsers();
     }
+    
+     public List<Usuario> getFilterName(String name) {
+        return this.userDB.getUserFilterName(name);
+    }
+      public List<Usuario> getByEspecialidad(String especialidad) {
+        return this.userDB.getMedicoByEspecialidad(especialidad);
+    }
+      
+      public List<Usuario> getLaboratoriesByName(String name) {
+        return this.userDB.getLaborotoreisBYName(name);
+    }
 }

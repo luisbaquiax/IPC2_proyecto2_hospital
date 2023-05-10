@@ -46,6 +46,7 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "getAll":
@@ -69,6 +70,7 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "insert":
@@ -81,6 +83,7 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String tarea = request.getParameter("tarea");
+        response.setContentType("application/json");
         switch (tarea) {
             case "update":
                 updateHistoriorial(request, response);

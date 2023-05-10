@@ -16,6 +16,45 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
+
+                <li class="nav-item">
+                    <div class="dropdown mx-3 mt-2">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                            id="dropdownConsultas" data-bs-toggle="dropdown" aria-expanded="false">
+                            <strong>Consultas</strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-primary text-small shadow"
+                            aria-labelledby="dropdownConsultas">
+                            <li>
+                                <a class="dropdown-item" routerLink="/medConsultasAgendadas">
+                                    Consultas pendientes (agendadas)
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" routerLink="/medConsultasPendienteRevision">
+                                    Consultas pedientes de revisión de examen
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white text-decoration-none" aria-current="page" routerLink="/medicoAddInfo">
+                        <strong>Agregar especialidad</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white text-decoration-none" aria-current="page"
+                        routerLink="/medicoSolicitudEspecialidad">
+                        <strong>Solicitar especialidad</strong>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white text-decoration-none" aria-current="page"
+                        routerLink="/medicoHistorialMedico">
+                        <strong>Historial médico de un paciente</strong>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <div class="dropdown mx-3 mt-2">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
@@ -34,30 +73,6 @@
                             </li>
                         </ul>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <div class="dropdown mx-3 mt-2">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                            id="dropdownConsultas" data-bs-toggle="dropdown" aria-expanded="false">
-                            <strong>Consultas</strong>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-primary text-small shadow"
-                            aria-labelledby="dropdownConsultas">
-                            <li>
-                                <a class="dropdown-item" routerLink="/reportMedicoTopPacientes">
-                                    Top pacientes con más ingresos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" routerLink="/reportMedicoTopEspecialidades">Top
-                                    especialidades con más ingresos</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white text-decoration-none" aria-current="page">
-                        <strong>Historial Porcentajes</strong>
-                    </a>
                 </li>
             </ul>
             <form class="d-flex">

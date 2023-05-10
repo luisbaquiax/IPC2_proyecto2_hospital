@@ -32,7 +32,10 @@ public class ConsultaDB {
     /**
      * Lista de consultas
      */
-    private static final String SELECT = "SELECT * FROM consulta";
+    public static final String SELECT = "SELECT * FROM consulta";
+    public static final String SELECT_AGENDADAS = "SELECT * FROM consulta WHERE medico = ? AND fecha_agendada BETWEEN ? AND ? AND estado = ?";
+    public static final String SELECT_BY = "SELECT * FROM consulta WHERE (medico = ? OR paciente = ?) AND estado = ?";
+    public static final String SELECT_PENDIENTE_REVISION = "SELECT * FROM consulta";
 
     /**
      * Lisa de consultas en un intervalo de fecha
@@ -164,6 +167,58 @@ public class ConsultaDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY_FECHA)) {
             statement.setString(1, fecha1);
             statement.setString(2, fecha2);
+            resusSet = statement.executeQuery();
+            while (resusSet.next()) {
+                consutas.add(get(resusSet));
+            }
+            resusSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return consutas;
+    }
+
+    /**
+     *
+     * @param medico
+     * @param fecha1
+     * @param fecha2
+     * @param estado
+     * @return
+     */
+    public List<Consulta> getListConsultaAgendadas(int medico, String fecha1, String fecha2, String estado) {
+        List<Consulta> consutas = new ArrayList<>();
+        try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_AGENDADAS)) {
+            statement.setInt(1, medico);
+            statement.setString(2, fecha1);
+            statement.setString(3, fecha2);
+            statement.setString(4, estado);
+            resusSet = statement.executeQuery();
+            while (resusSet.next()) {
+                consutas.add(get(resusSet));
+            }
+            resusSet.close();
+            statement.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsultaDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return consutas;
+    }
+
+    /**
+     *
+     * @param medico
+     * @param paciente
+     * @param estado
+     * @return
+     */
+    public List<Consulta> getListConsultaAgendadas(int medico, int paciente, String estado) {
+        List<Consulta> consutas = new ArrayList<>();
+        try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY)) {
+            statement.setInt(1, medico);
+            statement.setInt(2, paciente);
+            statement.setString(3, estado);
             resusSet = statement.executeQuery();
             while (resusSet.next()) {
                 consutas.add(get(resusSet));

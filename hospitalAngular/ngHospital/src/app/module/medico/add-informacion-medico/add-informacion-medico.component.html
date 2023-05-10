@@ -1,13 +1,16 @@
-<app-nav-admin></app-nav-admin>
+<app-menu-medico></app-menu-medico>
 <div class="container mt-5">
     <div class="row">
-        <h1 class="text-center"><strong>Agregar especialidades</strong> </h1>
         <div class="col">
+            <h1 class="text-center mt-4"><strong>Agregar especialidades</strong> </h1>
             <form class="mt-5" (ngSubmit)="agregar()" #userForm="ngForm">
+            <button class="btn btn-danger" (click)="quitar()">Reiniciar todo</button>
                 <div class="form-group">
                     <label for="especialidad">Elegir especialidad:</label>
-                    <select class="form-control" id="especialidad" required [(ngModel)]="nuevaEspecialidad.especialidad" name="especialidad">
-                        <option *ngFor="let especialidad of diponibles" [value]="especialidad.name">{{especialidad.name}}</option>
+                    <select class="form-control" id="especialidad" required [(ngModel)]="nuevaEspecialidad.especialidad"
+                        name="especialidad">
+                        <option *ngFor="let especialidad of diponibles" [value]="especialidad.name">
+                            {{especialidad.name}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -21,26 +24,48 @@
                 </div>
             </form>
             <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary mx-3 w-50" (click)="guardarCambios()">Guardar cambios</button>
+                <button class="btn btn-primary mx-3 w-50" (click)="guardarCambios()">Guardar cambios</button>
             </div>
-        </div>
-        <div class="col">
+            <hr>
             <h1 class="text-center">Especialidades agregadas:</h1>
             <table id="storeTable" class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Nombre especialidad</th>
                         <th scope="col">Precio</th>
-                        <th scope="col">Quitar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let d of misEspecialidades">
                         <td>{{d.especialidad}}</td>
                         <td>{{d.precio}}</td>
-                        <td><button class="btn btn-danger" (click)="quitar('{{d.especialidad}}')">Quitar</button></td>
                     </tr>
             </table>
+
+        </div>
+        <div class="col">
+            <h1 class="text-center mt-4"><strong>Mis especialidades</strong></h1>
+            <table id="storeTable" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nombre especialidad</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Modificar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let d of especialidades">
+                        <td>{{d.especialidad}}</td>
+                        <td>{{d.precio}}</td>
+                        <td>
+                            <a href="javascript: void(0);" (click)="editar(d)" data-toggle="modal"
+                                data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning">
+                                Editar precio
+                            </a>
+                        </td>
+                    </tr>
+            </table>
+            <app-medico-add-especialidad></app-medico-add-especialidad>
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@
                 <tr *ngFor="let h of laboratorios">
                     <td>{{h.id}}</td>
                     <td>{{h.nombre}}</td>
-                    <td>{{h.totalPorExamenes}}</td>
+                    <td>{{h.totalPorExamenes | currency : 'Q'}}</td>
                     <td>{{h.cantidad}}</td>
                     <td>{{h.totalApp | currency : 'Q'}}</td>
                 </tr>

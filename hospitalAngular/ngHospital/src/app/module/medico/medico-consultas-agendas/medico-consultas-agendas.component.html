@@ -1,0 +1,46 @@
+<app-menu-medico></app-menu-medico>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <form class="mt-5" (ngSubmit)="consultar()" [formGroup]="form">
+                <div class="d-flex">
+                    <div class="form-group">
+                        <label for="fecha">Ingresar fecha:</label>
+                        <input formControlName="fecha" type="date" class="form-control" id="fecha" name="fecha">
+                    </div>
+                    <div class="form-group">
+                        <br>
+                        <button type="submit" class="btn btn-secondary mx-3" [disabled]="!form.valid">
+                            Listar por fecha
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <h1 class="text-center">Consultas agendas:</h1>
+            <table id="storeTable" class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Fecha agendada</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Paciente</th>
+                        <th scope="col">Agrear examenes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let d of consultas">
+                        <td>{{d.id}}</td>
+                        <td>{{d.fecha}} {{d.hora}}</td>
+                        <td>{{d.estado}}</td>
+                        <td>{{d.idPaciente}}</td>
+                        <td>
+                            <a (click)="agregarExamenes(d)" class="btn btn-primary">
+                                Agregar exámenes
+                            </a>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+</div>

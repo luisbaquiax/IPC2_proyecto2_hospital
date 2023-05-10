@@ -49,6 +49,7 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String tarea = request.getParameter("tarea");
+        response.setContentType("application/json");
         switch (tarea) {
             case "allUsers":
                 System.out.println("Usuarios");
@@ -64,6 +65,15 @@ public class UserController extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_OK);
                 response.setContentType("application/json");
                 response.getWriter().print(this.jsonConverter.toJson(this.usuarioService.getUserByUsername(username)));
+                break;
+            case "filterUserMedico":
+                senLisUserWithFilter(request, response);
+                break;
+            case "getMedicosByEspecialidad":
+                sendListByEspecialidad(request, response);
+                break;
+            case "filterLabByName":
+                sendListLaboratoriesByName(request, response);                
                 break;
             default:
         }
@@ -109,6 +119,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String tarea = request.getParameter("tarea");
+        response.setContentType("application/json");
         switch (tarea) {
             case "editarUsuario":
                 String json = this.lectorJson.read(request.getReader());
@@ -132,10 +143,9 @@ public class UserController extends HttpServlet {
 
     private void buscarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Usuario userJSON = (Usuario) this.jsonConverter.fromJson(lectorJson.read(request.getReader()), Usuario.class);
-//        String password = request.getParameter("password");
-//        String username = request.getParameter("username");
+
         Usuario user = this.usuarioService.getUserByUsernamePassword(userJSON.getUserName(), encriptador.encriptar(userJSON.getPassword()));
-        //Usuario user = this.usuarioService.getUserByUsernamePassword(username, encriptador.encriptar(password));
+
         System.out.println("buscando al usuario" + userJSON.toString());
         if (user != null) {
             System.out.println(user.toString());
@@ -151,6 +161,24 @@ public class UserController extends HttpServlet {
             response.getWriter().print("{\"message\": \"Credendiales incorrectas.\"}");
         }
 
+    }
+
+    private void senLisUserWithFilter(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String name = request.getParameter("filter");
+        System.out.println(name);
+        response.getWriter().write(
+                this.jsonConverter.toJson(this.usuarioService.getFilterName(name)));
+    }
+
+    private void sendListByEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String especialidad = request.getParameter("especialidad");
+        System.out.println(especialidad);
+        response.getWriter().write(
+                this.jsonConverter.toJson(this.usuarioService.getByEspecialidad(especialidad)));
+    }
+
+    private void sendListLaboratoriesByName(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.getWriter().write(this.jsonConverter.toJson(this.usuarioService.getLaboratoriesByName(request.getParameter("name"))));
     }
 
 }

@@ -35,6 +35,16 @@ import { LabTopExamenesComponent } from './module/laboratorio/report/lab-top-exa
 import { HistorialComponent } from './module/admin/historial/historial.component';
 import { RevisionSolicitudesExamenComponent } from './module/admin/revision-solicitudes-examen/revision-solicitudes-examen.component';
 import { RevisionSolicitudesEspecialidadComponent } from './module/admin/revision-solicitudes-especialidad/revision-solicitudes-especialidad.component';
+import { ModalEditEspecialidadComponent } from './module/medico/medico-add-especialidad/modal-edit-especialidad.component';
+import { SolicitudEspecialidadComponent } from './module/medico/solicitud-especialidad/solicitud-especialidad.component';
+import { SolicitudTipoExamenComponent } from './module/laboratorio/solicitud-tipo-examen/solicitud-tipo-examen.component';
+import { LabEditExamenComponent } from './module/laboratorio/lab-edit-examen/lab-edit-examen.component';
+import { MedicoConsultasAgendasComponent } from './module/medico/medico-consultas-agendas/medico-consultas-agendas.component';
+import { MedicoAddExamenComponent } from './module/medico/medico-add-examen/medico-add-examen.component';
+import { MedicoConsultaPendienteRevisionComponent } from './module/medico/medico-consulta-pendiente-revision/medico-consulta-pendiente-revision.component';
+import { MedicoExamensRevisionComponent } from './module/medico/medico-examens-revision/medico-examens-revision.component';
+import { RecargaComponent } from './module/paciente/recarga/recarga.component';
+import { PacienteCreateSolicitudExamenComponent } from './module/paciente/paciente-create-solicitud-examen/paciente-create-solicitud-examen.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +77,17 @@ import { RevisionSolicitudesEspecialidadComponent } from './module/admin/revisio
     LabTopExamenesComponent,
     HistorialComponent,
     RevisionSolicitudesExamenComponent,
-    RevisionSolicitudesEspecialidadComponent
+    RevisionSolicitudesEspecialidadComponent,
+    ModalEditEspecialidadComponent,
+    SolicitudEspecialidadComponent,
+    SolicitudTipoExamenComponent,
+    LabEditExamenComponent,
+    MedicoConsultasAgendasComponent,
+    MedicoAddExamenComponent,
+    MedicoConsultaPendienteRevisionComponent,
+    MedicoExamensRevisionComponent,
+    RecargaComponent,
+    PacienteCreateSolicitudExamenComponent
   ],
   imports: [
     BrowserModule,
