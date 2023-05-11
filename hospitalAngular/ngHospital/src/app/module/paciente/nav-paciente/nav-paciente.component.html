@@ -1,0 +1,101 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-success fixed-top" style="background-color: #e3f2fd;">
+    <div class="container-fluid mx-3">
+        <a class="navbar-brand" href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-hospital"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8.5 5.034v1.1l.953-.55.5.867L9 7l.953.55-.5.866-.953-.55v1.1h-1v-1.1l-.953.55-.5-.866L7 7l-.953-.55.5-.866.953.55v-1.1h1ZM13.25 9a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM13 11.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Zm.25 1.75a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5Zm-11-4a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 9.75v-.5A.25.25 0 0 0 2.75 9h-.5Zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5ZM2 13.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5Z" />
+                <path
+                    d="M5 1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1 1 1v4h3a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h3V3a1 1 0 0 1 1-1V1Zm2 14h2v-3H7v3Zm3 0h1V3H5v12h1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3Zm0-14H6v1h4V1Zm2 7v7h3V8h-3Zm-8 7V8H1v7h3Z" />
+            </svg>
+            <strong class="mx-2">Saldo: {{user.saldo| currency:'Q'}}</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+                <div class="dropdown mx-3">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownConsulta" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>Consultas</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-primary text-small shadow"
+                        aria-labelledby="dropdownConsulta">
+                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                            Agendar consulta
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                            Consultas pendientes de exámen
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                            Consultas finalizadas
+                        </a>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+                <div class="dropdown mx-3">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownExamen" data-bs-toggle="dropdown" aria-expanded="false">
+                        <strong>Exámenes de laboratorio</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-primary text-small shadow" aria-labelledby="dropdownExamen">
+                        <a class="dropdown-item" routerLink="/pacienteCreateSolicitudExamen">
+                            Solicitar examenes de laboratorio
+                        </a>
+                        <a class="dropdown-item" routerLink="/pacienteRevisionResultados">
+                            Revisar examenes
+                        </a>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                    <div class="dropdown mx-3">
+                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <strong>Reportes</strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-primary text-small shadow"
+                            aria-labelledby="dropdownUser1">
+                            <li><a class="dropdown-item" routerLink="/pacienteHistorialRecargas">Reporte de recargas</a>
+                            </li>
+                            <li><a class="dropdown-item" routerLink="/pacienteHistorialMedico">Historial médico</a>
+                            </li>
+                            <li><a class="dropdown-item" routerLink="/pacienteReportConsultas">Reporte de consultas</a>
+                            </li>
+                            <li><a class="dropdown-item" routerLink="/pacienteReportExamenes">Reporte de exámenes</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <div class="dropdown mx-5">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                            class="bi bi-person-circle mx-2" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            <path fill-rule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                        </svg>
+                        <strong>{{user.username}}</strong>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-primary text-small shadow" aria-labelledby="dropdownUser3">
+                        <li>
+                            <a class="dropdown-item" (click)="exit()">Salir</a>
+                            <hr class="dropdown-divider">
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,32 @@
+<app-nav-admin></app-nav-admin>
+<div class="container mt-5">
+    <div class="card-header">
+        <h1 class="text-center">Solicitudes de tipos de examen</h1>
+    </div>
+    <div class="card-body">
+        <table id="storeTable" class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let h of solicitudes">
+                    <td>{{h.nombre}}</td>
+                    <td>{{h.descripcion}}</td>
+                    <td>{{h.estado}}</td>
+                    <td>
+                        <a *ngIf="h.estado!=='ACEPTADO'" class="btn btn-success" (click)="aceptar(h,1)">
+                            Aceptar
+                        </a>
+                        <a *ngIf="h.estado!=='ACEPTADO'" class="btn btn-danger" (click)="aceptar(h,2)">
+                            Rechazar
+                        </a>
+                    </td>
+                </tr>
+        </table>
+    </div>
+</div>

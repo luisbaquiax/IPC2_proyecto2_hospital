@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.19.0.final using JasperReports Library version 6.19.0-646c68931cebf1a58bc65c4359d1f0ca223c5e94  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientes" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="83a4fddc-501c-4ccf-b52b-3a4892d2376a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="idEspecialidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[idEspecialidad]]></fieldDescription>
+	</field>
+	<field name="especialidad" class="java.lang.String">
+		<fieldDescription><![CDATA[especialidad]]></fieldDescription>
+	</field>
+	<field name="cantidadConsulta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cantidadConsulta]]></fieldDescription>
+	</field>
+	<field name="gananciaMedico" class="java.lang.Double">
+		<fieldDescription><![CDATA[gananciaMedico]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="f8ad29ef-f013-491c-9a0e-4f8ae5ed34a4"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="d4bacf48-47df-444f-a4ab-ea432b047ec9"/>
+					<textElement>
+						<font size="22" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HOSPITAL CENTER]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="260" y="40" width="321" height="40" forecolor="#FFFFFF" uuid="a615c18f-ad52-4904-96cf-6f7c87d3a929"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Top 5 especialidades que generan más ingresos]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<staticText>
+				<reportElement x="0" y="0" width="141" height="21" uuid="ed9f5fc5-117a-4a53-8558-ce326c2d24c7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec04e81d-24e5-4d3b-92dc-038567d18204"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="0" width="138" height="21" uuid="dee923cb-6d37-468d-b4cd-38d32e107bab">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac83d396-cf7b-4ed8-a5e8-c89903cfd6f0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESPECIALIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="279" y="0" width="138" height="21" uuid="aa483758-f038-4281-a73c-d64b68b23924">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16139886-6def-463d-aa94-4c79556dbbf5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONSULTAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="0" width="138" height="21" uuid="dfd62910-b88e-4a99-b39c-b1a7a448b4d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a766fd1f-0b31-4719-8bd3-b0a82cffa740"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GANANCIA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="141" height="20" uuid="54283515-8225-4a8b-bd88-9504618d1857">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ec04e81d-24e5-4d3b-92dc-038567d18204"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{idEspecialidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="0" width="138" height="20" uuid="489df7e9-b9a7-4c39-8cb6-df9dabb38b72">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ac83d396-cf7b-4ed8-a5e8-c89903cfd6f0"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{especialidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="0" width="138" height="20" uuid="39559b3f-7a18-4a30-9332-9f7aac0a9d92">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="16139886-6def-463d-aa94-4c79556dbbf5"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{cantidadConsulta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="417" y="0" width="138" height="20" uuid="16b7b44b-ace8-4d45-8c09-ca194e0718df">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a766fd1f-0b31-4719-8bd3-b0a82cffa740"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{gananciaMedico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" forecolor="#000000" backcolor="#E6E6E6" uuid="c5a85894-5352-4e33-bcdd-11484305813e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" forecolor="#000000" backcolor="#E6E6E6" uuid="db634b0d-9f24-4ac1-a81f-8d7098239f4c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" forecolor="#000000" uuid="7efbc446-0854-4471-969f-faf973a67b46"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,21 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modificar precio de especialidad</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="guardarCambios()" class="row g-3">
+          <div class="mb-3">
+            <label for="recipient-precio" class="col-form-label">Ingrese el nuevo precio:</label>
+            <input name="precio" type="number" class="form-control" id="recipient-precio"
+              placeholder="Precio actual: {{nuevo.precio}}" formControlName="precio" step="0.001" min="0">
+          </div>
+          <button type="submit" class="btn btn-primary" type="submit" class="btn btn-primary mb-3 mt-2"
+            [disabled]="!form.valid" data-bs-dismiss="modal">Guardar cambios</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

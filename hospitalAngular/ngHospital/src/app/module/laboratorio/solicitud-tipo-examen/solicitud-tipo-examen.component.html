@@ -1,0 +1,22 @@
+<app-nav-laboratorio></app-nav-laboratorio>
+<div class="container mt-5">
+    <div class="row">
+        <h1 class="text-center mt-4"><strong>Solicitud de tipo de examen</strong> </h1>
+        <form [formGroup]="form" (ngSubmit)="enviarSolicitud()" class="row g-3">
+            <div class="col-auto">
+                <label for="nombre" class="form-label">Nombre del examen:</label>
+                <input formControlName="nombre" type="text" class="form-control" id="nombre" required="">
+            </div>
+            <div class="col-auto">
+                <label for="descripcion" class="form-label">Descripción:</label>
+                <input formControlName="descripcion" type="text" class="form-control" id="descripcion" required="">
+            </div>
+            <div class="col-auto">
+                <br>
+                <button type="submit" class="btn btn-primary mb-3 mt-2" [disabled]="!form.valid">
+                    Enviar solicitud
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

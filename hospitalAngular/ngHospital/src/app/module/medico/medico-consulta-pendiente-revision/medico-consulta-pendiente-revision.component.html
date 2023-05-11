@@ -1,0 +1,37 @@
+<app-menu-medico></app-menu-medico>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center"><strong>Consultas pendientes de revisión de resultados</strong></h1>
+                </div>
+                <div class="card-body">
+                    <table id="storeTable" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Fecha agendada</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Paciente</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of consultas">
+                                <td>{{d.id}}</td>
+                                <td>{{d.fecha}} {{d.hora}}</td>
+                                <td>{{d.estado}}</td>
+                                <td>{{d.idPaciente}}</td>
+                                <td>
+                                    <a (click)="revisarExamens(d)" class="btn btn-primary">
+                                        Revisar exámenes
+                                    </a>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
