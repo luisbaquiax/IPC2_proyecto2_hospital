@@ -319,7 +319,8 @@ public class ProcesadorEnradaJSON {
                 //verificamos si existe el examen en la lista general de examenes
                 ExamenConsulta examenConsulta = new ExamenConsulta(
                         Integer.parseInt(examen.get("id").toString()),
-                        consulta.getId());
+                        consulta.getId(),
+                        false);
                 examenesConsulta.add(examenConsulta);
                 if (existeTipoExamen(Integer.parseInt(examen.get("id").toString()), "", tiposExamens)) {
 //                    if (!existeExamenConsulta(Integer.parseInt(examen.get("id").toString()), examenesConsulta)) {
@@ -351,8 +352,7 @@ public class ProcesadorEnradaJSON {
                         0,
                         0,
                         0);
-                solicitud.setGananciaAdmin(solicitud.getPorcentaje() * solicitud.getCostoTotal());
-                solicitud.setGananciaLab((1 - solicitud.getPorcentaje()) * solicitud.getCostoTotal());
+
                 JSONArray examenesSolicitudJson = (JSONArray) solicitudJson.get("examenes");
                 List<ExamenSolicitado> examenes = new ArrayList<>();
 
@@ -362,7 +362,8 @@ public class ProcesadorEnradaJSON {
                     ExamenSolicitado solicitado = new ExamenSolicitado(
                             Integer.parseInt(examenJson.get("id").toString()),
                             solicitud.getId(),
-                            Double.parseDouble(examenJson.get("precio").toString()));
+                            Double.parseDouble(examenJson.get("precio").toString()),
+                            false);
 
                     examenes.add(solicitado);
 
@@ -377,6 +378,8 @@ public class ProcesadorEnradaJSON {
                     }
                 }
                 solicitud.setCostoTotal(totalExamenesSolicitados(examenes));
+                solicitud.setGananciaAdmin(solicitud.getPorcentaje() * solicitud.getCostoTotal());
+                solicitud.setGananciaLab((1 - solicitud.getPorcentaje()) * solicitud.getCostoTotal());
                 this.examenesSolicitados.add(examenes);
                 this.solicitudExamens.add(solicitud);
             } else {
@@ -459,6 +462,17 @@ public class ProcesadorEnradaJSON {
         double total = 0;
         for (ExamenSolicitado examene : examenes) {
             total += examene.getPrecio();
+        }
+        return total;
+    }
+
+    private double gananciaApp() {
+        double total = 0;
+        for (SolicitudExamen solicitudExamen : this.solicitudExamens) {
+            total += solicitudExamen.getGananciaAdmin();
+        }
+        for (Consulta consulta : this.consultas) {
+            total += consulta.getGananciaAdmin();
         }
         return total;
     }

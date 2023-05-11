@@ -5,11 +5,28 @@
 package com.hospitalapi.model;
 
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * @author luis
  */
-public class ResultadoConsulta implements Serializable{
-    
+@Getter
+@Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class ResultadoConsulta implements Serializable {
+
+    private int id;
+    private int idConsulta;
+    private int idExamen;
+    private String nombreArchivo;
+    private String examen;
 }

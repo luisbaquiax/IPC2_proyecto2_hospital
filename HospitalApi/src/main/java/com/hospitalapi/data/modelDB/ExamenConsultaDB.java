@@ -18,12 +18,12 @@ import java.util.logging.Logger;
  * @author luis
  */
 public class ExamenConsultaDB {
-
-    private static final String INSERT = "INSERT INTO examenes_consulta(examen,consulta) VALUES(?,?)";
+    
+    private static final String INSERT = "INSERT INTO examenes_consulta(examen,consulta,estado) VALUES(?,?,?)";
     private static final String SELECT = "SELECT * FROM examenes_consulta";
-
+    
     private ResultSet resultSet;
-
+    
     public ExamenConsultaDB() {
     }
 
@@ -36,6 +36,7 @@ public class ExamenConsultaDB {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(INSERT)) {
             statement.setInt(1, examenConsulta.getIdExamen());
             statement.setInt(2, examenConsulta.getIndConsulta());
+            statement.setBoolean(3, examenConsulta.isEstado());
             statement.executeUpdate();
             statement.close();
             return true;

@@ -5,54 +5,27 @@
 package com.hospitalapi.model;
 
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
  *
  * @author luis
  */
+@Getter
+@Setter
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExamenConsulta implements Serializable {
 
     private int idExamen;
     private int indConsulta;
-
-    /**
-     *
-     * @param idExamen
-     * @param indConsulta
-     */
-    public ExamenConsulta(int idExamen, int indConsulta) {
-        this.idExamen = idExamen;
-        this.indConsulta = indConsulta;
-    }
-
-    /**
-     * @return the idExamen
-     */
-    public int getIdExamen() {
-        return idExamen;
-    }
-
-    /**
-     * @param idExamen the idExamen to set
-     */
-    public void setIdExamen(int idExamen) {
-        this.idExamen = idExamen;
-    }
-
-    /**
-     * @return the indConsulta
-     */
-    public int getIndConsulta() {
-        return indConsulta;
-    }
-
-    /**
-     * @param indConsulta the indConsulta to set
-     */
-    public void setIndConsulta(int indConsulta) {
-        this.indConsulta = indConsulta;
-    }
+    private boolean estado;
 
 }

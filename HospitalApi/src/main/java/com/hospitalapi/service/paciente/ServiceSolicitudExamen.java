@@ -4,12 +4,14 @@
  */
 package com.hospitalapi.service.paciente;
 
+import com.hospitalapi.data.modelDB.ExamenTipoSolicitudDB;
 import com.hospitalapi.data.modelDB.ExamenesSolicitudDB;
 import com.hospitalapi.data.modelDB.HistorialPorcentajDB;
 import com.hospitalapi.data.modelDB.SolicitudExamenDB;
 import com.hospitalapi.data.modelDB.TipoExamenDB;
 import com.hospitalapi.data.modelDB.UserDB;
 import com.hospitalapi.model.ExamenSolicitado;
+import com.hospitalapi.model.ExamenTipoSolicitud;
 import com.hospitalapi.model.HistorialPorcentaje;
 import com.hospitalapi.model.SolicitudExamen;
 import com.hospitalapi.model.TipoExamen;
@@ -30,6 +32,7 @@ public class ServiceSolicitudExamen {
     private TipoExamenDB tipoExamenDB;
     private UserDB userDB;
     private HistorialPorcentajDB historialPorcentajDB;
+    private ExamenTipoSolicitudDB examenTipoSolicitudDB;
 
     public ServiceSolicitudExamen() {
         this.solicitudExamenDB = new SolicitudExamenDB();
@@ -37,6 +40,7 @@ public class ServiceSolicitudExamen {
         this.tipoExamenDB = new TipoExamenDB();
         this.userDB = new UserDB();
         this.historialPorcentajDB = new HistorialPorcentajDB();
+        this.examenTipoSolicitudDB = new ExamenTipoSolicitudDB();
     }
 
     public void insertSolicitudExamen(SolicitudExamen solicitud) {
@@ -80,7 +84,7 @@ public class ServiceSolicitudExamen {
     public void ingresarExamenesSolicitud(List<ExamenesLaboratorio> list) {
         int ultimo = this.userDB.getUltimoId(SolicitudExamenDB.ULTIMO);
         for (ExamenesLaboratorio examenes : list) {
-            ExamenSolicitado examen = new ExamenSolicitado(0, ultimo, examenes.getPrecio());
+            ExamenSolicitado examen = new ExamenSolicitado(0, ultimo, examenes.getPrecio(), false);
             for (TipoExamen tipoExamene : this.tipoExamenDB.getTipoExamenes()) {
                 if (examenes.getNombre().equals(tipoExamene.getName())) {
                     examen.setIdExamen(tipoExamene.getId());
@@ -93,5 +97,9 @@ public class ServiceSolicitudExamen {
 
     public List<SolicitudExamen> getListBy(int laboratorio, int paciente, String estado) {
         return this.solicitudExamenDB.getListSolicitdExamenBy(laboratorio, paciente, estado);
+    }
+    
+    public List<ExamenTipoSolicitud> getListExmamenes(int solicitud){
+        return this.examenTipoSolicitudDB.getListBySolicitud(solicitud);
     }
 }

@@ -35,6 +35,10 @@ import { MedicoConsultaPendienteRevisionComponent } from './module/medico/medico
 import { MedicoExamensRevisionComponent } from './module/medico/medico-examens-revision/medico-examens-revision.component';
 import { ConsultasComponent } from './module/paciente/consultas/consultas.component';
 import { PacienteCreateSolicitudExamenComponent } from './module/paciente/paciente-create-solicitud-examen/paciente-create-solicitud-examen.component';
+import { LabExamenesPendienteComponent } from './module/laboratorio/lab-examenes-pendiente/lab-examenes-pendiente.component';
+import { LabExamenesSolicitudComponent } from './module/laboratorio/lab-examenes-solicitud/lab-examenes-solicitud.component';
+import { PacienteRevisionExamenesComponent } from './module/paciente/paciente-revision-examenes/paciente-revision-examenes.component';
+import { PacienteResultadosLaboratorioComponent } from './module/paciente/paciente-resultados-laboratorio/paciente-resultados-laboratorio.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -108,6 +112,12 @@ const routes: Routes = [
     path: "labSolicitudTipoExamen", component: SolicitudTipoExamenComponent
   },
   {
+    path: "labExamenesPendientes", component: LabExamenesPendienteComponent
+  },
+  {
+    path: "labExamenesSolicitud", component: LabExamenesSolicitudComponent
+  },
+  {
     path: "topMedico", component: TopMedicosComponent
   },
   {
@@ -142,6 +152,12 @@ const routes: Routes = [
   },
   {
     path: "pacienteCreateSolicitudExamen", component: PacienteCreateSolicitudExamenComponent
+  },
+  {
+    path: "pacienteRevisionResultados", component: PacienteRevisionExamenesComponent
+  },
+  {
+    path: "pacienteResultadosLab", component: PacienteResultadosLaboratorioComponent
   },
 ];
 

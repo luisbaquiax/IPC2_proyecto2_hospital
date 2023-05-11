@@ -45,6 +45,10 @@ import { MedicoConsultaPendienteRevisionComponent } from './module/medico/medico
 import { MedicoExamensRevisionComponent } from './module/medico/medico-examens-revision/medico-examens-revision.component';
 import { RecargaComponent } from './module/paciente/recarga/recarga.component';
 import { PacienteCreateSolicitudExamenComponent } from './module/paciente/paciente-create-solicitud-examen/paciente-create-solicitud-examen.component';
+import { LabExamenesPendienteComponent } from './module/laboratorio/lab-examenes-pendiente/lab-examenes-pendiente.component';
+import { LabExamenesSolicitudComponent } from './module/laboratorio/lab-examenes-solicitud/lab-examenes-solicitud.component';
+import { PacienteResultadosLaboratorioComponent } from './module/paciente/paciente-resultados-laboratorio/paciente-resultados-laboratorio.component';
+import { PacienteRevisionExamenesComponent } from './module/paciente/paciente-revision-examenes/paciente-revision-examenes.component';
 
 @NgModule({
   declarations: [
@@ -87,7 +91,11 @@ import { PacienteCreateSolicitudExamenComponent } from './module/paciente/pacien
     MedicoConsultaPendienteRevisionComponent,
     MedicoExamensRevisionComponent,
     RecargaComponent,
-    PacienteCreateSolicitudExamenComponent
+    PacienteCreateSolicitudExamenComponent,
+    LabExamenesPendienteComponent,
+    LabExamenesSolicitudComponent,
+    PacienteResultadosLaboratorioComponent,
+    PacienteRevisionExamenesComponent
   ],
   imports: [
     BrowserModule,
