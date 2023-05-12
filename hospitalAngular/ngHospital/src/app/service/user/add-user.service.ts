@@ -25,6 +25,10 @@ export class AddUserService {
     return this.http.post<Usuario>(this.url + "search", user);
   }
 
+  public updateUser(user: Usuario): Observable<Usuario> {
+    return this.http.put<Usuario>(this.url + "editarUsuario", user);
+  }
+
   public getUserMedicoFilterName(name: string) {
     return this.http.get<Usuario[]>(`${this.url}filterUserMedico&filter=${name}`);
 

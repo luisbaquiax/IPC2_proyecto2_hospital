@@ -26,7 +26,7 @@ public class SolicitudExamenDB {
     private static final String INSERT
             = "INSERT INTO solicitud_examen(paciente,laboratorio,porcentaje,fecha_solicitado,fecha_finalizada,estado,ganancia_lab,ganancia_admin,costo_total) "
             + "VALUES(?,?,?,?,?,?,?,?,?)";
-    private static final String UPDATE = "UPDATE solicitud_examen SET estado = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE solicitud_examen SET estado = ?, fecha_finalizada = ? WHERE id = ?";
     /**
      * Lista de solicitudes de examen
      */
@@ -39,9 +39,9 @@ public class SolicitudExamenDB {
      * solicitudes por laboratorio
      */
     private static final String SELECT_BY = "SELECT * FROM solicitud_examen WHERE (laboratorio = ?  OR paciente = ?) AND estado = ?";
-    
+
     public static final String ULTIMO = "SELECT id AS ultimo FROM solicitud_examen ORDER BY id DESC LIMIT 1";
-    
+
     private ResultSet resultSet;
 
     public SolicitudExamenDB() {
@@ -105,8 +105,9 @@ public class SolicitudExamenDB {
      */
     public boolean update(SolicitudExamen solicitud) {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(UPDATE)) {
-            statement.setString(6, solicitud.getEstado());
-            statement.setInt(2, solicitud.getId());
+            statement.setString(1, solicitud.getEstado());
+            statement.setString(2, solicitud.getFechaRealizada());
+            statement.setInt(3, solicitud.getId());
             statement.executeUpdate();
             statement.close();
             return true;
@@ -159,8 +160,8 @@ public class SolicitudExamenDB {
         }
         return lista;
     }
-    
-     public List<SolicitudExamen> getListSolicitdExamenBy(int laboratorio, int paciente, String estado) {
+
+    public List<SolicitudExamen> getListSolicitdExamenBy(int laboratorio, int paciente, String estado) {
         List<SolicitudExamen> lista = new ArrayList<>();
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT_BY)) {
             statement.setInt(1, laboratorio);

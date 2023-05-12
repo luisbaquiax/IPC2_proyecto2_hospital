@@ -4,7 +4,7 @@
         <h1 class="text-center"><strong>Agregar examenes de laboratorio:</strong> </h1>
         <div class="col">
             <form class="mt-5" (ngSubmit)="agregar()" #examenAdd="ngForm">
-                <button class="btn btn-danger" (click)="quitar()">Reiniciar</button>
+                <button class="btn btn-danger" (click)="reinicar()">Reiniciar</button>
                 <div class="form-group">
                     <label for="examen">Elegir especialidad:</label>
                     <select class="form-control" id="examen" required [(ngModel)]="examenNuevo.nombre"

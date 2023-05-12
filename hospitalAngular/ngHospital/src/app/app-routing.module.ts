@@ -39,6 +39,8 @@ import { LabExamenesPendienteComponent } from './module/laboratorio/lab-examenes
 import { LabExamenesSolicitudComponent } from './module/laboratorio/lab-examenes-solicitud/lab-examenes-solicitud.component';
 import { PacienteRevisionExamenesComponent } from './module/paciente/paciente-revision-examenes/paciente-revision-examenes.component';
 import { PacienteResultadosLaboratorioComponent } from './module/paciente/paciente-resultados-laboratorio/paciente-resultados-laboratorio.component';
+import { PacienteConsultasPendienteResultadosComponent } from './module/paciente/paciente-consultas-pendiente-resultados/paciente-consultas-pendiente-resultados.component';
+import { PacienteUploadResultadoConsultaComponent } from './module/paciente/paciente-upload-resultado-consulta/paciente-upload-resultado-consulta.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -158,6 +160,12 @@ const routes: Routes = [
   },
   {
     path: "pacienteResultadosLab", component: PacienteResultadosLaboratorioComponent
+  },
+  {
+    path: "pacienteConsultasPendienteResultados", component: PacienteConsultasPendienteResultadosComponent
+  },
+  {
+    path: "pacienteUploadResultadoConsulta", component: PacienteUploadResultadoConsultaComponent
   },
 ];
 

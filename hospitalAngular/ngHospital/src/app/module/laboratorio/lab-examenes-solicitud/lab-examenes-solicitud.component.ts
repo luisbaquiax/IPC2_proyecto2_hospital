@@ -4,6 +4,8 @@ import { SolicitudExamenService } from '../../../service/solicitude-examen/solic
 import { SolicitudExamen } from '../../../../entidad/SolicitudExamen';
 import { FileService } from '../../../service/file/file.service';
 import { Usuario } from '../../../../entidad/Usuario';
+import { Router } from '@angular/router';
+import { ResultadoConsulta } from '../../../../entidad/ResultadoConsulta';
 
 @Component({
   selector: 'app-lab-examenes-solicitud',
@@ -19,22 +21,26 @@ export class LabExamenesSolicitudComponent implements OnInit {
   user: Usuario;
 
   encontrado: Boolean;
+  listoParaMarcar: Boolean;
 
-  constructor(private serviceSolicitud: SolicitudExamenService, private serviceFile: FileService) { 
+  constructor(private serviceSolicitud: SolicitudExamenService, private serviceFile: FileService, private router: Router) {
     let solcitudJson = localStorage.getItem('solicitud');
-    this.solicitud = solcitudJson ? JSON.parse(solcitudJson): null;
+    this.solicitud = solcitudJson ? JSON.parse(solcitudJson) : null;
     let userJSON = localStorage.getItem('userLogin');
     this.user = userJSON ? JSON.parse(userJSON) : null;
     this.encontrado = false;
+    this.listoParaMarcar = false;
 
   }
 
   ngOnInit(): void {
     this.serviceSolicitud.getListExamensBySolicitud(this.solicitud.id).subscribe(
-      (list: ExamenTipoSolicitud[])=>{
+      (list: ExamenTipoSolicitud[]) => {
         this.examenes = list;
+        this.revisarExamens(this.examenes);
       }
     );
+
   }
 
   chooseFile(event: any) {
@@ -51,32 +57,44 @@ export class LabExamenesSolicitudComponent implements OnInit {
 
     form.append("pdf", this.pdfFile);
     console.log('enviando archivo');
-    this.serviceFile.enviarArchivoPDF(form,'1',examen.nombre,examen.examen.idExamen, examen.examen.idSolicitud, this.user.username).subscribe(
-      response =>{
-        examen.examen.estado = true;
-        
+    this.serviceFile.enviarArchivoPDF(form, '1', examen.nombre, examen.examen.idExamen, examen.examen.idSolicitud, this.user.username).subscribe(
+      response => {
         console.log('todo bien');
+        alert('Se enviado el archivo.')
+        location.reload();
+      }, error => {
+        alert('No se pudo enviar el archivo.')
+      }
+
+    );
+  }
+
+  revisarExamens(examenes: ExamenTipoSolicitud[]) {
+    for (let i = 0; i < examenes.length; i++) {
+      if (examenes[i].examen.estado == false) {
+        this.encontrado = true;
+      }
+    }
+    if (this.encontrado == false) {
+      //actualizar solicitud a finalizada.
+      this.listoParaMarcar = true;
+    }
+  }
+
+  marcar() {
+    console.log("marcnado");
+    this.solicitud.estado = SolicitudExamen.FINALIZADA;
+    //ACTUALIZAR EN DB
+    this.serviceSolicitud.updateSolicitud(this.solicitud).subscribe(
+      reponse => {
+        alert('Se ha marcado la solicitud como finalizada');
+        this.router.navigate(['/labExamenesPendientes'])
+      }, error => {
+        alert('No se pudo actualizar la solicitud.')
       }
     );
   }
 
-  revisarExamens(){
-    for (let i = 0; i < this.examenes.length; i++) {
-      if(this.examenes[i].examen.estado== false){
-        this.encontrado = true;
-      }      
-    }
-    if(this.encontrado == false){
-      //actualizar solicitud a finalizada.
-    }
-  }
-
-  marcar(){
-    console.log("marcnado");
-    this.solicitud.estado = SolicitudExamen.FINALIZADA;
-    //ACTUALIZAR EN DB
-    //this.serviceSolicitud.
-  }
 
 }
 

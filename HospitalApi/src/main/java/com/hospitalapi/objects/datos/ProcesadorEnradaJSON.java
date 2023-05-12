@@ -87,6 +87,31 @@ public class ProcesadorEnradaJSON {
         procesarLaboratorios(jsonObject);
         procesarConsultas(jsonObject);
         procesarSolicitudesExamenes(jsonObject);
+        
+        for (Usuario usuario : this.usuarios) {
+            if (usuario.getTipo().equals(ListaTiposUsuario.ADMIN)) {
+                usuario.setSaldo(usuario.getSaldo() + gananciaApp());
+                break;
+            }
+        }
+        //agregar saldo a los médicos
+        for (Usuario usuario : this.usuarios) {
+            for (Consulta consulta : this.consultas) {
+                if (consulta.getIdMedico() == usuario.getId()) {
+                    usuario.setSaldo(usuario.getSaldo() + consulta.getGananciaMedico());
+                }
+            }
+
+        }
+        //agregar saldo a los laboratorios
+        for (Usuario usuario : this.usuarios) {
+            for (SolicitudExamen solicitudExamen : this.solicitudExamens) {
+                if (usuario.getId() == solicitudExamen.getIdLaboratorio()) {
+                    usuario.setSaldo(usuario.getSaldo() + solicitudExamen.getGananciaLab());
+                }
+            }
+        }
+
         System.out.println(Arrays.toString(usuarios.toArray()));
     }
 
@@ -320,7 +345,7 @@ public class ProcesadorEnradaJSON {
                 ExamenConsulta examenConsulta = new ExamenConsulta(
                         Integer.parseInt(examen.get("id").toString()),
                         consulta.getId(),
-                        false);
+                        false, "");
                 examenesConsulta.add(examenConsulta);
                 if (existeTipoExamen(Integer.parseInt(examen.get("id").toString()), "", tiposExamens)) {
 //                    if (!existeExamenConsulta(Integer.parseInt(examen.get("id").toString()), examenesConsulta)) {

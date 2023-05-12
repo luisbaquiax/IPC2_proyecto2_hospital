@@ -13,6 +13,7 @@ import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.paciente.ServiceSolicitudExamen;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +56,6 @@ public class ServletControllerSolicitudExamen extends HttpServlet {
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "":
-                addSolicitudExamen(request, response);
                 break;
             default:
         }
@@ -86,6 +86,20 @@ public class ServletControllerSolicitudExamen extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("application/json");
+        String tarea = request.getParameter("tarea");
+        switch (tarea) {
+            case "update":
+                updateSolicitud(request, response);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }
+
     private void addSolicitudExamen(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SolicitudExamen solicitud = (SolicitudExamen) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudExamen.class);
         this.serviceSolicitudExamen.insertSolicitudExamen(solicitud);
@@ -101,6 +115,13 @@ public class ServletControllerSolicitudExamen extends HttpServlet {
 
         this.serviceSolicitudExamen.ingresarExamenesSolicitud(list);
 
+    }
+
+    private void updateSolicitud(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        SolicitudExamen solicitud = (SolicitudExamen) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudExamen.class);
+        solicitud.setFechaRealizada(LocalDate.now().toString());
+        System.out.println("solicitud "+solicitud.toString());
+        this.serviceSolicitudExamen.updateSolicitud(solicitud);
     }
 
 }

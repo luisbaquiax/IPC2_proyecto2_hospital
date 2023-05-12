@@ -26,11 +26,8 @@
                         <a class="dropdown-item" routerLink="/pacienteConsultas">
                             Agendar consulta
                         </a>
-                        <a class="dropdown-item" routerLink="/pacienteConsultas">
+                        <a class="dropdown-item" routerLink="/pacienteConsultasPendienteResultados">
                             Consultas pendientes de exámen
-                        </a>
-                        <a class="dropdown-item" routerLink="/pacienteConsultas">
-                            Consultas finalizadas
                         </a>
                     </ul>
                 </div>
@@ -90,8 +87,13 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-primary text-small shadow" aria-labelledby="dropdownUser3">
                         <li>
+                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Editar informacion
+                            </button>
+                        </li>
+                        <hr class="dropdown-divider">
+                        <li>
                             <a class="dropdown-item" (click)="exit()">Salir</a>
-                            <hr class="dropdown-divider">
                         </li>
                     </ul>
                 </div>
@@ -99,3 +101,4 @@
         </div>
     </div>
 </nav>
+<app-edit-user></app-edit-user>

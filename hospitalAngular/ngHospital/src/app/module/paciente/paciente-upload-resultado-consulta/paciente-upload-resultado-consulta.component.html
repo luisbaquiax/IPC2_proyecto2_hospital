@@ -1,0 +1,64 @@
+<app-nav-paciente></app-nav-paciente>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center"><strong>Consultas pendientes de resultados de exámenes</strong></h1>
+                    <div *ngIf="listoParaMarcar==true">
+                        <button class="btn btn-success" (click)="marcar()">
+                            Marcar como pendiente de revisión de exámenes
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="storeTable" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Consulta</th>
+                                <th scope="col">Examen</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Selecionar archivo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let d of examenes">
+                                <td>{{d.indConsulta}}</td>
+                                <td>{{d.nombre}}</td>
+                                <td>
+                                    <div class="" *ngIf="d.estado">
+                                        Con resultados
+                                    </div>
+                                    <div class="" *ngIf="!d.estado">
+                                        Sin resultados
+                                    </div>
+                                </td>
+                                <td>
+                                    <form *ngIf="d.estado==false">
+                                        <div class="mb-3">
+                                            <label for="formFileLg" class="form-label"></label>
+                                            <input name="pdf" class="form-control form-control-lg" id="formFileLg"
+                                                type="file" (change)="chooseFile($event)" accept=".pdf">
+                                        </div>
+                                        <button type="button" class="btn btn-warning" (click)="saveFile(d)">
+                                            Guardar archivo
+                                        </button>
+                                    </form>
+                                    <form *ngIf="d.estado==true">
+                                        <div class="mb-3">
+                                            <label for="formFileLg" class="form-label"></label>
+                                            <input name="pdf" class="form-control form-control-lg" id="formFileLg"
+                                                type="file" (change)="chooseFile($event)" accept=".pdf">
+                                        </div>
+                                        <button type="button" class="btn btn-success" (click)="saveFile(d)">
+                                            Cambiar archivo
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

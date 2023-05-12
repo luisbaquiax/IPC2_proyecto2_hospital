@@ -5,13 +5,14 @@
             <div class="card">
                 <div class="card-header">
                     <h1 class="text-center"><strong>Subir resultados</strong></h1>
-                    <button class="btn btn-success">Marcar como finalizada</button>
+                    <button class="btn btn-success" (click)="marcar()" *ngIf="listoParaMarcar==true">Marcar como finalizada</button>
                 </div>
                 <div class="card-body">
                     <table id="storeTable" class="table table-striped">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">Examen</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Subir resultados.</th>
                             </tr>
                         </thead>
@@ -19,7 +20,15 @@
                             <tr *ngFor="let d of examenes">
                                 <td>{{d.nombre}}</td>
                                 <td>
-                                    <form action="" *ngIf="d.examen.estado==false">
+                                    <div class="h" *ngIf="d.examen.estado">
+                                        Con resultados
+                                    </div>
+                                    <div class="h" *ngIf="!d.examen.estado">
+                                        Sin resultados
+                                    </div>
+                                </td>
+                                <td>
+                                    <form *ngIf="d.examen.estado==false">
                                         <div class="mb-3">
                                             <label for="formFileLg" class="form-label"></label>
                                             <input name="pdf" class="form-control form-control-lg" id="formFileLg"
@@ -27,6 +36,16 @@
                                         </div>
                                         <button type="button" class="btn btn-warning" (click)="saveFile(d)">
                                             Guardar archivo
+                                        </button>
+                                    </form>
+                                    <form *ngIf="d.examen.estado==true">
+                                        <div class="mb-3">
+                                            <label for="formFileLg" class="form-label"></label>
+                                            <input name="pdf" class="form-control form-control-lg" id="formFileLg"
+                                                type="file" (change)="chooseFile($event)" accept=".pdf">
+                                        </div>
+                                        <button type="button" class="btn btn-success" (click)="saveFile(d)">
+                                            Cambiar archivo
                                         </button>
                                     </form>
                                 </td>

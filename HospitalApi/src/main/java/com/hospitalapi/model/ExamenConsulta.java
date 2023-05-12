@@ -27,5 +27,6 @@ public class ExamenConsulta implements Serializable {
     private int idExamen;
     private int indConsulta;
     private boolean estado;
+    private String nombre;
 
 }

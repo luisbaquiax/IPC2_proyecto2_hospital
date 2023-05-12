@@ -15,4 +15,8 @@ export class ExamenesConsultaService {
   public insertExamenConsulta(examens: ExamenConsulta[]): Observable<ExamenConsulta[]> {
     return this.HttpClient.post<ExamenConsulta[]>(this.URL + "insertExamenConsulta", examens);
   }
+
+  public getList(consulta: number) : Observable<ExamenConsulta[]>{
+    return this.HttpClient.get<ExamenConsulta[]>(this.URL + "examenesConsulta&consulta=" + consulta)
+  }
 }

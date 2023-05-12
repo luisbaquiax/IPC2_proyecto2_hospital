@@ -49,6 +49,9 @@ import { LabExamenesPendienteComponent } from './module/laboratorio/lab-examenes
 import { LabExamenesSolicitudComponent } from './module/laboratorio/lab-examenes-solicitud/lab-examenes-solicitud.component';
 import { PacienteResultadosLaboratorioComponent } from './module/paciente/paciente-resultados-laboratorio/paciente-resultados-laboratorio.component';
 import { PacienteRevisionExamenesComponent } from './module/paciente/paciente-revision-examenes/paciente-revision-examenes.component';
+import { PacienteConsultasPendienteResultadosComponent } from './module/paciente/paciente-consultas-pendiente-resultados/paciente-consultas-pendiente-resultados.component';
+import { PacienteUploadResultadoConsultaComponent } from './module/paciente/paciente-upload-resultado-consulta/paciente-upload-resultado-consulta.component';
+import { EditUserComponent } from './module/users/edit-user/edit-user.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +98,10 @@ import { PacienteRevisionExamenesComponent } from './module/paciente/paciente-re
     LabExamenesPendienteComponent,
     LabExamenesSolicitudComponent,
     PacienteResultadosLaboratorioComponent,
-    PacienteRevisionExamenesComponent
+    PacienteRevisionExamenesComponent,
+    PacienteConsultasPendienteResultadosComponent,
+    PacienteUploadResultadoConsultaComponent,
+    EditUserComponent
   ],
   imports: [
     BrowserModule,

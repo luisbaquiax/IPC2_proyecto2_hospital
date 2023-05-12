@@ -58,8 +58,8 @@ export class LabAddInfoComponent implements OnInit {
     }
 
   }
-  quitar() {
-
+  reinicar() {
+    location.reload();
   }
 
   guardarCambios() {

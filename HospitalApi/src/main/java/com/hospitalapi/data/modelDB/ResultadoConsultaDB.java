@@ -51,7 +51,7 @@ public class ResultadoConsultaDB {
         }
     }
 
-    public boolean update(ResultadoLaboratorio resultado) {
+    public boolean update(ResultadoConsulta resultado) {
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(UPDATE)) {
             statement.setString(1, resultado.getNombreArchivo());
             statement.setInt(2, resultado.getId());
@@ -88,13 +88,13 @@ public class ResultadoConsultaDB {
     /**
      * List resultados de laboratorio
      *
-     * @param solicitud
+     * @param consulta
      * @return
      */
-    public List<ResultadoConsulta> getList(int solicitud) {
+    public List<ResultadoConsulta> getList(int consulta) {
         List<ResultadoConsulta> list = new ArrayList<>();
         try (PreparedStatement statement = ConeccionDB.getConnection().prepareStatement(SELECT)) {
-            statement.setInt(1, solicitud);
+            statement.setInt(1, consulta);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 list.add(ResultadoConsulta.builder().

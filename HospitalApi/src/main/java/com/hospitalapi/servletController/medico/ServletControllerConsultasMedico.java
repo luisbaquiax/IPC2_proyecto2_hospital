@@ -61,6 +61,9 @@ public class ServletControllerConsultasMedico extends HttpServlet {
             case "agendadaBy":
                 sendAgendadasBy(request, response);
                 break;
+            case "examenesConsulta":
+                sendListExamensConsulta(request, response);
+                break;
             default:
         }
     }
@@ -153,7 +156,13 @@ public class ServletControllerConsultasMedico extends HttpServlet {
 
     private void updateConsulta(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Consulta consulta = (Consulta) this.converter.fromJson(this.lector.read(request.getReader()), Consulta.class);
+        System.out.println("consulta update "+consulta.toString());
         this.serviceConsultas.update(consulta);
+    }
+
+    private void sendListExamensConsulta(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int consulta= Integer.parseInt(request.getParameter("consulta"));
+        response.getWriter().write(this.converter.toJson(this.serviceConsultas.getList(consulta)));
     }
 
 }

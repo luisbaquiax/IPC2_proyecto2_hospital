@@ -21,6 +21,10 @@ export class SolicitudExamenService {
     return this.HttpClient.post<SolicitudExamen>(this.URL + "insert", solicitud);
   }
 
+  public updateSolicitud(solicitud: SolicitudExamen): Observable<SolicitudExamen> {
+    return this.HttpClient.put<SolicitudExamen>(this.URL + "update", solicitud);
+  }
+
   public insertExamenesSolicitud(examens: ExamenesLaboratorio[]): Observable<ExamenesLaboratorio[]> {
     return this.HttpClient.post<ExamenesLaboratorio[]>(this.URL + "insertExamenes", examens)
   }

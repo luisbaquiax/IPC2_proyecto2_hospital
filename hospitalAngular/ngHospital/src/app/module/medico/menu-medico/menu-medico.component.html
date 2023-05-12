@@ -89,8 +89,13 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-primary text-small shadow" aria-labelledby="dropdownUser3">
                         <li>
+                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                Editar informacion
+                            </button>
+                        </li>
+                        <hr class="dropdown-divider">
+                        <li>
                             <a class="dropdown-item" (click)="salir()">Salir</a>
-                            <hr class="dropdown-divider">
                         </li>
                     </ul>
                 </div>
@@ -99,3 +104,4 @@
         </div>
     </div>
 </nav>
+<app-edit-user></app-edit-user>

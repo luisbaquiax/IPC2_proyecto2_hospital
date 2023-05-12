@@ -102,4 +102,8 @@ public class ServiceSolicitudExamen {
     public List<ExamenTipoSolicitud> getListExmamenes(int solicitud){
         return this.examenTipoSolicitudDB.getListBySolicitud(solicitud);
     }
+    
+    public boolean updateSolicitud(SolicitudExamen solicitud){
+        return this.solicitudExamenDB.update(solicitud);
+    }
 }

@@ -39,7 +39,16 @@ public class ServiceConsultas {
     public boolean insert(Consulta consulta) {
         return this.consultaDB.insert(consulta);
     }
+
     public boolean insert(ExamenConsulta examenConsulta) {
         return this.examenConsultaDB.insert(examenConsulta);
+    }
+
+    public List<ExamenConsulta> getList(int consulta) {
+        return this.examenConsultaDB.getListExamenConsult(consulta);
+    }
+
+    public boolean updateExamen(ExamenConsulta examenConsulta) {
+        return this.examenConsultaDB.update(examenConsulta);
     }
 }

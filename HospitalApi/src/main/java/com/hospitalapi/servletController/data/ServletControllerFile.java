@@ -4,9 +4,13 @@
  */
 package com.hospitalapi.servletController.data;
 
+import com.hospitalapi.model.ExamenConsulta;
 import com.hospitalapi.model.ExamenSolicitado;
+import com.hospitalapi.model.ResultadoConsulta;
 import com.hospitalapi.model.ResultadoLaboratorio;
 import com.hospitalapi.service.laboratorio.ServiceResultadosLab;
+import com.hospitalapi.service.medico.ServiceConsultas;
+import com.hospitalapi.service.medico.ServiceResultadosConsulta;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,9 +38,13 @@ import javax.servlet.http.Part;
 public class ServletControllerFile extends HttpServlet {
 
     private ServiceResultadosLab serviceResultadosLab;
+    private ServiceConsultas serviceConsultas;
+    private ServiceResultadosConsulta serviceResultadosConsulta;
 
     public ServletControllerFile() {
         this.serviceResultadosLab = new ServiceResultadosLab();
+        this.serviceConsultas = new ServiceConsultas();
+        this.serviceResultadosConsulta = new ServiceResultadosConsulta();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,6 +93,18 @@ public class ServletControllerFile extends HttpServlet {
 
     }
 
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException {
+        String accion = request.getParameter("accion");
+        switch (accion) {
+            case "":
+                break;
+            default:
+        }
+
+    }
+
     private void guardarResultadoLaboratorio(HttpServletRequest request, HttpServletResponse response) {
         try {
             Part pdfPart = request.getPart("pdf");
@@ -119,6 +139,7 @@ public class ServletControllerFile extends HttpServlet {
             pdfPart.write(filePath);
 
         } catch (IOException | ServletException ex) {
+            System.out.println("fallo");
             Logger.getLogger(ServletControllerFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -128,10 +149,10 @@ public class ServletControllerFile extends HttpServlet {
             Part pdfPart = request.getPart("pdf");
             String examen = request.getParameter("examen");
             int idExamen = Integer.parseInt(request.getParameter("idExamen"));
-            int solicitud = Integer.parseInt(request.getParameter("solicitud"));
+            int consulta = Integer.parseInt(request.getParameter("solicitud"));
             String username = request.getParameter("username");
 
-            String nombreArchivo = idExamen + " " + examen + " " + solicitud + " " + username;
+            String nombreArchivo = idExamen + " " + examen + " " + consulta + " " + username;
 
             // Guardar el archivo PDF en la carpeta
             String folder = "/tmp/paciente/";
@@ -139,14 +160,24 @@ public class ServletControllerFile extends HttpServlet {
 
             String filePath = folder + nombreArchivo + fileName.toString();
 
+            ResultadoConsulta resultado = new ResultadoConsulta(0, consulta, idExamen, nombreArchivo + fileName.toString(), examen);
+            ResultadoConsulta buscado = this.serviceResultadosConsulta.get(idExamen, consulta);
+            if (buscado == null) {
+                this.serviceResultadosConsulta.insert(resultado);
+                ExamenConsulta examenConsulta = new ExamenConsulta(idExamen, consulta, true, "");
+                this.serviceConsultas.updateExamen(examenConsulta);
+            } else {
+                buscado.setNombreArchivo(resultado.getNombreArchivo());
+                this.serviceResultadosConsulta.update(buscado);
+            }
+
             File pdfFile = new File(filePath);
             FileOutputStream outputStream = new FileOutputStream(pdfFile, false);
             pdfPart.write(filePath);
 
-            ResultadoLaboratorio resultado = new ResultadoLaboratorio(0, solicitud, idExamen, nombreArchivo + fileName.toString(), "");
-            this.serviceResultadosLab.insert(resultado);
         } catch (IOException | ServletException ex) {
             Logger.getLogger(ServletControllerFile.class.getName()).log(Level.SEVERE, null, ex);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 

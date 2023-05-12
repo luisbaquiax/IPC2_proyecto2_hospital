@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class HistorialMedicoDB {
 
     public static final String SELECT
-            = "SELECT fecha_creacion, fecha_agendada, informe, estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
+            = "SELECT fecha_creacion, fecha_agendada, informe, c.estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
             + "FROM consulta c\n"
             + "INNER JOIN examenes_consulta e\n"
             + "ON c.id = e.consulta\n"
@@ -34,7 +34,7 @@ public class HistorialMedicoDB {
             + "WHERE paciente = ?";
 
     public static final String SELECT_BETWEEN_DATE
-            = "SELECT fecha_creacion, fecha_agendada, informe, estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
+            = "SELECT fecha_creacion, fecha_agendada, informe, c.estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
             + "FROM consulta c\n"
             + "INNER JOIN examenes_consulta e\n"
             + "ON c.id = e.consulta\n"
@@ -48,7 +48,7 @@ public class HistorialMedicoDB {
             + "AND fecha_creacion BETWEEN ? AND ?";
 
     private static final String SELECT_BY_PACIENTE_MEDICO
-            = "SELECT fecha_creacion, fecha_agendada, informe, estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
+            = "SELECT fecha_creacion, fecha_agendada, informe, c.estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
             + "FROM consulta c\n"
             + "INNER JOIN examenes_consulta e\n"
             + "ON c.id = e.consulta\n"
@@ -62,7 +62,7 @@ public class HistorialMedicoDB {
             + "AND medico = ? ORDER BY fecha_creacion DESC";
     
     private static final String SELECT_BY_MEDICO
-            = "SELECT fecha_creacion, fecha_agendada, informe, estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
+            = "SELECT fecha_creacion, fecha_agendada, informe, c.estado, t.nombre AS examen, u.nombre as medico, precio, c.id as consulta\n"
             + "FROM consulta c\n"
             + "INNER JOIN examenes_consulta e\n"
             + "ON c.id = e.consulta\n"

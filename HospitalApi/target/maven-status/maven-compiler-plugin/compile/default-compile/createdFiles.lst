@@ -41,6 +41,7 @@ com/hospitalapi/data/modelDB/UserDB.class
 com/hospitalapi/model/Medico.class
 com/hospitalapi/data/modelDB/ExamanesLaboratorioDB.class
 com/hospitalapi/service/admin/TopLaboratorioService.class
+com/hospitalapi/service/medico/ServiceResultadosConsulta.class
 com/hospitalapi/servletController/admin/ReportAdminController.class
 com/hospitalapi/data/modelDB/PrecioExamenDB.class
 com/hospitalapi/model/PrecioExamen.class
@@ -88,6 +89,7 @@ com/hospitalapi/data/modelDB/reportsDB/LaboratorioIngresosDB.class
 com/hospitalapi/model/Paciente.class
 com/hospitalapi/data/modelDB/ExamenTipoSolicitudDB.class
 com/hospitalapi/model/Recarga$RecargaBuilder.class
+com/hospitalapi/servletController/medico/ServletControllerResultadoConsulta.class
 com/hospitalapi/model/reports/ReportLabTopExamenes.class
 com/hospitalapi/model/reports/HistorialMedico.class
 com/hospitalapi/servletController/download/ServletControllerDownloadLab$2.class

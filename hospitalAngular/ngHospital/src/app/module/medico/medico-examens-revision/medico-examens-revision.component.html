@@ -1,1 +1,60 @@
-<p>medico-examens-revision works!</p>
+<app-menu-medico></app-menu-medico>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center">Revisión de exámenes</h2>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal5">Marcar como finalizada
+                    </button>
+                </div>
+                <div class="card-body">
+                    <table id="storeTable" class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Consulta</th>
+                                <th scope="col">Examen</th>
+                                <th scope="col">Nombre del archivo</th>
+                                <th scope="col">Descargar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let h of resultados">
+                                <td>{{h.idConsulta}}</td>
+                                <td>{{h.examen}}</td>
+                                <td>{{h.nombreArchivo}}</td>
+                                <td>
+                                    <button class="btn btn-warning" (click)="descargar(h)">Descargar</button>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModal5" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModal5">Ingresar informe</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form" (ngSubmit)="marcar()">
+                    <div class="mb-3">
+                        <label for="informe" class="col-form-label">Ingrese texto:</label>
+                        <input formControlName="informe" type="text" class="form-control" id="informe">
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary w-100" [disabled]="!form.valid">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

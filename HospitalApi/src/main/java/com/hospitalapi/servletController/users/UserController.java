@@ -128,10 +128,11 @@ public class UserController extends HttpServlet {
                 usuario.setPassword(encriptador.encriptar(usuario.getPassword()));
                 if (usuarioService.update(usuario)) {
                     System.out.println("bien");
+                    response.setStatus(HttpServletResponse.SC_ACCEPTED);
                 } else {
                     System.out.println("falló");
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
-                response.getWriter().print(json);
                 break;
             default:
         }
