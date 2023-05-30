@@ -1,0 +1,763 @@
+{
+    "admin": [
+        {
+            "id": 123,
+            "nombre": "Administrador 1",
+            "username": "admin1",
+            "password": "password1",
+            "email": "admin@medical.com",
+            "fecha_nacimiento": "1988-04-03",
+            "saldo": 0
+        }
+    ],
+    "especialidades" : [
+        {
+            "id" : 1,
+            "nombre": "EspecialidadA",
+            "descripcion": "Descripion de la especialidad"
+        },
+        {
+            "id" : 2,
+            "nombre": "EspecialidadB",
+            "descripcion": "Descripion de la especialidad"
+        },
+        {
+            "id" : 3,
+            "nombre": "EspecialidadC",
+            "descripcion": "Descripion de la especialidad"
+        },
+        {
+            "id" : 4,
+            "nombre": "EspecialidadD",
+            "descripcion": "Descripion de la especialidad"
+        },
+        {
+            "id" : 5,
+            "nombre": "EspecialidadE",
+            "descripcion": "Descripion de la especialidad"
+        },
+        {
+            "id" : 6,
+            "nombre": "Especialidadf",
+            "descripcion": "Descripion de la especialidad"
+        },
+        {
+            "id" : 7,
+            "nombre": "EspecialidadG",
+            "descripcion": "Descripion de la especialidad"
+        }
+    ],
+    "tipos_examenes" : [
+        {
+            "id": 1,
+            "nombre": "Nombre tipo examen A",
+            "descripcion": "Descripcion del examen"
+        },
+        {
+            "id": 2,
+            "nombre": "Nombre tipo examen B",
+            "descripcion": "Descripcion del examen"
+        },
+        {
+            "id": 3,
+            "nombre": "Nombre tipo examen C",
+            "descripcion": "Descripcion del examen"
+        },
+        {
+            "id": 4,
+            "nombre": "Nombre tipo examen D",
+            "descripcion": "Descripcion del examen"
+        },
+        {
+            "id": 5,
+            "nombre": "Nombre tipo examen E",
+            "descripcion": "Descripcion del examen"
+        },
+        {
+            "id": 6,
+            "nombre": "Nombre tipo examen F",
+            "descripcion": "Descripcion del examen"
+        },
+        {
+            "id": 7,
+            "nombre": "Nombre tipo examen G",
+            "descripcion": "Descripcion del examen"
+        }
+    ],
+    "medicos" : [
+        {
+            "id": 1,
+            "nombre": "Médico 1",
+            "username": "medico1",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 1500.50,
+            "horarios": [
+                "8:00-12:00",
+                "14:00-17:00"
+            ],
+            "especialidades" : [
+                {"id": 1, "precio": 150},
+                {"id": 2, "precio": 300},
+                {"id": 3, "precio": 150},
+                {"id": 4, "precio": 300},
+                {"id": 5, "precio": 150},
+                {"id": 6, "precio": 300},
+                {"id": 7, "precio": 150}
+            ]
+        },
+         {
+            "id": 2,
+            "nombre": "Médico 1",
+            "username": "medico2",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 1500.50,
+            "horarios": [
+                "8:00-12:00",
+                "14:00-17:00"
+            ],
+            "especialidades" : [
+                {"id": 1, "precio": 150},
+                {"id": 2, "precio": 300},
+                {"id": 3, "precio": 150},
+                {"id": 4, "precio": 300},
+                {"id": 5, "precio": 150},
+                {"id": 6, "precio": 300},
+                {"id": 7, "precio": 150}
+            ]
+        },
+         {
+            "id": 3,
+            "nombre": "Médico 1",
+            "username": "medico3",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 1500.50,
+            "horarios": [
+                "8:00-12:00",
+                "14:00-17:00"
+            ],
+            "especialidades" : [
+                {"id": 1, "precio": 150},
+                {"id": 2, "precio": 300},
+                {"id": 3, "precio": 150},
+                {"id": 4, "precio": 300},
+                {"id": 5, "precio": 150},
+                {"id": 6, "precio": 300},
+                {"id": 7, "precio": 150}
+            ]
+        },
+         {
+            "id": 4,
+            "nombre": "Médico 1",
+            "username": "medico4",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 1500.50,
+            "horarios": [
+                "8:00-12:00",
+                "14:00-17:00"
+            ],
+            "especialidades" : [
+                {"id": 1, "precio": 150},
+                {"id": 2, "precio": 300},
+                {"id": 3, "precio": 150},
+                {"id": 4, "precio": 300},
+                {"id": 5, "precio": 150},
+                {"id": 6, "precio": 300},
+                {"id": 7, "precio": 150}
+            ]
+        }
+    ],
+    "laboratorios" : [
+        {
+            "id": 11,
+            "nombre": "Laboratorio 1",
+            "username": "lab1",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_fundacion" : "2012-02-03",
+            "saldo": 3453.75,
+            "examenes" : [
+                {"id": 1, "precio": 50},
+                {"id": 2, "precio": 60},
+                {"id": 3, "precio": 50},
+                {"id": 4, "precio": 60},
+                {"id": 5, "precio": 50},
+                {"id": 6, "precio": 60}
+            ]
+        },
+        {
+            "id": 22,
+            "nombre": "Laboratorio 1",
+            "username": "lab2",
+            "password": "password2",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_fundacion" : "2012-02-03",
+            "saldo": 3453.75,
+            "examenes" : [
+                {"id": 1, "precio": 50},
+                {"id": 2, "precio": 60},
+                {"id": 3, "precio": 50},
+                {"id": 4, "precio": 60},
+                {"id": 5, "precio": 50},
+                {"id": 6, "precio": 60}
+            ]
+        },
+        {
+            "id": 33,
+            "nombre": "Laboratorio 1",
+            "username": "lab3",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_fundacion" : "2012-02-03",
+            "saldo": 3453.75,
+            "examenes" : [
+                {"id": 1, "precio": 50},
+                {"id": 2, "precio": 60},
+                {"id": 3, "precio": 50},
+                {"id": 4, "precio": 60},
+                {"id": 5, "precio": 50},
+                {"id": 6, "precio": 60}
+            ]
+        },
+        {
+            "id": 44,
+            "nombre": "Laboratorio 1",
+            "username": "lab4",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_fundacion" : "2012-02-03",
+            "saldo": 3453.75,
+            "examenes" : [
+                {"id": 1, "precio": 50},
+                {"id": 2, "precio": 60},
+                {"id": 3, "precio": 50},
+                {"id": 4, "precio": 60},
+                {"id": 5, "precio": 50},
+                {"id": 6, "precio": 60}
+            ]
+        }
+    ],
+    "pacientes" : [
+        {
+            "id": 111,
+            "nombre": "Paciente 1",
+            "username": "paciente1",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 222,
+            "nombre": "Paciente 1",
+            "username": "paciente2",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 333,
+            "nombre": "Paciente 1",
+            "username": "paciente3",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 444,
+            "nombre": "Paciente 1",
+            "username": "paciente4",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 555,
+            "nombre": "Paciente 1",
+            "username": "paciente5",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 666,
+            "nombre": "Paciente 1",
+            "username": "paciente6",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 777,
+            "nombre": "Paciente 1",
+            "username": "paciente7",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 888,
+            "nombre": "Paciente 1",
+            "username": "paciente8",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 999,
+            "nombre": "Paciente 1",
+            "username": "paciente9",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        },
+         {
+            "id": 100,
+            "nombre": "Paciente 1",
+            "username": "paciente10",
+            "password": "password1",
+            "direccion": "Direccion 1",
+            "cui" : "1123123450920",
+            "telefono": "11112222",
+            "email": "aaa@bbb.ccc",
+            "fecha_nacimiento" : "2012-02-03",
+            "saldo": 350
+        }
+    ],
+    "consultas" : [
+        {
+            "id" : 1,
+            "paciente" : 111,
+            "médico": 2,
+            "especialidad" : 3,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 1},
+                { "id" : 2}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 2,
+            "paciente" : 333,
+            "médico": 4,
+            "especialidad" : 6,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 2},
+                { "id" : 3}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 3,
+            "paciente" : 777,
+            "médico": 1,
+            "especialidad" : 7,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 3},
+                { "id" : 2}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 4,
+            "paciente" : 111,
+            "médico": 3,
+            "especialidad" : 4,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 1},
+                { "id" : 3}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 5,
+            "paciente" : 222,
+            "médico": 4,
+            "especialidad" : 7,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 1},
+                { "id" : 2}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 6,
+            "paciente" : 222,
+            "médico": 4,
+            "especialidad" : 2,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 3},
+                { "id" : 4}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 7,
+            "paciente" : 333,
+            "médico": 4,
+            "especialidad" : 4,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 1},
+                { "id" : 2}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 8,
+            "paciente" : 999,
+            "médico": 3,
+            "especialidad" : 2,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 4},
+                { "id" : 5}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 9,
+            "paciente" : 333,
+            "médico": 2,
+            "especialidad" : 6,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 5},
+                { "id" : 6}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 10,
+            "paciente" : 555,
+            "médico": 1,
+            "especialidad" : 7,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 5},
+                { "id" : 3}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 11,
+            "paciente" : 111,
+            "médico": 1,
+            "especialidad" : 2,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 5},
+                { "id" : 3}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 12,
+            "paciente" : 333,
+            "médico": 4,
+            "especialidad" : 3,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 3},
+                { "id" : 4}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 13,
+            "paciente" : 333,
+            "médico": 4,
+            "especialidad" : 4,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 4},
+                { "id" : 2}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 14,
+            "paciente" : 555,
+            "médico": 4,
+            "especialidad" : 1,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 4},
+                { "id" : 3}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 15,
+            "paciente" : 333,
+            "médico": 4,
+            "especialidad" : 7,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 1},
+                { "id" : 5}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 16,
+            "paciente" : 999,
+            "médico": 4,
+            "especialidad" : 2,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 2},
+                { "id" : 3}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 17,
+            "paciente" : 444,
+            "médico": 2,
+            "especialidad" : 6,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 4},
+                { "id" : 1}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        },
+        {
+            "id" : 18,
+            "paciente" : 333,
+            "médico": 3,
+            "especialidad" : 5,
+            "porcentaje_aplicacion" : 0.04,
+            "examenes_solicitados" : [
+                { "id" : 5},
+                { "id" : 2}
+            ],
+            "fecha_creacion" : "2023-03-03",
+            "fecha_agendada" : "2023-03-06 10:00",
+            "precio" : 250,
+            "informe_finalizacion" "Se va a morir :("
+            "estado" : "FINALIZADA"
+        }
+    ],
+    "solicitudes" : [
+        {
+            "id" : 1,
+            "paciente": 222,
+            "laboratorio" : 33,
+            "porcentaje_aplicacion" : 0.04,
+            "fecha_solicitado" : "2023-03-31",
+            "fecha_finalizado": "2023-04-03",
+            "examenes" : [
+                { "id": 5, "precio": 50 },
+                { "id": 3, "precio": 70 }
+            ],
+            "estado_solicitud": "FINALIZADA"
+        },
+         {
+            "id" : 2,
+            "paciente": 222,
+            "laboratorio" : 33,
+            "porcentaje_aplicacion" : 0.04,
+            "fecha_solicitado" : "2023-03-31",
+            "fecha_finalizado": "2023-04-03",
+            "examenes" : [
+                { "id": 5, "precio": 50 },
+                { "id": 3, "precio": 70 }
+            ],
+            "estado_solicitud": "FINALIZADA"
+        },
+         {
+            "id" : 3,
+            "paciente": 333,
+            "laboratorio" : 44,
+            "porcentaje_aplicacion" : 0.04,
+            "fecha_solicitado" : "2023-03-31",
+            "fecha_finalizado": "2023-04-03",
+            "examenes" : [
+                { "id": 5, "precio": 50 },
+                { "id": 3, "precio": 70 }
+            ],
+            "estado_solicitud": "FINALIZADA"
+        },
+         {
+            "id" : 4,
+            "paciente": 444,
+            "laboratorio" : 33,
+            "porcentaje_aplicacion" : 0.04,
+            "fecha_solicitado" : "2023-03-31",
+            "fecha_finalizado": "2023-04-03",
+            "examenes" : [
+                { "id": 5, "precio": 50 },
+                { "id": 3, "precio": 70 }
+            ],
+            "estado_solicitud": "FINALIZADA"
+        },
+         {
+            "id" : 5,
+            "paciente": 333,
+            "laboratorio" : 33,
+            "porcentaje_aplicacion" : 0.04,
+            "fecha_solicitado" : "2023-03-31",
+            "fecha_finalizado": "2023-04-03",
+            "examenes" : [
+                { "id": 5, "precio": 50 },
+                { "id": 3, "precio": 70 }
+            ],
+            "estado_solicitud": "FINALIZADA"
+        },
+         {
+            "id" : 6,
+            "paciente": 444,
+            "laboratorio" : 11,
+            "porcentaje_aplicacion" : 0.04,
+            "fecha_solicitado" : "2023-03-31",
+            "fecha_finalizado": "2023-04-03",
+            "examenes" : [
+                { "id": 5, "precio": 50 },
+                { "id": 3, "precio": 70 }
+            ],
+            "estado_solicitud": "FINALIZADA"
+        }
+    ]   
+}

@@ -84,7 +84,7 @@ public class ServletControllerSolicitudes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        //response.setContentType("application/json");
         String tarea = request.getParameter("tarea");
         switch (tarea) {
             case "insertSolicitudEspecialidad":
@@ -126,20 +126,23 @@ public class ServletControllerSolicitudes extends HttpServlet {
 
     private void inserSolicitudEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SolicitudEspecialidad solicitud = (SolicitudEspecialidad) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudEspecialidad.class);
-        System.out.println("ingresando solicitud " + solicitud.toString());
+        System.out.println("hola " + solicitud.toString());
         if (servceSolicitudesEspecialidad.insert(solicitud)) {
             System.out.println("Todo bien.");
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
         } else {
             System.out.println("falló");
+            response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
         }
     }
 
     private void updateSolicitudEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SolicitudEspecialidad solicitud = (SolicitudEspecialidad) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudEspecialidad.class);
         if (servceSolicitudesEspecialidad.update(solicitud)) {
-            System.out.println("Todo bien. update ");
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
         } else {
-            System.out.println("falló update");
+            response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+
         }
     }
 
@@ -157,9 +160,9 @@ public class ServletControllerSolicitudes extends HttpServlet {
         try {
             SolicitudTipoExamen solicitud = (SolicitudTipoExamen) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudTipoExamen.class);
             if (serviceSolicitudTipoExamen.insert(solicitud)) {
-                System.out.println("bien: ");
+                response.setStatus(HttpServletResponse.SC_CREATED);
             } else {
-                System.out.println("falló: ");
+                response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
             }
         } catch (IOException ex) {
             Logger.getLogger(ServletControllerSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,9 +173,8 @@ public class ServletControllerSolicitudes extends HttpServlet {
     private void updateSolicitudExamen(HttpServletRequest request, HttpServletResponse response) throws IOException {
         SolicitudTipoExamen solicitud = (SolicitudTipoExamen) this.converter.fromJson(this.lector.read(request.getReader()), SolicitudTipoExamen.class);
         if (serviceSolicitudTipoExamen.update(solicitud)) {
-            System.out.println("bien: ");
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
         } else {
-            System.out.println("falló: ");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -180,10 +182,8 @@ public class ServletControllerSolicitudes extends HttpServlet {
     private void insertNewEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Especialidad especialidad = (Especialidad) this.converter.fromJson(this.lector.read(request.getReader()), Especialidad.class);
         if (serviceEspecialidad.insert(especialidad)) {
-            System.out.println("bien");
             response.setStatus(HttpServletResponse.SC_CREATED);
         } else {
-            System.out.println("falló");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
@@ -191,10 +191,8 @@ public class ServletControllerSolicitudes extends HttpServlet {
     private void insertNewExamen(HttpServletRequest request, HttpServletResponse response) throws IOException {
         TipoExamen tipoExamen = (TipoExamen) this.converter.fromJson(this.lector.read(request.getReader()), TipoExamen.class);
         if (serviceExamenes.insert(tipoExamen)) {
-            System.out.println("bien");
             response.setStatus(HttpServletResponse.SC_CREATED);
         } else {
-            System.out.println("falló");
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }

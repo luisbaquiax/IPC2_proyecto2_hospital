@@ -28,6 +28,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.swing.filechooser.FileSystemView;
 
 /**
  *
@@ -40,11 +41,13 @@ public class ServletControllerFile extends HttpServlet {
     private ServiceResultadosLab serviceResultadosLab;
     private ServiceConsultas serviceConsultas;
     private ServiceResultadosConsulta serviceResultadosConsulta;
+    private File home;
 
     public ServletControllerFile() {
         this.serviceResultadosLab = new ServiceResultadosLab();
         this.serviceConsultas = new ServiceConsultas();
         this.serviceResultadosConsulta = new ServiceResultadosConsulta();
+        this.home = FileSystemView.getFileSystemView().getHomeDirectory();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -116,8 +119,8 @@ public class ServletControllerFile extends HttpServlet {
             String nombreArchivo = idExamen + " " + examen + " " + solicitud + " " + username + " ";
 
             // Guardar el archivo PDF en la carpeta
-            String folder = "/tmp/laboratorio/";
-
+            //String folder = "/tmp/laboratorio/";
+            String folder = this.home + File.separator + "laboratorio" + File.separator;
             Path fileName = Paths.get(pdfPart.getSubmittedFileName()).getFileName();
 
             String filePath = folder + nombreArchivo + fileName.toString();
@@ -155,7 +158,8 @@ public class ServletControllerFile extends HttpServlet {
             String nombreArchivo = idExamen + " " + examen + " " + consulta + " " + username;
 
             // Guardar el archivo PDF en la carpeta
-            String folder = "/tmp/paciente/";
+            //String folder = "/tmp/paciente/";
+            String folder = this.home + File.separator + "paciente" + File.separator;
             Path fileName = Paths.get(pdfPart.getSubmittedFileName()).getFileName();
 
             String filePath = folder + nombreArchivo + fileName.toString();
@@ -187,11 +191,13 @@ public class ServletControllerFile extends HttpServlet {
         String pathFile = "";
         switch (folder) {
             case "lab":
-                pathFile = "/tmp/laboratorio/" + path;
+                //pathFile = "/tmp/laboratorio/" + path;
+                pathFile = this.home + File.separator + "laboratorio" + File.separator + path;
                 download(response, pathFile);
                 break;
             case "paciente":
-                pathFile = "/tmp/paciente/" + path;
+                //pathFile = "/tmp/paciente/" + path;
+                pathFile = this.home + File.separator + "paciente" + File.separator + path;
                 download(response, pathFile);
                 break;
             default:

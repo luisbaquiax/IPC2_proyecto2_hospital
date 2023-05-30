@@ -1,4 +1,4 @@
-import { Component, Input,Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Especialidad } from '../../../../entidad/Especialidad';
 import { EspecialidadesMedico } from '../../../../entidad/EspecialidadesMedico';
 import { ServiceEspecialidadService } from '../../../service/especialidad/service-especialidad.service';
@@ -36,6 +36,7 @@ export class AddInformacionMedicoComponent implements OnInit {
         this.diponibles = lista;
       }
     );
+    this.refresarEspecialidades();
   }
 
   ngOnInit(): void {
@@ -72,8 +73,13 @@ export class AddInformacionMedicoComponent implements OnInit {
 
   }
 
-  quitar() {
-    location.reload();
+  quitar(especialidad: EspecialidadesMedico) {
+    for (let i = 0; i < this.misEspecialidades.length; i++) {
+      if (especialidad.especialidad == this.misEspecialidades[i].especialidad) {
+        this.misEspecialidades.splice(i, 1);
+        break
+      }
+    }
   }
 
   guardarCambios() {
@@ -84,7 +90,7 @@ export class AddInformacionMedicoComponent implements OnInit {
         this.serviceEspecialidadService.insertEspecialidad(this.misEspecialidades, this.user.id).subscribe(
           (data: EspecialidadesMedico[]) => {
             alert('Se guardado los cambios');
-            location.reload();
+            this.refresarEspecialidades();
           }, error => {
             console.log('No se pudo guardar la informacón');
             this.misEspecialidades = new Array();
@@ -94,7 +100,7 @@ export class AddInformacionMedicoComponent implements OnInit {
         alert('Debes agregar especialidades.')
       }
     }
-    this.refresarEspecialidades();
+    this.misEspecialidades = new Array();
   }
 
   refresarEspecialidades() {

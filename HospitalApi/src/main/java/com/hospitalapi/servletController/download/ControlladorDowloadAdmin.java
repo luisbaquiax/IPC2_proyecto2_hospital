@@ -81,7 +81,6 @@ public class ControlladorDowloadAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("hola");
         try {
 
             response.setContentType("application/pdf");
@@ -98,7 +97,6 @@ public class ControlladorDowloadAdmin extends HttpServlet {
                 default:
             }
         } catch (JRException ex) {
-            System.out.println("valio");
             Logger.getLogger(ControlladorDowloadAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

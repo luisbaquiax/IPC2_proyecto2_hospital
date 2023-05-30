@@ -5,6 +5,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ServiceEspecialidadService } from '../../../service/especialidad/service-especialidad.service';
 import { Usuario } from '../../../../entidad/Usuario';
 import { MedicoEspecialidad } from '../../../../entidad/MedicoEspecialidad';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-medico-add-especialidad',
@@ -21,7 +22,8 @@ export class ModalEditEspecialidadComponent implements OnInit {
   user: Usuario;
   modificado!: MedicoEspecialidad;
 
-  constructor(private serviceEspecialidad: ServiceEspecialidadService, private serviceEmit: EspecialidadService) {
+  constructor(private serviceEspecialidad: ServiceEspecialidadService, private serviceEmit: EspecialidadService, private router: Router, 
+    private ServiceEspecialidadService: ServiceEspecialidadService) {
     this.nuevo = new EspecialidadesMedico();
     this.modificado = new MedicoEspecialidad();
 
