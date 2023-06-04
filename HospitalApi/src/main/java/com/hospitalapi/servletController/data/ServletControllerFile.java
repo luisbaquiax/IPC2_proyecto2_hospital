@@ -83,6 +83,8 @@ public class ServletControllerFile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException {
+        response.setContentType("application/json");
+        //response.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
         switch (accion) {
             case "1":
