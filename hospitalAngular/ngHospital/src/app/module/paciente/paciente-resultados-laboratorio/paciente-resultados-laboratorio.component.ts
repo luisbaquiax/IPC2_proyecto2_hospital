@@ -21,7 +21,7 @@ export class PacienteResultadosLaboratorioComponent implements OnInit {
 
   ngOnInit(): void {
     this.serviceReult.getResultados(this.solicitud.id).subscribe(
-      (list: ResultadosLaboratorio[])=>{
+      (list: ResultadosLaboratorio[]) => {
         this.resultados = list;
       }
     );
@@ -33,7 +33,7 @@ export class PacienteResultadosLaboratorioComponent implements OnInit {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'resultados.pdf';
+        a.download = resultado.nombreArchivo + '.pdf';
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

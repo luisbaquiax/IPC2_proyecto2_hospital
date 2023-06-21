@@ -128,7 +128,7 @@ public class ServletControllerFile extends HttpServlet {
             String filePath = folder + nombreArchivo + fileName.toString();
 
             ResultadoLaboratorio resultado = new ResultadoLaboratorio(0, solicitud, idExamen, nombreArchivo + fileName.toString(), "");
-
+            System.out.println("ruta " + filePath);
             ResultadoLaboratorio buscado = this.serviceResultadosLab.getResultadoLaboratorioDB().get(solicitud, idExamen);
             if (buscado == null) {
                 this.serviceResultadosLab.insert(resultado);

@@ -10,6 +10,7 @@ import com.hospitalapi.objects.JsonConverter;
 import com.hospitalapi.objects.LectorJson;
 import com.hospitalapi.service.users.UsuarioService;
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -49,22 +50,19 @@ public class UserController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String tarea = request.getParameter("tarea");
-        response.setContentType("application/json");
+        //response.setContentType("application/json");
         switch (tarea) {
             case "allUsers":
-                System.out.println("Usuarios");
-                System.out.println(this.jsonConverter.toJson(this.usuarioService.getAll()));
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.setContentType("application/json");
+                this.usuarioService.getAll().forEach(user -> {
+                    System.out.println(user.toString());
+                });
                 response.getWriter().print(this.jsonConverter.toJson(this.usuarioService.getAll()));
+                response.setStatus(HttpServletResponse.SC_OK);
                 break;
             case "userUsername":
-                System.out.println("Usuarios");
                 String username = request.getParameter("username");
-                System.out.println(this.jsonConverter.toJson(this.usuarioService.getUserByUsername(username)));
-                response.setStatus(HttpServletResponse.SC_OK);
-                response.setContentType("application/json");
                 response.getWriter().print(this.jsonConverter.toJson(this.usuarioService.getUserByUsername(username)));
+                response.setStatus(HttpServletResponse.SC_OK);
                 break;
             case "filterUserMedico":
                 senLisUserWithFilter(request, response);
@@ -73,7 +71,7 @@ public class UserController extends HttpServlet {
                 sendListByEspecialidad(request, response);
                 break;
             case "filterLabByName":
-                sendListLaboratoriesByName(request, response);                
+                sendListLaboratoriesByName(request, response);
                 break;
             default:
         }
@@ -98,13 +96,9 @@ public class UserController extends HttpServlet {
                 Usuario usuario = (Usuario) this.jsonConverter.fromJson(json, Usuario.class);
                 usuario.setPassword(encriptador.encriptar(usuario.getPassword()));
                 if (usuarioService.insert(usuario)) {
-                    System.out.println("bien");
                     response.setStatus(HttpServletResponse.SC_OK);
-                    response.setContentType("application/json");
                     response.getWriter().print(json);
                 } else {
-                    System.out.println("falló");
-                    response.setContentType("application/json");
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                     response.getWriter().print("{\"message\": \"No se pudo crear la cuenta. Lo sentimos.\"}");
                 }
@@ -119,7 +113,6 @@ public class UserController extends HttpServlet {
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String tarea = request.getParameter("tarea");
-        response.setContentType("application/json");
         switch (tarea) {
             case "editarUsuario":
                 String json = this.lectorJson.read(request.getReader());
@@ -127,10 +120,8 @@ public class UserController extends HttpServlet {
                 Usuario usuario = (Usuario) this.jsonConverter.fromJson(json, Usuario.class);
                 usuario.setPassword(encriptador.encriptar(usuario.getPassword()));
                 if (usuarioService.update(usuario)) {
-                    System.out.println("bien");
                     response.setStatus(HttpServletResponse.SC_ACCEPTED);
                 } else {
-                    System.out.println("falló");
                     response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 }
                 break;
@@ -147,18 +138,15 @@ public class UserController extends HttpServlet {
 
         Usuario user = this.usuarioService.getUserByUsernamePassword(userJSON.getUserName(), encriptador.encriptar(userJSON.getPassword()));
 
-        System.out.println("buscando al usuario" + userJSON.toString());
         if (user != null) {
             System.out.println(user.toString());
             user.setPassword(encriptador.desencriptar(user.getPassword()));
             System.out.println(user.toString());
             String json = this.jsonConverter.toJson(user);
             response.setStatus(HttpServletResponse.SC_OK);
-            response.setContentType("application/json");
             response.getWriter().print(json);
         } else {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.setContentType("application/json");
             response.getWriter().print("{\"message\": \"Credendiales incorrectas.\"}");
         }
 
@@ -166,14 +154,12 @@ public class UserController extends HttpServlet {
 
     private void senLisUserWithFilter(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("filter");
-        System.out.println(name);
         response.getWriter().write(
                 this.jsonConverter.toJson(this.usuarioService.getFilterName(name)));
     }
 
     private void sendListByEspecialidad(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String especialidad = request.getParameter("especialidad");
-        System.out.println(especialidad);
         response.getWriter().write(
                 this.jsonConverter.toJson(this.usuarioService.getByEspecialidad(especialidad)));
     }
